@@ -1,9 +1,14 @@
-/*
- * itoa_aA_eE_fF_gG.c
- *
- *  Created on: 9 мар. 2018 г.
- *      Author: Татьяна
- */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   itoa_aA_eE_fF_gG.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/17 20:15:14 by tbondare          #+#    #+#             */
+/*   Updated: 2018/05/17 20:52:17 by tbondare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
@@ -66,6 +71,7 @@ int cnt_after_comma(t_flgs_types *lst)
 	int dgt;
 
 	cnt = 0;
+	dgt = 0;
 	mem_val = lst->val.lndbl;
 	while (mem_val - dgt != 0)
 	{
@@ -90,6 +96,7 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val) 
 	{
 		num_del = dgt / 3;
 	} */
+	if (lst->pres == 6)
 	arr = (char*)malloc(sizeof(char) * (num_dgt + 1)); // нужно увеличить память для '
 //	mem_val = mem_val < 0 ? - mem_val : mem_val;
 	*mem_val == 0 ? arr[i] = '0' : 0;
@@ -108,7 +115,14 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val) 
 		num_dgt--;
 		arr[i] = '\0';
 	}
-	if (cnt_after_comma(lst) < 6)
+	if (cnt_after_comma(lst) > lst->pres)
+	{
+		i--;
+		if (arr[i] >= 5) 
+		{
+
+
+/*	if (cnt_after_comma(lst) < 6)
 	{
 		i--;
 		while (arr[i] == '9')
@@ -120,7 +134,7 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val) 
 	}
 
 //	dgt = i;
-/*	if (m_num_dgt > 3) // добавляем '
+	if (m_num_dgt > 3) // добавляем '
 	{
 		while (i >= 0)
 		{
