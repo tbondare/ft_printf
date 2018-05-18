@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 20:15:14 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/18 18:58:18 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/18 19:02:32 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int cnt_till_aA_eE_fF_gG(int base, long double *mem_val)
   {
 	  while (*mem_val >= 1)
 	  {
-		  *mem_val = *mem_val / base; // - считаю количество знаков до запятых.
+		  *mem_val = *mem_val / base; 
 		  cnt++;
 	  }
   }
