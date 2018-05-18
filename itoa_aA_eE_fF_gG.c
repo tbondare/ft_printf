@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 20:15:14 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/17 20:52:17 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/18 18:58:18 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,80 +69,90 @@ int cnt_after_comma(t_flgs_types *lst)
 	int cnt;
 	long double mem_val;
 	int dgt;
+	int mem_prec;
 
 	cnt = 0;
 	dgt = 0;
+	mem_pres = lst->prec + 1;
 	mem_val = lst->val.lndbl;
-	while (mem_val - dgt != 0)
+	while (mem_val - dgt != 0 && mem_prec != 0)
 	{
 		cnt++;
+		mem_prec--;
 		dgt = mem_val * 10;
 		mem_val = mem_val * 10;
 	}
 	return (cnt);
 }
 
-char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)  //доделать вывод с '
+char *quote(char *arr, int cnt)
+{
+	char *str;
+	int i;
+
+	i = 0;
+	if (cnt % 3 == 0)
+		cnt = cnt / 3 - 1;
+	else if (cnt % 3 != 0)
+		cnt = cnt / 3;	
+	while (arr[i] != '\0')
+		i++;
+	str = (cnar *)malloc(sizeof(cnar) * i + cnt + 1);
+	i = 0;
+	while (arr[i] != ',')
+		i++;
+	while (i != 0)
+	{
+
+		i--;
+
+
+
+
+char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 {
 	int i;
 	int dgt;
-//	int num_del;
-//	int m_num_dgt;
 	char *arr;
+	int mem_cnt;
 
 	i = 0;
-/*	m_num_dgt = num_dgt;
-	if (num_dgt > 3)
-	{
-		num_del = dgt / 3;
-	} */
-	if (lst->pres == 6)
-	arr = (char*)malloc(sizeof(char) * (num_dgt + 1)); // нужно увеличить память для '
-//	mem_val = mem_val < 0 ? - mem_val : mem_val;
+	mem_cnt = cnt;
+	arr = (char*)malloc(sizeof(char) * (num_dgt + 1));
 	*mem_val == 0 ? arr[i] = '0' : 0;
 	while (num_dgt)
 	{
 		dgt = *mem_val * 10;
 		*mem_val = *mem_val * 10 - dgt;
-		if (cnt > 0)
+		if (mem_cnt > 0)
 			cnt--;
-		else if (cnt == 0)
+		else if (mem_cnt == 0)
 		{
 			arr[(i)++] = ',';
-			cnt = -1;
+			mem_cnt = -1;
 		}
-		arr[(i)++] = dgt + '0'; // в конечном счете получаю массив цифр с запятой.
+		arr[(i)++] = dgt + '0';
 		num_dgt--;
+	}
+	if (cnt_after_comma(lst) > lst->prec)
+	{
+		dgt = *mem_val * 10;
+		*mem_val = *mem_val * 10 - dgt;
+		if (dgt >= 5)
+		{
+			arr[(i)--] = '\0';
+			while (ft_atoi(arr[i]) + 1 >= 10)
+			{
+				arr[i] = 0 + '0';
+				i--;
+			}
+			arr[i] = ft_atoi(arr[i]) + 1 + '0';
+		}
+	}
+	else
 		arr[i] = '\0';
-	}
-	if (cnt_after_comma(lst) > lst->pres)
-	{
-		i--;
-		if (arr[i] >= 5) 
-		{
-
-
-/*	if (cnt_after_comma(lst) < 6)
-	{
-		i--;
-		while (arr[i] == '9')
-		{
-			arr[i] = '0';
-			i--;
-		}
-//		arr[i] = ft_atoi(arr[i]) + 1;
-	}
-
-//	dgt = i;
-	if (m_num_dgt > 3) // добавляем '
-	{
-		while (i >= 0)
-		{
-			if (i % 3 == 0 && i != dgt)
-				arr[i] = // - нужно подумать, как сделать так, чтобы цифры в массиве не затирались, для этого нужно либо создать еще один массив и перезаписать в него данные и запятые, либо вставлять верхние запятые сразу, когда записываем первый массив
-		}
-	}*/
-
+	if (check_flg(lst->flags, FL_QUOTE) && cnt > 3)
+		arr = quote(arr, cnt); 
 	return (arr);
 }
 
