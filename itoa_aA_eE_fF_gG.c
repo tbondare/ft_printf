@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 20:15:14 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/18 19:05:18 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/22 18:06:04 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,34 @@ char *quote(char *arr, int cnt)
 {
 	char *str;
 	int i;
+	int j;
+	int multiple;
 
 	i = 0;
+//	j = 0;	
 	if (cnt % 3 == 0)
 		cnt = cnt / 3 - 1;
 	else if (cnt % 3 != 0)
 		cnt = cnt / 3;	
 	while (arr[i] != '\0')
 		i++;
-	str = (cnar *)malloc(sizeof(cnar) * i + cnt + 1);
-	i = 0;
+	j = i + cnt + 1;
+	str = (char *)malloc(sizeof(char) * j + 1);
 	while (arr[i] != ',')
-		i++;
-	while (i != 0)
+		str[j++] = arr[i++];
+	str[j++] = arr[i++];
+	while (cnt > 0)
 	{
-
-		i--;
-
-
-
+		multiple = 3;
+		while (multiple--)
+			str[j++] = arr[i++];
+		str[j++] = "\'";
+		cnt--;
+	}
+	str[j] = arr[i];
+	free (arr);
+	return (str);
+}
 
 char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 {
@@ -183,7 +192,7 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 			(*newstr)[(i)++] = ',';
 		num_dgt--;
 	}
-	i++;
+//	i++;
 	if (check_flg(lst->types, TP_e))
 		(*newstr)[i++] = 'e';
 	else if (check_flg(lst->types, TP_E))
@@ -214,9 +223,9 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 		newstr = rejoin(newstr, exp);
 		free(exp);
 	}
-}
+}*/
 
-char *outp_gG(t_flgs_types *lst, int cnt)
+/*char *outp_gG(t_flgs_types *lst, int cnt)
 {
 	if (lst->prec == 0)
 		lst->prec = 1;
