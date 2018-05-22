@@ -64,53 +64,33 @@ int cnt_till_aA_eE_fF_gG(int base, long double *mem_val)
   return (cnt);
 }
 
-int cnt_after_comma(t_flgs_types *lst)
-{
-	int cnt;
-	long double mem_val;
-	int dgt;
-	int mem_prec;
-
-	cnt = 0;
-	dgt = 0;
-	mem_pres = lst->prec + 1;
-	mem_val = lst->val.lndbl;
-	while (mem_val - dgt != 0 && mem_prec != 0)
-	{
-		cnt++;
-		mem_prec--;
-		dgt = mem_val * 10;
-		mem_val = mem_val * 10;
-	}
-	return (cnt);
-}
-
 char *quote(char *arr, int cnt)
 {
 	char *str;
 	int i;
 	int j;
 	int multiple;
+	struct lconv *lc;
 
+	lc = localeconv();
 	i = 0;
-//	j = 0;	
 	if (cnt % 3 == 0)
 		cnt = cnt / 3 - 1;
 	else if (cnt % 3 != 0)
 		cnt = cnt / 3;	
 	while (arr[i] != '\0')
 		i++;
-	j = i + cnt + 1;
+	j = i + cnt;
 	str = (char *)malloc(sizeof(char) * j + 1);
 	while (arr[i] != ',')
-		str[j++] = arr[i++];
-	str[j++] = arr[i++];
+		str[j--] = arr[i--];
+	str[j--] = arr[i--];
 	while (cnt > 0)
 	{
 		multiple = 3;
 		while (multiple--)
-			str[j++] = arr[i++];
-		str[j++] = "\'";
+			str[j--] = arr[i--];
+		str[j--] = *(lc->thousands_sep);
 		cnt--;
 	}
 	str[j] = arr[i];
@@ -124,17 +104,18 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 	int dgt;
 	char *arr;
 	int mem_cnt;
+	struct lconv *lc;
+	lc = localeconv();
 
 	i = 0;
 	mem_cnt = cnt;
 	arr = (char*)malloc(sizeof(char) * (num_dgt + 1));
-	*mem_val == 0 ? arr[i] = '0' : 0;
 	while (num_dgt)
 	{
 		dgt = *mem_val * 10;
 		*mem_val = *mem_val * 10 - dgt;
 		if (mem_cnt > 0)
-			cnt--;
+			mem_cnt--;
 		else if (mem_cnt == 0)
 		{
 			arr[(i)++] = ',';
@@ -143,25 +124,21 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 		arr[(i)++] = dgt + '0';
 		num_dgt--;
 	}
-	if (cnt_after_comma(lst) > lst->prec)
+	dgt = *mem_val * 10;
+	if (dgt >= 5)
 	{
-		dgt = *mem_val * 10;
-		*mem_val = *mem_val * 10 - dgt;
-		if (dgt >= 5)
+		arr[(i)--] = '\0';
+		while (arr[i] == '9')
 		{
-			arr[(i)--] = '\0';
-			while (ft_atoi(arr[i]) + 1 >= 10)
-			{
-				arr[i] = 0 + '0';
-				i--;
-			}
-			arr[i] = ft_atoi(arr[i]) + 1 + '0';
+			arr[i] = 0 + '0';
+			i--;
 		}
+		arr[i] = arr[i] + 1;
 	}
 	else
 		arr[i] = '\0';
-	if (check_flg(lst->flags, FL_QUOTE) && cnt > 3)
-		arr = quote(arr, cnt); 
+	if (check_flg(lst->flags, FL_QUOTE) && cnt > 3 && lc->thousands_sep[0] != '\0')
+		arr = quote(arr, cnt);
 	return (arr);
 }
 
