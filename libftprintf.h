@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/18 19:00:35 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/23 17:36:48 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,33 @@ static const int	TP_b = 8388608;
 static const int	TP_r = 16777216;
 static const int	TP_k = 33554432;
 
-int ft_printf(const char *format, ...);
-unsigned int ft_set_flg(unsigned int flags, unsigned int flg);
-int ft_check_flg(unsigned int flags, unsigned int flg);
 void init_arr(t_arr_el *arr);
+void init_types_2(t_arr_el *arr);
+void init_types_1(t_arr_el *arr);
+void init_length(t_arr_el *arr);
+void init_flags(t_arr_el *arr);
+
+void determine_md_len(const char *frmt, int *i, t_flgs_types *lst, t_arr_el *arr);
+void determine_width(const char *frmt, int *i, t_flgs_types *lst);
+void determine_precision(const char *frmt, int *i, t_flgs_types *lst);
+void determine_dgt_data(const char *frmt, int *i, t_flgs_types *lst);
+char *create_dgt_str(const char *frmt, int *i);
+
+int fill_struct(t_flgs_types **prm, const char *frmt);
+void index_args (t_flgs_types *lst);
+void lstnewadd(t_flgs_types **lst);
+void fill_element(t_flgs_types **lst, const char *frmt, int *i);
+void ft_while_determ(t_flgs_types **lst, const char *frmt, int *i);
+
 unsigned int set_flg(unsigned int flags, unsigned int flg);
 int check_flg(unsigned int flags, unsigned int flg);
-int fill_struct(t_flgs_types **prm, const char *frmt);
-char *itoa_printf(t_flgs_types *lst);
-char *itoa_printf_oO_xX_b(t_flgs_types *lst);
-void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base);
-void output_dgt(t_flgs_types *lst, char *newstr, int *mem_w, int base);
-int num_qv(t_flgs_types *lst, int cnt);
-char *itoa_aA_eE_fF_gG(t_flgs_types *lst);
+t_flgs_types *lstnew(void);
+char *rejoin(char *s1, const char *s2);
+
+void determ_args_d_i(t_flgs_types *lst, va_list args);
+void determ_args_o_u_xX(t_flgs_types *lst, va_list args);
+void determ_args_n(t_flgs_types *lst, va_list args);
+void determ_args_aA_eE_fF_gG(t_flgs_types *lst, va_list args);
+void dtrm_args_with_if(t_flgs_types *lst, va_list args);
 
 #endif /* LIBFTPRINTF_H_ */
