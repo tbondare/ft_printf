@@ -12,30 +12,30 @@
 
 # include "libftprintf.h"
 
-void ft_while_determ(t_flgs_types **lst, const char *frmt, int *i)
+void ft_while_determ(t_flgs_types *lst, const char *frmt, int *i, t_arr_el *arr)
 {
 	while (frmt[*i] != '\0')
 	{
 		if (frmt[*i] > '0' && frmt[*i] <= '9')
-			determine_dgt_data(frmt, i, *lst);
+			determine_dgt_data(frmt, i, lst);
 		else if (frmt[*i] == '*')
-			determine_width(frmt, i, *lst);
+			determine_width(frmt, i, lst);
 		else if (frmt[*i] == '.')
-			determine_precision(frmt, i, *lst);
+			determine_precision(frmt, i, lst);
 		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_fl)
-			(*lst)->flags = set_flg((*lst)->flags, arr[frmt[*i] - arr_first].bit_flg);
+			(lst)->flags = set_flg(lst->flags, arr[frmt[*i] - arr_first].bit_flg);
 		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_ln)
-			determine_md_len(frmt, i, *lst, arr);
+			determine_md_len(frmt, i, lst, arr);
 		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_tp)
 		{
-			(*lst)->types = set_flg((*lst)->types, arr[frmt[*i] - arr_first].bit_flg);
+			(lst)->types = set_flg((lst)->types, arr[frmt[*i] - arr_first].bit_flg);
 			return ;
 		}
 		(*i)++;
 	}
 }
 
-void fill_element(t_flgs_types **lst, const char *frmt, int *i)
+void fill_element(t_flgs_types *lst, const char *frmt, int *i)
 {
 	static t_arr_el arr[91];
 	static char init = 0;
@@ -48,10 +48,10 @@ void fill_element(t_flgs_types **lst, const char *frmt, int *i)
 	}
 	if (frmt[*i] == '%')
 	{
-		(*lst)->str_out = rejoin((*lst)->str_out, "%");
+		(lst)->str_out = rejoin((lst)->str_out, "%");
 		return ;
 	}
-	if (ft_strlen((*lst)->str_out) != 0 || (*lst)->types != 0)
+	if (ft_strlen((lst)->str_out) != 0 || (lst)->types != 0)
 		lstnewadd(lst);
 /*	while (frmt[*i] != '\0')
 	{
@@ -72,7 +72,7 @@ void fill_element(t_flgs_types **lst, const char *frmt, int *i)
 		}
 		(*i)++;
 	} */
-	ft_ft_while_determ(lst, frmt, &i);
+	ft_while_determ(lst, frmt, i, arr);
 }
 
 void lstnewadd(t_flgs_types **lst)
@@ -88,7 +88,7 @@ void index_args (t_flgs_types *lst)
 	cnt = 1;
 	while (lst)
 	{
-		if (lst->wdth_star == '*' && lst->width == 0);
+		if (lst->wdth_star == '*' && lst->width == 0)
 		{
 			lst->indx_arg_wdth = cnt;
 			cnt++;

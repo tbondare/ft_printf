@@ -119,8 +119,8 @@ char *create_dgt_str(const char *frmt, int *i);
 int fill_struct(t_flgs_types **prm, const char *frmt);
 void index_args (t_flgs_types *lst);
 void lstnewadd(t_flgs_types **lst);
-void fill_element(t_flgs_types **lst, const char *frmt, int *i);
-void ft_while_determ(t_flgs_types **lst, const char *frmt, int *i);
+void fill_element(t_flgs_types *lst, const char *frmt, int *i);
+void ft_while_determ(t_flgs_types *lst, const char *frmt, int *i, t_arr_el *arr);
 
 unsigned int set_flg(unsigned int flags, unsigned int flg);
 int check_flg(unsigned int flags, unsigned int flg);

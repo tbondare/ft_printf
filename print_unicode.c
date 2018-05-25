@@ -8,60 +8,54 @@
 #include <wchar.h>
 #include "libftprintf.h"
 
-void bin_op_for_unicode(char onec, wchar_t *uc, t_flgs_types *lst, int *i)
-{
-	if ((onec & 0x80) == 0)
-	{
-		*uc = onec;
-	    i = i + 1;
-	}
-
-/*	else if ((onec & 0xE0) == 0xC0)
-	{
-		*uc = (lst->val.win[i] & 0x1F) << 6;
-	    *uc = *uc | (lst->val.win[i+1] & 0x3F);
-	    i = i + 2;
-	}
-	else if ((onec & 0xF0) == 0xE0)
-	{
-	    *uc = (lst->val.win[i] & 0xF) << 12;
-	    *uc = *uc | (lst->val.win[i+1] & 0x3F) << 6;
-	    *uc = *uc | (lst->val.win[i+2] & 0x3F);
-	    i = i + 3;
-	}
-	else if ((onec & 0xF8) == 0xF0)
-	{
-		*uc = (lst->val.win[i] & 0x7) << 18;
-	    *uc = *uc | (lst->val.win[i+1] & 0x3F) << 12;
-	    *uc = *uc | (lst->val.win[i+2] & 0x3F) << 6;
-	    *uc = *uc | (lst->val.win[i+3] & 0x3F);
-	    i = i + 4;
-	}
-}
-
-print_unicode(t_flgs_types *lst)
+char *bin_op_for_unicode(t_flgs_types *lst, int *cnt)
 {
 	char *str;
-	wchar_t uc;
-	int i;
-	int j;
-	char onec;
+    wchar_t wc;
 
-	i = 0;
-	j = 0;
-	if (check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l)))
+    wc = lst->val.win;
+    if (0 <= wc && wc <= 0x7f )
+    {
+    	str = (char *)malloc(sizeof(char) * 1 + 1);
+        str[0] = (char)wc;
+        *cnt = 1;
+    }
+    else if ( 0x80 <= wc && wc <= 0x7ff)
+    {
+    	str = (char *)malloc(sizeof(char) * 2 + 1);
+        str[0] = (0xc0 | (wc >> 6));
+        str[1] = (0x80 | (wc & 0x3f));
+        *cnt = 2;
+    }
+    else if ( 0x800 <= wc && wc <= 0xffff)
+    {
+    	str = (char *)malloc(sizeof(char) * 3 + 1);
+    	str[0] = ( 0xe0 | (wc >> 12));
+    	str[1] = ( 0x80 | ((wc >> 6) & 0x3f));
+    	str[2] = ( 0x80 | (wc & 0x3f));
+    	*cnt = 3;
+    }
+    else if ( 0x10000 <= wc && wc <= 0x1fffff)
+    {
+    	str = (char *)malloc(sizeof(char) * 4 + 1);
+    	str[0] = ( 0xf0 | (wc >> 18));
+    	str[1] = ( 0x80 | ((wc >> 12) & 0x3f));
+    	str[2] = ( 0x80 | ((wc >> 6) & 0x3f));
+    	str[3] = ( 0x80 | (wc & 0x3f));
+    	*cnt = 4;
+    }
+	return (str);
+}
+
+void print_unicode(t_flgs_types *lst)
+{
+	char *str;
+	int cnt;
+
+	if (check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l)))
 	{
-		while (lst->val.win[i] != '\0')
-		{
-			onec = lst->val.win[i];
-			uc = bin_op_for_unicode(onec, &uc, lst, &i);
-			str = (char*)malloc(sizeof(char) * i);
-			str[j] = uc;
-		}
+		str = bin_op_for_unicode(lst, &cnt);
+		str[cnt] = '\0';
 	}
-	else if (check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l)))
-	{
-		onec = lst->val.win[i];
-		uc = bin_op_for_unicode(onec, uc, lst, i);
-	} */
+	print_str(str);
 }

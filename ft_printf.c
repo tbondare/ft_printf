@@ -30,22 +30,6 @@
 	return (cnt);
 }
 
-void determ_args_c(t_flgs_types *lst, va_list args)
-{
-	if (lst->md_lengh == 0)
-		lst->val.ulng = va_arg(args, unsigned char);
-	else if (check_flg(lst->md_lengh, LN_l))
-		lst->val.win = va_arg(args, wint_t);
-}
-
-void determ_args_s(t_flgs_types *lst, va_list args)
-{
-	if (lst->md_lengh == 0)
-		lst->val.str = va_arg(args, char*);
-	else if (check_flg(lst->md_lengh, LN_l))
-		lst->val.point = va_arg(args, wchar_t*);
-}
-
 void determine_args(t_flgs_types *prm, va_list args)
 {
 	va_list next;
@@ -136,6 +120,7 @@ int printing_args(t_flgs_types *prm)
 			str = itoa_aA_eE_fF_gG(lst);
 			print_str(str);
 		}
+		print_unicode(lst);
 		lst = lst->next;
 	}
 	return (cnt);

@@ -30,66 +30,51 @@ int cnt_args(t_flgs_types *lst)
 	return (cnt);
 }
 
-void determ_args_c(t_flgs_types *lst, va_list args)
-{
-	if (lst->md_lengh == 0)
-		lst->val.ulng = va_arg(args, unsigned char);
-	else if (check_flg(lst->md_lengh, LN_l))
-		lst->val.win = va_arg(args, wint_t);
-}
-
-void determ_args_s(t_flgs_types *lst, va_list args)
-{
-	if (lst->md_lengh == 0)
-		lst->val.str = va_arg(args, char*);
-	else if (check_flg(lst->md_lengh, LN_l))
-		lst->val.point = va_arg(args, wchar_t*);
-}
 void determine_args(t_flgs_types *prm, va_list args)
 {
 	va_list next;
 	t_flgs_types *lst;
 	int i;
 	int cnt;
-	
+
 	i = 1;
 	lst = prm;
 	cnt = cnt_args(lst);
- 59     while(i <= cnt)
- 60     {
- 61         while (lst)
- 62         {
- 63             if (lst->types == 0)
- 64             {
- 65                 lst = lst->next;
- 66                 continue ;
- 67             }
- 68             if (lst->indx_arg == i)
- 69             {
- 70                 va_end(next);
- 71                 va_copy(next, args);
- 72                 dtrm_args_with_if(lst, next);
- 73             }
- 74             if (lst->indx_arg_wdth == i)
- 75             {
- 76                 va_end(next);
- 77                 va_copy(next, args);
- 78                 lst->width = va_arg(next, int);
- 79                 if (lst->width < 0)
- 80                     lst->flags = set_flg(lst->flags, FL_MINUS);
- 81             }
- 82             if (lst->indx_arg_prec == i)
- 83             {
- 84                 va_end(next);
- 85                 va_copy(next, args);
- 86                 lst->prec = va_arg(next, int);
- 87
- 88             }
- 89             lst = lst->next;
- 90             va_end(args);
- 91             va_copy(args, next);
- 92             va_end(next);
- 93         }
+	while (i <= cnt)
+	{
+		  while (lst)
+		  {
+			  if (lst->types == 0)
+			  {
+				  lst = lst->next;
+				  continue ;
+			  }
+			  if (lst->indx_arg == i)
+			  {
+				  va_end(next);
+				  va_copy(next, args);
+				  dtrm_args_with_if(lst, next);
+			  }
+			  if (lst->indx_arg_wdth == i)
+			  {
+				  va_end(next);
+				  va_copy(next, args);
+				  lst->width = va_arg(next, int);
+				  if (lst->width < 0)
+					  lst->flags = set_flg(lst->flags, FL_MINUS);
+			  }
+			  if (lst->indx_arg_prec == i)
+			  {
+				  va_end(next);
+				  va_copy(next, args);
+				  lst->prec = va_arg(next, int);
+
+			  }
+			  lst = lst->next;
+			  va_end(args);
+			  va_copy(args, next);
+			  va_end(next);
+		  }
 		i++;
- }
- }
+	}
+}

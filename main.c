@@ -16,7 +16,7 @@ int main()
 {
 	setlocale(LC_NUMERIC, "");
 //	tests();
-	ft_printf("%'f", 1556.545);
-	printf("\n%f\n\n", 1556.545);
+	ft_printf("%lc", 0X019F);
+	printf("\n%lc", 0X019F);
 	return (0);
 }
