@@ -1,9 +1,14 @@
-/*
- * itoa_printf.c
- *
- *  Created on: 1 мар. 2018 г.
- *      Author: Татьяна
- */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   itoa_printf.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/25 18:03:08 by tbondare          #+#    #+#             */
+/*   Updated: 2018/05/25 18:57:48 by tbondare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 # include "libftprintf.h"
 
@@ -47,87 +52,6 @@ int check_is_sign(t_flgs_types *lst, char *neg)
 	return (sign);
 }
 
-int cnt_idD(t_flgs_types *lst, int *cnt)
-{
-	long long int n;
-
-	n = lst->val.lng;
-	n = n < 0 ? -n : n;
-	while (n)
-	{
-		n = n / 10;
-		(*cnt)++;
-	}
-	return (*cnt);
-}
-
-int cnt_id_j(t_flgs_types *lst, int *cnt)
-{
-	intmax_t n;
-
-	n = lst->val.imax;
-	n = n < 0 ? -n : n;
-	while (n)
-	{
-		n = n / 10;
-		(*cnt)++;
-	}
-	return (*cnt);
-}
-
-int cnt_u_j(t_flgs_types *lst, int *cnt)
-{
-	uintmax_t n;
-
-	n = lst->val.uimax;
-	while (n)
-	{
-		n = n / 10;
-		(*cnt)++;
-	}
-	return (*cnt);
-}
-
-int cnt_uU(t_flgs_types *lst, int *cnt)
-{
-	unsigned long long int n;
-
-	n = lst->val.ulng;
-	while (n)
-	{
-		n = n / 10;
-		(*cnt)++;
-	}
-	return (*cnt);
-}
-
-int	ft_cnt(t_flgs_types *lst)
-{
-	int	cnt;
-	wint_t n;
-
-	cnt = 0;
-	if (check_flg(lst->types, TP_i | TP_d) && check_flg(lst->md_lengh, LN_j))
-		return (cnt_id_j(lst, &cnt));
-	else if (check_flg(lst->types, TP_u) && check_flg(lst->md_lengh, LN_j))
-		return (cnt_u_j(lst, &cnt));
-	else if (check_flg(lst->types, TP_i | TP_d | TP_D))
-		return (cnt_idD(lst, &cnt));
-	else if (check_flg(lst->types, TP_u | TP_U))
-		return (cnt_uU(lst, &cnt));
-	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
-	{
-		n = lst->val.win;
-		n = n < 0 ? -n : n;
-		while (n)
-		{
-			n = n / 10;
-			cnt++;
-		}
-	}
-	return (cnt);
-}
-
 int num_qv(t_flgs_types *lst, int cnt)
 {
 	int num_q;
@@ -150,86 +74,6 @@ int num_qv(t_flgs_types *lst, int cnt)
 	return (num_q);
 }
 
-void outp_id_j(t_flgs_types *lst, char *newstr, int *mem_w)
-{
-	int i;
-	struct lconv *lc;
-	lc = localeconv();
-
-	i = 0;
-	lst->val.imax = lst->val.imax < 0 ? -lst->val.imax : lst->val.imax;
-	lst->val.imax == 0 ? newstr[*mem_w] = '0' : 0;
-	while (lst->val.imax)
-	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
-			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.imax % 10 + '0';
-		lst->val.imax  = lst->val.imax / 10;
-		i++;
-	}
-}
-
-void outp_uoxX_j(t_flgs_types *lst, char *newstr, int *mem_w, int base)
-{
-	int i;
-	struct lconv *lc;
-	lc = localeconv();
-
-	i = 0;
-	lst->val.uimax == 0 ? newstr[*mem_w] = '0' : 0;
-	while (lst->val.uimax)
-	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
-			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		if (check_flg(lst->types, TP_x) && lst->val.uimax % base > 9)
-			newstr[(*mem_w)--] = lst->val.uimax % base + 'a' - 10;
-		else if(check_flg(lst->types, TP_X) && lst->val.uimax % base > 9)
-			newstr[(*mem_w)--] = lst->val.uimax % base + 'A' - 10;
-		else
-			newstr[(*mem_w)--] = lst->val.uimax % base + '0';
-		lst->val.uimax  = lst->val.uimax / base;
-		i++;
-	}
-}
-
-void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
-{
-	int i;
-	struct lconv *lc;
-	lc = localeconv();
-
-	i = 0;
-	lst->val.lng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
-	lst->val.lng == 0 ? newstr[*mem_w] = '0' : 0;
-	while (lst->val.lng)
-	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
-			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.lng % 10 + '0';
-		lst->val.lng  = lst->val.lng / 10;
-		i++;
-	}
-}
-
-void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)
-{
-	int i;
-	struct lconv *lc;
-	lc = localeconv();
-
-	i = 0;
-	lst->val.win == 0 ? newstr[*mem_w] = '0' : 0;
-	lst->val.win = lst->val.win < 0 ? -lst->val.win : lst->val.win;
-	while (lst->val.win)
-	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
-			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.win % 10 + '0';
-		lst->val.win  = lst->val.win / 10;
-		i++;
-	}
-}
-
 void output_dgt(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 {
 	int i;
@@ -243,23 +87,7 @@ void output_dgt(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 	else if (check_flg(lst->types, TP_i | TP_d | TP_D))
 		outp_idD(lst, newstr, mem_w);
 	else if (check_flg(lst->types, TP_u | TP_U | TP_o | TP_O | TP_x | TP_X))
-	{
-		lc = localeconv();
-		lst->val.ulng == 0 ? newstr[*mem_w] = '0' : 0;
-		while (lst->val.ulng)
-		{
-			if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
-				newstr[(*mem_w)--] = *(lc->thousands_sep);
-			if (check_flg(lst->types, TP_x) && lst->val.ulng % base > 9)
-				newstr[(*mem_w)--] = lst->val.ulng % base + 'a' - 10;
-			else if(check_flg(lst->types, TP_X) && lst->val.ulng % base > 9)
-				newstr[(*mem_w)--] = lst->val.ulng % base + 'A' - 10;
-			else
-				newstr[(*mem_w)--] = lst->val.ulng % base + '0';
-			lst->val.ulng  = lst->val.ulng / base;
-			i++;
-		}
-	}
+		outp_uU_oO_xX(lst, newstr, mem_w);	
 	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
 		outp_c_l(lst, newstr, mem_w);
 }
@@ -320,7 +148,7 @@ char *itoa_printf(t_flgs_types *lst)
 	int sign;
 
 	sign = check_is_sign(lst, &neg);
-	cnt = ft_cnt(lst);
+	cnt = ft_cnt_i_d_uU_c(lst);
 	num_q = num_qv(lst, cnt);
 	if (lst->width > cnt + num_q + sign && lst->prec <= cnt + num_q && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
 	{

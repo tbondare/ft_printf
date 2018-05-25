@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:04:36 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:05:45 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/25 18:40:29 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,27 @@ char *rejoin(char *s1, const char *s2)
 	free(s1);
 	return (tmp);
 }
+
+/*int check_is_sign(t_flgs_types *lst, char *neg)
+{
+	int sign;
+	sign = 0;
+	if (check_flg(lst->flags, FL_PLUS))
+	{
+		*neg = check_sign_dif_tp(lst) ? '-' : '+';
+		sign = 1;
+	}
+	else if (check_flg(lst->flags, FL_SPACE))
+	{
+		*neg = check_sign_dif_tp(lst) ? '-' : ' ';
+		sign = 1;
+	}
+	else if (check_sign_dif_tp(lst))
+	{
+		*neg = '-';
+		sign = 1;
+	}
+	else
+		*neg = 0;
+	return (sign);
+} */

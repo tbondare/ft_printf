@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:30:29 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:36:42 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:14:32 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,35 @@ int cnt_args(t_flgs_types *lst)
 	return (cnt);
 }
 
+void ft_if_detetm (t_flgs_types *lst, va_list *args, va_list *next)
+{
+	if (lst->types == 0)
+	{
+		lst = lst->next;
+		continue ;
+	}
+	if (lst->indx_arg == i)
+	{
+		va_end(*next);
+		va_copy(*next, *args);
+		dtrm_args_with_if(lst, *next);
+	}
+	if (lst->indx_arg_wdth == i)
+	{
+		va_end(*next);
+		va_copy(*next, *args);
+		lst->width = va_arg(*next, int);
+		if (lst->width < 0)
+			lst->flags = set_flg(lst->flags, FL_MINUS);
+	}
+	if (lst->indx_arg_prec == i)
+	{
+		va_end(*next);
+		va_copy(*next, *args);
+		lst->prec = va_arg(*next, int);
+	}
+}
+
 void determine_args(t_flgs_types *prm, va_list args)
 {
 	va_list next;
@@ -44,32 +73,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 	{
 		  while (lst)
 		  {
-			  if (lst->types == 0)
-			  {
-				  lst = lst->next;
-				  continue ;
-			  }
-			  if (lst->indx_arg == i)
-			  {
-				  va_end(next);
-				  va_copy(next, args);
-				  dtrm_args_with_if(lst, next);
-			  }
-			  if (lst->indx_arg_wdth == i)
-			  {
-				  va_end(next);
-				  va_copy(next, args);
-				  lst->width = va_arg(next, int);
-				  if (lst->width < 0)
-					  lst->flags = set_flg(lst->flags, FL_MINUS);
-			  }
-			  if (lst->indx_arg_prec == i)
-			  {
-				  va_end(next);
-				  va_copy(next, args);
-				  lst->prec = va_arg(next, int);
-
-			  }
+			  ft_if_detetm (lst, &args, &next);
 			  lst = lst->next;
 			  va_end(args);
 			  va_copy(args, next);

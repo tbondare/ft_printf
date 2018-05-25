@@ -6,78 +6,11 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:02:42 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:36:45 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:24:54 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-/*int cnt_args(t_flgs_types *lst)
-{
-	int cnt;
-
-	cnt = 0;
-	while (lst)
-	{
-		if (lst->types)
-			cnt++;
-		if (lst->prec_star)
-			cnt++;
-		if (lst->wdth_star)
-			cnt++;
-		lst = lst->next;
-	}
-	return (cnt);
-}
-
-void determine_args(t_flgs_types *prm, va_list args)
-{
-	va_list next;
-	t_flgs_types *lst;
-	int i;
-	int cnt;
-
-	i = 1;
-	lst = prm;
-	cnt = cnt_args(lst);
-	while(i <= cnt)
-	{
-		while (lst)
-		{
-			if (lst->types == 0)
-			{
-				lst = lst->next;
-				continue ;
-			}
-			if (lst->indx_arg == i)
-			{
-				va_end(next);
-				va_copy(next, args);
-				dtrm_args_with_if(lst, next);
-			}
-			if (lst->indx_arg_wdth == i)
-			{
-				va_end(next);
-				va_copy(next, args);
-				lst->width = va_arg(next, int);
-				if (lst->width < 0)
-					lst->flags = set_flg(lst->flags, FL_MINUS);
-			}
-			if (lst->indx_arg_prec == i)
-			{
-				va_end(next);
-				va_copy(next, args);
-				lst->prec = va_arg(next, int);
-
-			}
-			lst = lst->next;
-			va_end(args);
-			va_copy(args, next);
-			va_end(next);
-		}
-		i++;
-	}
-} */
 
 void print_str(char *str)
 {
@@ -120,7 +53,7 @@ int printing_args(t_flgs_types *prm)
 			str = itoa_aA_eE_fF_gG(lst);
 			print_str(str);
 		}
-		print_unicode(lst);
+		str = rint_unicode(lst);
 		lst = lst->next;
 	}
 	return (cnt);

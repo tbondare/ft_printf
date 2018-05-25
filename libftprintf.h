@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:36:48 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/25 18:57:45 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,22 @@ void determ_args_o_u_xX(t_flgs_types *lst, va_list args);
 void determ_args_n(t_flgs_types *lst, va_list args);
 void determ_args_aA_eE_fF_gG(t_flgs_types *lst, va_list args);
 void dtrm_args_with_if(t_flgs_types *lst, va_list args);
+
+void determine_args(t_flgs_types *prm, va_list args);
+void ft_if_detetm (t_flgs_types *lst, va_list *args, va_list *next);
+int cnt_args(t_flgs_types *lst);
+
+void outp_id_j(t_flgs_types *lst, char *newstr, int *mem_w);
+void outp_uoxX_j(t_flgs_types *lst, char *newstr, int *mem_w, int base);
+void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w);
+void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w);
+void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w);
+
+int ft_cnt_i_d_uU_c(t_flgs_types *lst);
+int cnt_uU(t_flgs_types *lst, int *cnt);
+int cnt_u_j(t_flgs_types *lst, int *cnt);
+int cnt_id_j(t_flgs_types *lst, int *cnt);
+int cnt_idD(t_flgs_types *lst, int *cnt);
+
 
 #endif /* LIBFTPRINTF_H_ */

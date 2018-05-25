@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:07:31 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:04:50 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:18:40 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,6 @@ void fill_element(t_flgs_types *lst, const char *frmt, int *i)
 	}
 	if (ft_strlen((lst)->str_out) != 0 || (lst)->types != 0)
 		lstnewadd(lst);
-/*	while (frmt[*i] != '\0')
-	{
-		if (frmt[*i] > '0' && frmt[*i] <= '9')
-			determine_dgt_data(frmt, i, *lst);
-		else if (frmt[*i] == '*')
-			determine_width(frmt, i, *lst);
-		else if (frmt[*i] == '.')
-			determine_precision(frmt, i, *lst);
-		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_fl)
-			(*lst)->flags = set_flg((*lst)->flags, arr[frmt[*i] - arr_first].bit_flg);
-		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_ln)
-			determine_md_len(frmt, i, *lst, arr);
-		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_tp)
-		{
-			(*lst)->types = set_flg((*lst)->types, arr[frmt[*i] - arr_first].bit_flg);
-			return ;
-		}
-		(*i)++;
-	} */
 	ft_while_determ(lst, frmt, i, arr);
 }
 
