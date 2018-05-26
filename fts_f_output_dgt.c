@@ -92,7 +92,7 @@ void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)
 	}
 }
 
-void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w)
+void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 {
 	int i;
 	struct lconv *lc;

@@ -14,14 +14,7 @@
 
 void print_str(char *str)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
+	write(1, str, ft_strlen(str));
 	free(str);
 }
 
@@ -35,9 +28,8 @@ int printing_args(t_flgs_types *prm)
 	lst = prm;
 	while (lst)
 	{
-		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U) 
-				|| (check_flg(lst->types, TP_c)
-					&& check_flg(lst->md_lengh, LN_l)))
+		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U)
+				&& check_flg(lst->md_lengh, LN_l))
 		{
 			str = itoa_printf(lst);
 			print_str(str);
@@ -53,7 +45,11 @@ int printing_args(t_flgs_types *prm)
 			str = itoa_aA_eE_fF_gG(lst);
 			print_str(str);
 		}
-		str = rint_unicode(lst);
+		else
+		{
+			str = print_unicode(lst);
+			print_str(str);
+		}
 		lst = lst->next;
 	}
 	return (cnt);

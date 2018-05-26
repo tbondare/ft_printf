@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-char *uf_in_ucod(int *cnt, wchar_t ws, char *str)
+char *uf_in_ucod(int *cnt, wchar_t wc, char *str)
 {
 	if (0 <= wc && wc <= 0x7f)
 		str[0] = (char)wc;
@@ -40,25 +40,24 @@ char *uf_in_ucod(int *cnt, wchar_t ws, char *str)
 	return (str);
 }
 
-char *bin_op_for_unicode(t_flgs_types *lst, int *cnt, int *i)
+char *bin_op_for_unicode(t_flgs_types *lst, int *cnt, int *i, char *str)
 {
-	char *str;
     wchar_t wc;
 
     if (check_flg(lst->types, TP_c))
 	{
 		wc = lst->val.win;
-		str = uf_in_ucod(&cnt, ws, str);
+		str = uf_in_ucod(cnt, wc, str);
 	}
 	else if ((check_flg(lst->types, TP_S)))
 	{
-		wc = lst->val.point[(*i)];
-		str = uf_in_ucod(&cnt, ws, str);
+		wc = ((wchar_t*)lst->val.point)[(*i)];
+		str = uf_in_ucod(&cnt, wc, str);
 	}
 	return (str);
 }
 
-void print_unicode(t_flgs_types *lst)
+char *print_unicode(t_flgs_types *lst)
 {
 	char *str;
 	int cnt;
@@ -72,23 +71,23 @@ void print_unicode(t_flgs_types *lst)
 	if (check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l)))
 	{
 		str = (char*)malloc(sizeof(char) * 4 + 1);
-		str = bin_op_for_unicode(lst, &cnt, &i);
+		str = bin_op_for_unicode(lst, &cnt, &i, str);
 		str[cnt] = '\0';
 	}
 	else if (check_flg(lst->types, TP_S) && (check_flg(lst->md_lengh, LN_l)))
 	{
-		while (lst->val.point[i] != '\0')
+		while (((wchar_t*)lst->val.point)[i] != '\0')
 			i++;
 		str = (char*)malloc(sizeof(char) * ++i * 4 + 1);
 		j = i * 4;
 		str[j] = '\0';
 		i = 0;
 		j = 0;
-		while (lst->val.point[i] != '\0')
+		while (((wchar_t*)lst->val.point)[i] != '\0')
 		{
 			while (str[j] != '\0')
 			{
-				str = bin_op_for_unicode(lst, &cnt, &i);
+				str = bin_op_for_unicode(lst, &cnt, &i, str);
 				mem_cnt = cnt + mem_cnt;
 				while (cnt != 0);
 				{
@@ -99,5 +98,5 @@ void print_unicode(t_flgs_types *lst)
 		}
 		str[mem_cnt] = '\0';
 	}
-	print_str(str);
+	return (str);
 }

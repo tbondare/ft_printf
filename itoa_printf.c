@@ -87,7 +87,7 @@ void output_dgt(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 	else if (check_flg(lst->types, TP_i | TP_d | TP_D))
 		outp_idD(lst, newstr, mem_w);
 	else if (check_flg(lst->types, TP_u | TP_U | TP_o | TP_O | TP_x | TP_X))
-		outp_uU_oO_xX(lst, newstr, mem_w);	
+		outp_uU_oO_xX(lst, newstr, mem_w, base);
 	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
 		outp_c_l(lst, newstr, mem_w);
 }
