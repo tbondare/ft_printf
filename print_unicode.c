@@ -40,7 +40,7 @@ char *uf_in_ucod(int *cnt, wchar_t wc, char *str)
 	return (str);
 }
 
-char *bin_op_for_unicode(t_flgs_types *lst, int *cnt, int *i, char *str)
+void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str)
 {
     wchar_t wc;
 
@@ -49,12 +49,11 @@ char *bin_op_for_unicode(t_flgs_types *lst, int *cnt, int *i, char *str)
 		wc = lst->val.win;
 		str = uf_in_ucod(cnt, wc, str);
 	}
-	else if ((check_flg(lst->types, TP_S)))
+	else if ((check_flg(lst->types, TP_s)))
 	{
-		wc = ((wchar_t*)lst->val.point)[(*i)];
+		wc = ((wchar_t*)lst->val.point)[i];
 		str = uf_in_ucod(&cnt, wc, str);
 	}
-	return (str);
 }
 
 char *print_unicode(t_flgs_types *lst)
@@ -74,7 +73,7 @@ char *print_unicode(t_flgs_types *lst)
 		str = bin_op_for_unicode(lst, &cnt, &i, str);
 		str[cnt] = '\0';
 	}
-	else if (check_flg(lst->types, TP_S) && (check_flg(lst->md_lengh, LN_l)))
+	else if (check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l)))
 	{
 		while (((wchar_t*)lst->val.point)[i] != '\0')
 			i++;
@@ -87,14 +86,15 @@ char *print_unicode(t_flgs_types *lst)
 		{
 			while (str[j] != '\0')
 			{
-				str = bin_op_for_unicode(lst, &cnt, &i, str);
+				str = bin_op_for_unicode(lst, &cnt, i, &str[j]);
 				mem_cnt = cnt + mem_cnt;
 				while (cnt != 0);
 				{
-					str[j]++;
+					j++;
 					cnt--;
 				}
 			}
+			i++;
 		}
 		str[mem_cnt] = '\0';
 	}
