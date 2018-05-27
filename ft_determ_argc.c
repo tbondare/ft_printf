@@ -30,18 +30,18 @@ int cnt_args(t_flgs_types *lst)
 	return (cnt);
 }
 
-void ft_if_detetm(t_flgs_types *lst, va_list *args, va_list *next, int *i)
+void ft_if_detetm(t_flgs_types *lst, va_list args, va_list *next, int *i)
 {
 	if (lst->indx_arg == *i)
 	{
 		va_end(*next);
-		va_copy(*next, *args);
+		va_copy(*next, args);
 		dtrm_args_with_if(lst, *next);
 	}
 	if (lst->indx_arg_wdth == *i)
 	{
 		va_end(*next);
-		va_copy(*next, *args);
+		va_copy(*next, args);
 		lst->width = va_arg(*next, int);
 		if (lst->width < 0)
 			lst->flags = set_flg(lst->flags, FL_MINUS);
@@ -49,7 +49,7 @@ void ft_if_detetm(t_flgs_types *lst, va_list *args, va_list *next, int *i)
 	if (lst->indx_arg_prec == *i)
 	{
 		va_end(*next);
-		va_copy(*next, *args);
+		va_copy(*next, args);
 		lst->prec = va_arg(*next, int);
 	}
 }
@@ -73,7 +73,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 				lst = lst->next;
 				continue ;
 			}
-			ft_if_detetm (lst, &args, &next, &i);
+			ft_if_detetm(lst, args, &next, &i);
 			lst = lst->next;
 			va_end(args);
 			va_copy(args, next);

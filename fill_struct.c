@@ -56,10 +56,10 @@ void fill_element(t_flgs_types *lst, const char *frmt, int *i)
 	ft_while_determ(lst, frmt, i, arr);
 }
 
-void lstnewadd(t_flgs_types **lst)
+void lstnewadd(t_flgs_types *lst)
 {
-	(*lst)->next = lstnew();
-	*lst = (*lst)->next;
+	(lst)->next = lstnew();
+	lst = (lst)->next;
 }
 
 void index_args (t_flgs_types *lst)
@@ -104,7 +104,7 @@ int fill_struct(t_flgs_types **prm, const char *frmt)
 		else
 		{
 			if (lst->types != 0)
-				lstnewadd(&lst);
+				lstnewadd(lst);
 			lst->str_out = rejoin(lst->str_out, &frmt[i]);
 		}
 		i++;

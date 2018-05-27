@@ -94,7 +94,7 @@ void dtrm_args_with_if(t_flgs_types *lst, va_list args)
 	else if (check_flg(lst->types, TP_c) && lst->md_lengh == 0)
 		lst->val.ulng = (unsigned char)va_arg(args, int);
 	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
-		lst->val.win = (wint_t)va_arg(args, int);
+		lst->val.win = (wint_t)va_arg(args, wint_t);
 	else if (check_flg(lst->types, TP_s) && lst->md_lengh == 0)
 		lst->val.str = va_arg(args, char*);
 	else if (check_flg(lst->types, TP_s) && check_flg(lst->md_lengh, LN_l))

@@ -118,7 +118,7 @@ char *create_dgt_str(const char *frmt, int *i);
 
 int fill_struct(t_flgs_types **prm, const char *frmt);
 void index_args (t_flgs_types *lst);
-void lstnewadd(t_flgs_types **lst);
+void lstnewadd(t_flgs_types *lst);
 void fill_element(t_flgs_types *lst, const char *frmt, int *i);
 void ft_while_determ(t_flgs_types *lst, const char *frmt, int *i, t_arr_el *arr);
 
@@ -134,7 +134,7 @@ void determ_args_aA_eE_fF_gG(t_flgs_types *lst, va_list args);
 void dtrm_args_with_if(t_flgs_types *lst, va_list args);
 
 void determine_args(t_flgs_types *prm, va_list args);
-void ft_if_detetm (t_flgs_types *lst, va_list *args, va_list *next, int *i);
+void ft_if_detetm (t_flgs_types *lst, va_list args, va_list *next, int *i);
 int cnt_args(t_flgs_types *lst);
 
 void outp_id_j(t_flgs_types *lst, char *newstr, int *mem_w);
@@ -148,6 +148,8 @@ int cnt_uU(t_flgs_types *lst, int *cnt);
 int cnt_u_j(t_flgs_types *lst, int *cnt);
 int cnt_id_j(t_flgs_types *lst, int *cnt);
 int cnt_idD(t_flgs_types *lst, int *cnt);
+
+char *print_unicode(t_flgs_types *lst);
 
 
 #endif /* LIBFTPRINTF_H_ */
