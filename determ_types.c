@@ -99,4 +99,6 @@ void dtrm_args_with_if(t_flgs_types *lst, va_list args)
 		lst->val.str = va_arg(args, char*);
 	else if (check_flg(lst->types, TP_s) && check_flg(lst->md_lengh, LN_l))
 		lst->val.point = va_arg(args, wchar_t*);
+	else if (check_flg(lst->types, TP_p))
+		lst->val.point = va_arg(args, void*);
 }

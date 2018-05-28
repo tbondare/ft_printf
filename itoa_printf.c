@@ -134,9 +134,8 @@ void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
 	output_dgt(lst, newstr, &mem_w, 10);
 	if (neg != 0)
 		newstr[mem_w--] = neg;
-	while (mem_w)
+	while (mem_w >= 0)
 		newstr[mem_w--] = ' ';
-	newstr[mem_w] = ' ';
 }
 
 char *itoa_printf(t_flgs_types *lst)

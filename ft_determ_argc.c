@@ -66,6 +66,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 	cnt = cnt_args(lst);
 	while (i <= cnt)
 	{
+		lst = prm;
 		  while (lst)
 		  {
 			if (lst->types == 0)

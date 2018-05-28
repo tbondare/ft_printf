@@ -37,7 +37,7 @@ int check_is_sign_in_float(t_flgs_types *lst, char *neg)
 	return (sign);
 }
 
-int cnt_till_aA_eE_fF_gG(int base, long double *mem_val)
+int cnt_till_aA_eE_fF_gG(int base, long double *mem_val, t_flgs_types *lst)
 {
   int cnt;
 
@@ -55,11 +55,12 @@ int cnt_till_aA_eE_fF_gG(int base, long double *mem_val)
   {
 	  while (*mem_val < 1)
 	  {
-		  *mem_val = *mem_val * base; // узнаю количество нулей до запятой для экспоненты, потому что при экспоненте удаляются нули
+		  *mem_val = *mem_val * base; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		  cnt++;
 	  }
+	  *mem_val = lst->val.lndbl;
 	  if (check_flg(*mem_val, TP_e | TP_E | TP_g | TP_G))
-		  cnt = -cnt; //может быть - служит флагом
+		  cnt = -cnt; //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   }
   return (cnt);
 }
@@ -82,7 +83,7 @@ char *quote(char *arr, int cnt)
 		i++;
 	j = i + cnt;
 	str = (char *)malloc(sizeof(char) * j + 1);
-	while (arr[i] != ',')
+	while (arr[i] != *(lc->decimal_point))
 		str[j--] = arr[i--];
 	str[j--] = arr[i--];
 	while (cnt > 0)
@@ -110,6 +111,11 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 	i = 0;
 	mem_cnt = cnt;
 	arr = (char*)malloc(sizeof(char) * (num_dgt + 1));
+	if (lst->val.lndbl < 1)
+	{
+		arr[i++] = '0';
+		mem_cnt--, num_dgt--;
+	}
 	while (num_dgt)
 	{
 		dgt = *mem_val * 10;
@@ -118,7 +124,7 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 			mem_cnt--;
 		else if (mem_cnt == 0)
 		{
-			arr[(i)++] = ',';
+			arr[(i)++] = *(lc->decimal_point);
 			mem_cnt = -1;
 		}
 		arr[(i)++] = dgt + '0';
@@ -132,6 +138,8 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 		{
 			arr[i] = 0 + '0';
 			i--;
+			if (arr[i] == *(lc->decimal_point))
+				i--;
 		}
 		arr[i] = arr[i] + 1;
 	}
@@ -142,7 +150,7 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 	return (arr);
 }
 
-/*void outp_eE_aA(t_flgs_types *lst, int cnt, char **newstr, int base) //в прес не входит е и занчение после него
+/*void outp_eE_aA(t_flgs_types *lst, int cnt, char **newstr, int base) //пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 {
 	int i;
 	int dgt;
@@ -320,7 +328,7 @@ char *itoa_aA_eE_fF_gG(t_flgs_types *lst)
 		base = 16;
 	else
 		base = 10;
-	cnt = cnt_till_aA_eE_fF_gG(base, &mem_val);
+	cnt = cnt_till_aA_eE_fF_gG(base, &mem_val, lst);
 	if (check_flg(lst->types, TP_f | TP_F | TP_g | TP_G))
 		num_q = num_qv(lst, cnt);
 	if (lst->prec == 0)

@@ -35,7 +35,7 @@ void ft_while_determ(t_flgs_types *lst, const char *frmt, int *i, t_arr_el *arr)
 	}
 }
 
-void fill_element(t_flgs_types *lst, const char *frmt, int *i)
+void fill_element(t_flgs_types **lst, const char *frmt, int *i)
 {
 	static t_arr_el arr[91];
 	static char init = 0;
@@ -48,18 +48,18 @@ void fill_element(t_flgs_types *lst, const char *frmt, int *i)
 	}
 	if (frmt[*i] == '%')
 	{
-		(lst)->str_out = rejoin((lst)->str_out, "%");
+		(*lst)->str_out = rejoin((*lst)->str_out, '%');
 		return ;
 	}
-	if (ft_strlen((lst)->str_out) != 0 || (lst)->types != 0)
+	if (ft_strlen((*lst)->str_out) != 0 || (*lst)->types != 0)
 		lstnewadd(lst);
-	ft_while_determ(lst, frmt, i, arr);
+	ft_while_determ(*lst, frmt, i, arr);
 }
 
-void lstnewadd(t_flgs_types *lst)
+void lstnewadd(t_flgs_types **lst)
 {
-	(lst)->next = lstnew();
-	lst = (lst)->next;
+	(*lst)->next = lstnew();
+	*lst = (*lst)->next;
 }
 
 void index_args (t_flgs_types *lst)
@@ -100,15 +100,16 @@ int fill_struct(t_flgs_types **prm, const char *frmt)
 	while (frmt[i] != '\0')
 	{
 		if (frmt[i] == '%')
-			fill_element(lst, frmt, &i);
+			fill_element(&lst, frmt, &i);
 		else
 		{
 			if (lst->types != 0)
-				lstnewadd(lst);
-			lst->str_out = rejoin(lst->str_out, &frmt[i]);
+				lstnewadd(&lst);
+
+			lst->str_out = rejoin(lst->str_out, frmt[i]);
 		}
 		i++;
 	}
-	index_args (lst);
+	index_args (*prm);
 	return (1);
 }

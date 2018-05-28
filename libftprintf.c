@@ -44,12 +44,35 @@ t_flgs_types *lstnew(void)
 	newlist->indx_arg_prec = 0;
 	newlist->next = NULL;
 	return (newlist);
-} 
+}
 
-char *rejoin(char *s1, const char *s2)
+char	*ft_strchar(char const *s1, char const c)
+{
+	char	*newstr;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	if (!s1)
+		return (NULL);
+	len = ft_strlen(s1) + 1;
+	if (!(newstr = (char*)malloc(sizeof(char) * len + 1)))
+		return (NULL);
+	while (*s1)
+	{
+		newstr[i] = (char)*s1;
+		i++;
+		s1++;
+	}
+	newstr[i++] = c;
+	newstr[i] = '\0';
+	return (newstr);
+}
+
+char *rejoin(char *s1, const char c)
 {
 	char *tmp;
-	tmp = ft_strjoin(s1, s2);
+	tmp = ft_strchar(s1, c);
 	free(s1);
 	return (tmp);
 }

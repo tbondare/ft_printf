@@ -1,8 +1,8 @@
 /*
  * itoa_printf_oO.c
  *
- *  Created on: 1 мар. 2018 г.
- *      Author: Татьяна
+ *  Created on: 1 пїЅпїЅпїЅ. 2018 пїЅ.
+ *      Author: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  */
 
 # include "libftprintf.h"
@@ -83,9 +83,8 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 	mem_w = lst->width;
 	newstr[mem_w--] = '\0';
 	output_dgt(lst, newstr, &mem_w, base);
-	while (mem_w)
+	while (mem_w >= 0)
 		newstr[mem_w--] = ' ';
-	newstr[mem_w] = ' ';
 }
 
 char *itoa_printf_oO_xX_b(t_flgs_types *lst)
@@ -119,6 +118,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + 1))))
 			return (0);
+		lst->width = cnt;
 		if_flg_not_null_oOxXb(newstr, lst, base);
 	}
 	else if (lst->width > cnt && lst->prec > cnt && lst->width > lst->prec) // w>cnt, cnt <p, w>p (2)
@@ -152,9 +152,8 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 			return (0);
 		newstr[mem_w--] = '\0';
 		output_dgt(lst, newstr, &mem_w, base);
-		while (mem_w)
+		while (mem_w >= 0)
 			newstr[mem_w--] = '0';
-		newstr[mem_w] = '0';
 	}
 	return (newstr);
 }

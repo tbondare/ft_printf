@@ -1,8 +1,8 @@
 /*
  * print_p.c
  *
- *  Created on: 27 мар. 2018 г.
- *      Author: Татьяна
+ *  Created on: 27 пїЅпїЅпїЅ. 2018 пїЅ.
+ *      Author: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  */
 
 #include "libftprintf.h"
@@ -10,35 +10,29 @@
 char *pointer(t_flgs_types *lst)
 {
   unsigned long long int dir;
-  int n;
   int cnt;
   char *str;
-  int i;
 
   cnt = 0;
-  i = 0;
-  dir = &(lst->val.point);
-  n = dir;
-  while (n)
+  dir = (unsigned long long int)lst->val.point;
+  while (dir)
   {
-	  n = n / 16;
+	  dir = dir / 16;
 	  cnt++;
   }
+  cnt = cnt + 2;
+  dir = (unsigned long long int)lst->val.point;
   str = (char*)malloc(sizeof(char) * (cnt + 1));
+  str[cnt--] = '\0';
   while (dir)
   {
 	  if (dir % 16 > 9)
-		  str[i] = dir % 16 + 'A' - 10;
+		  str[cnt--] = dir % 16 + 'a' - 10;
 	  else
-		  str[i] = dir % 16;
+		  str[cnt--] = dir % 16 + '0';
 	  dir = dir / 16;
-	  i++;
   }
-  str[i] = '\0';
+  str[cnt--] = 'x';
+  str[cnt--] = '0';
   return (str);
-}
-
-void print_p(t_flgs_types *lst)
-{
-
 }
