@@ -1,10 +1,14 @@
-/*
- * print_cC_sS.c
- *
- *  Created on: 13 мар. 2018 г.
- *      Author: Татьяна
- */
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_cC_sS.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/29 17:12:55 by tbondare          #+#    #+#             */
+/*   Updated: 2018/05/29 19:20:03 by tbondare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libftprintf.h"
 
@@ -24,7 +28,7 @@ void print_cC_sS(t_flgs_types *lst)
 				 sgn = '0';
 			 lst->width = lst->width - 1;
 			 while (lst->width--)
-				 write(1, sgn, 1);
+				 write(1, &sgn, 1);
 		  }
 		 else if (lst->width > 1)
 		 {
@@ -32,7 +36,7 @@ void print_cC_sS(t_flgs_types *lst)
 				 sgn = '0';
 			 lst->width = lst->width - 1;
 			 while (lst->width--)
-				 write(1, sgn, 1);
+				 write(1, &sgn, 1);
 			 write(1, &lst->val.ulng + '0', 1);
 		 }
 		 else
@@ -40,7 +44,7 @@ void print_cC_sS(t_flgs_types *lst)
 	 }
 	 else if (check_flg(lst->types, TP_s) && !(check_flg(lst->md_lengh, LN_l)))
 	 {
-		 if (check_flg(lst->flags, FL_MINUS) && lst->width > ft_strlen(lst->val.str))
+		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
 		 {
 			 while (lst->val.str || lst->prec)
 			 {
@@ -52,18 +56,18 @@ void print_cC_sS(t_flgs_types *lst)
 			  if (check_flg(lst->flags, FL_NULL))
 				  sgn = '0';
 			  while (lst->width--)
-				  write(1, sgn, 1);
+				  write(1, &sgn, 1);
 		 }
-		 else if (lst->width > ft_strlen(lst->val.str))
+		 else if (lst->width > (int)ft_strlen(lst->val.str))
 		 {
 			 if (check_flg(lst->flags, FL_NULL))
 				 sgn = '0';
-			 if (lst->prec < ft_strlen(lst->val.str))
+			 if (lst->prec < (int)ft_strlen(lst->val.str))
 				 lst->width = lst->width - lst->prec;
 			 else
 				 lst->width = lst->width - ft_strlen(lst->val.str);
 			 while (lst->width)
-				 write(1, sgn, 1);
+				 write(1, &sgn, 1);
 			 while (lst->val.str || lst->prec)
 			 {
 				 write (1, &lst->val.str[i], 1);

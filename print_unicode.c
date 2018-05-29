@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 13:54:43 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/25 16:59:05 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:18:23 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str)
 
 char *print_unicode(t_flgs_types *lst)
 {
-	char *str;
+	char *str = NULL;
 	int cnt;
 	int i;
 	int mem_cnt;

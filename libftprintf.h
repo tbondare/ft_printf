@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/25 19:16:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/29 17:16:43 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,46 @@ int cnt_u_j(t_flgs_types *lst, int *cnt);
 int cnt_id_j(t_flgs_types *lst, int *cnt);
 int cnt_idD(t_flgs_types *lst, int *cnt);
 
-char *print_unicode(t_flgs_types *lst);
+void determine_args(t_flgs_types *prm, va_list args);
+int cnt_args(t_flgs_types *lst);
+void ft_if_detetm(t_flgs_types *lst, va_list args, va_list *next, int *i);
 
+int ft_printf(const char *format, ...);
+int printing_args(t_flgs_types *prm);
+void print_str(char *str);
+
+char *quote(char *arr, int cnt);
+int cnt_till_aA_eE_fF_gG(int base, long double *mem_val, t_flgs_types *lst);
+int check_is_sign_in_float(t_flgs_types *lst, char *neg);
+
+char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val);
+
+char *itoa_aA_eE_fF_gG(t_flgs_types *lst);
+
+void output_dgt(t_flgs_types *lst, char *newstr, int *mem_w, int base);
+int num_qv(t_flgs_types *lst, int cnt);
+int check_is_sign(t_flgs_types *lst, char *neg);
+int check_sign_dif_tp(t_flgs_types *lst);
+
+char *itoa_printf(t_flgs_types *lst);
+void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg);
+void if_flg_null(char *newstr, t_flgs_types *lst, int sum, char neg);
+void if_fl_minus(char *newstr, t_flgs_types *lst, int sum, char neg);
+
+char *itoa_printf_oO_xX_b(t_flgs_types *lst);
+void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base);
+void if_flg_null_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base);
+void if_fl_minus_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base);
+int ft_cnt_oO_xX_b(t_flgs_types *lst, int base);
+int cnt_oxX(t_flgs_types *lst, int *cnt, int base);
+int cnt_oxX_j(t_flgs_types *lst, int *cnt, int base);
+
+void print_cC_sS(t_flgs_types *lst);
+
+char *pointer(t_flgs_types *lst);
+
+char *print_unicode(t_flgs_types *lst);
+void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str);
+void uf_in_ucod(int *cnt, wchar_t wc, char *str);
 
 #endif /* LIBFTPRINTF_H_ */

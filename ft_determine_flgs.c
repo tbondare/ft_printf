@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:19:36 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:08:36 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:07:28 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char *create_dgt_str(const char *frmt, int *i)
 	while(frmt[*i] && (frmt[*i] >= '0' && frmt[*i] <= '9'))
 	{
 		str[0] = frmt[*i];
-		num = rejoin(num, str);
+		num = rejoin(num, str[1]);
 		(*i)++;
 	}
 	return (num);

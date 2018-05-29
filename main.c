@@ -24,11 +24,11 @@ void tests()
 	ft_printf("%d", 1545);
 	printf("\n%d\n\n", 1545);
 
-	ft_printf("%p", 0x25f);
-	printf("\n%p\n\n", 0x25f);
+//	ft_printf("%p", 0x25f);
+//	printf("\n%p\n\n", 0x25f);
 
-	ft_printf("%p%d", 0x25f, 25);
-	printf("\n%p%d\n\n", 0x25f, 25);
+//	ft_printf("%p%d", 0x25f, 25);
+//	printf("\n%p%d\n\n", 0x25f, 25);
 
 	ft_printf("1 = %f!\n", 15.45);
 	printf("1 = %f!\n\n", 15.45);

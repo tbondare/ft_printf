@@ -1,9 +1,14 @@
-/*
- * itoa_printf_oO.c
- *
- *  Created on: 1 ���. 2018 �.
- *      Author: �������
- */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   itoa_printf_oO_xX_b.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/29 17:08:48 by tbondare          #+#    #+#             */
+/*   Updated: 2018/05/29 19:15:20 by tbondare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 # include "libftprintf.h"
 
@@ -89,10 +94,11 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 
 char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 {
-	char* newstr;
+	char* newstr = NULL;
 	int	cnt;
 	int base;
 
+	base = 0;
 	if (check_flg(lst->types, TP_o | TP_O))
 		base = 8;
 	else if (check_flg(lst->types, TP_x | TP_X))
