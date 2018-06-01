@@ -16,6 +16,8 @@ int cnt_idD(t_flgs_types *lst, int *cnt)
 {
 	long long int n;
 	
+	if (lst->val.lng == 0)
+		*cnt = 1;
 	n = lst->val.lng;
 	n = n < 0 ? -n : n;
 	while (n)

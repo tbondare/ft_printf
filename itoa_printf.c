@@ -60,9 +60,9 @@ void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
 
 char *itoa_printf(t_flgs_types *lst)
 {
-	char			*newstr = NULL;
-	int				cnt;
-	char			neg;
+	char *newstr = NULL;
+	int	cnt;
+	char neg;
 	int num_q;
 	int sign;
 

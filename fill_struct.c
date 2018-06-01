@@ -105,7 +105,6 @@ int fill_struct(t_flgs_types **prm, const char *frmt)
 		{
 			if (lst->types != 0)
 				lstnewadd(&lst);
-
 			lst->str_out = rejoin(lst->str_out, frmt[i]);
 		}
 		i++;

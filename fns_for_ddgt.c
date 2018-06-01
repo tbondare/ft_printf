@@ -17,11 +17,11 @@ int check_sign_dif_tp(t_flgs_types *lst)
 	if (check_flg(lst->types, TP_i | TP_d) && check_flg(lst->md_lengh, LN_j))
 		return (lst->val.imax < 0);
 	else if (check_flg(lst->types, TP_u) && check_flg(lst->md_lengh, LN_j))
-		return (lst->val.uimax);
+		return (0);
 	else if (check_flg(lst->types, TP_i | TP_d | TP_D))
 		return (lst->val.lng < 0);
 	else if (check_flg(lst->types, TP_u | TP_U))
-		return (lst->val.ulng);
+		return (0);
 	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
 		return (lst->val.win < 0);
 	return (0);

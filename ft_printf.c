@@ -21,10 +21,10 @@ void print_str(char *str)
 int printing_args(t_flgs_types *prm)
 {
 	char *str;
-	int cnt;
+	int total_strlen;
 	t_flgs_types *lst;
 
-	cnt = 0;
+	total_strlen = 0;
 	lst = prm;
 	while (lst)
 	{
@@ -43,21 +43,23 @@ int printing_args(t_flgs_types *prm)
 			str = pointer(lst);
 		else
 			str = lst->str_out;
-		cnt = cnt + ft_strlen(str);
+		total_strlen = total_strlen + ft_strlen(str);
 		print_str(str);
 		lst = lst->next;
 	}
-	return (cnt);
+	return (total_strlen);
 }
 
 int ft_printf(const char *format, ...)
 {
 	va_list args;
-	t_flgs_types *prm;
+	t_list *prm;
+	int total_strlen;
 
 	va_start(args, format);
 	if(fill_struct(&prm, format) == 0)
 		return(-1);
 	determine_args(prm, args);
-	return (printing_args(prm));
+	total_strlen = printing_args(prm);
+	return (total_strlen);
 }
