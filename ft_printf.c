@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:02:42 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 16:03:46 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/01 18:58:40 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int printing_args(t_flgs_types *prm)
 int ft_printf(const char *format, ...)
 {
 	va_list args;
-	t_list *prm;
+	t_flgs_types *prm;
 	int total_strlen;
 
 	va_start(args, format);
