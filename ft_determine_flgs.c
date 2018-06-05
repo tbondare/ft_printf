@@ -22,7 +22,7 @@ char *create_dgt_str(const char *frmt, int *i)
 	while(frmt[*i] && (frmt[*i] >= '0' && frmt[*i] <= '9'))
 	{
 		str[0] = frmt[*i];
-		num = rejoin(num, str[1]);
+		num = rejoin(num, str[0]);
 		(*i)++;
 	}
 	return (num);

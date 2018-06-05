@@ -103,6 +103,7 @@ static const int	TP_n = 4194304;
 static const int	TP_b = 8388608;
 static const int	TP_r = 16777216;
 static const int	TP_k = 33554432;
+static const int	TP_pct = 67108864;
 
 void init_arr(t_arr_el *arr);
 void init_types_2(t_arr_el *arr);

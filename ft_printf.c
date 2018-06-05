@@ -18,6 +18,15 @@ void print_str(char *str)
 	free(str);
 }
 
+char *print_pct(lst)
+{
+	char *str;
+
+	str = NULL;
+
+	return (str);
+}
+
 int printing_args(t_flgs_types *prm)
 {
 	char *str;
@@ -41,6 +50,8 @@ int printing_args(t_flgs_types *prm)
 			str = print_unicode(lst);
 		else if (check_flg(lst->types, TP_p))
 			str = pointer(lst);
+		else if (check_flg(lst->types, TP_pct))
+			str = print_pct(lst);
 		else
 			str = lst->str_out;
 		total_strlen = total_strlen + ft_strlen(str);

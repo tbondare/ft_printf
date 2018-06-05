@@ -116,4 +116,6 @@ void init_arr(t_arr_el *arr)
 	arr['r' - arr_first].bit_flg = TP_r;
 	arr['k' - arr_first].flg_or_tp_or_ln = AR_tp;
 	arr['k' - arr_first].bit_flg = TP_k;
+	arr['%' - arr_first].flg_or_tp_or_ln = AR_tp;
+	arr['%' - arr_first].bit_flg = TP_pct;
 }

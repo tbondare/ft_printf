@@ -68,9 +68,11 @@ int main()
 	setlocale(LC_ALL, "");
 //	tests();
 
-	int len1 = ft_printf("%c\n", 'f');
-	int len2 = printf("%c\n\n", 'f');
-	ft_printf("%d\n%d\n", len1, len2);
+//	int len1 = ft_printf("%c\n", 'f');
+//	int len2 = printf("%c\n\n", 'f');
+//	ft_printf("%d\n%d\n", len1, len2);
+
+	ft_printf("%5%\n");
 
 	return (0);
 }

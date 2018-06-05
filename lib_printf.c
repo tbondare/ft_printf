@@ -53,7 +53,7 @@ char	*ft_strchar(char const *s1, char const c)
 	size_t	i;
 
 	i = 0;
-	if (!s1)
+	if (!(s1))
 		return (NULL);
 	len = ft_strlen(s1) + 1;
 	if (!(newstr = (char*)malloc(sizeof(char) * len + 1)))
