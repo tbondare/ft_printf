@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:02:42 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/01 18:58:40 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/05 16:31:04 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,38 @@ void print_str(char *str)
 	free(str);
 }
 
-char *print_pct(lst)
+char *print_pct(t_flgs_types *lst)
 {
 	char *str;
+	int i;
 
 	str = NULL;
-
+	i = 0;
+	if (lst->width == 0)
+		str = (char*)malloc(sizeof(char) * 2);
+	str = (char*)malloc(sizeof(char) * lst->width + 1);
+	if (check_flg(lst->flags, FL_MINUS) || (check_flg(lst->flags, FL_MINUS)
+				&& (check_flg(lst->flags, FL_NULL))))
+	{
+		str[i++] = '%';
+		while (lst->width > i)
+			str[i++] = ' ';
+	}
+	else if (check_flg(lst->flags, FL_NULL))
+	{
+		while (i < lst->width - 1)
+			str[i++] = '0';
+		str[i++] = '%';
+	}
+	else if (lst->width > 0 || check_flg(lst->flags, FL_SPACE))
+	{
+		while (i < lst->width - 1)
+			str[i++] = ' ';
+		str[i++] = '%';
+	}
+	else
+		str[i++] = '%';
+	str[i] = '\0';
 	return (str);
 }
 

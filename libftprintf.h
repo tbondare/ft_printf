@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 17:16:43 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/05 12:57:12 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,7 @@ char *pointer(t_flgs_types *lst);
 char *print_unicode(t_flgs_types *lst);
 void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str);
 void uf_in_ucod(int *cnt, wchar_t wc, char *str);
+
+char *print_pct(t_flgs_types *lst);
 
 #endif /* LIBFTPRINTF_H_ */
