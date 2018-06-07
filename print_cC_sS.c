@@ -53,7 +53,7 @@ char *print_cC_sS(t_flgs_types *lst)
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
 		 {
 			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 while (lst->val.str[i] || lst->prec)
+			 while (lst->val.str[i] || lst->prec > 0)
 			 {
 				 newstr[i] = lst->val.str[i];
 				 lst->prec--;
@@ -74,7 +74,7 @@ char *print_cC_sS(t_flgs_types *lst)
 				 lst->width = lst->width - ft_strlen(lst->val.str);
 			 while (lst->width--)
 				 newstr[i++] = sgn;
-			 while (lst->val.str[i] || lst->prec)
+			 while (lst->val.str[i] || lst->prec > 0)
 			 {
 				 newstr[i] = lst->val.str[i];
 				 lst->prec--;
@@ -83,7 +83,8 @@ char *print_cC_sS(t_flgs_types *lst)
 		  }
 		  else
 		  {
-			  while (lst->val.str[i] || lst->prec)
+			  newstr = (char*)malloc(sizeof(char) * (int)ft_strlen(lst->val.str) + 1);
+			  while (lst->val.str[i] || lst->prec > 0)
 			  {
 				  newstr[i] = lst->val.str[i];
 				  lst->prec--;
