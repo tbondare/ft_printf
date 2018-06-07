@@ -6,83 +6,91 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:12:55 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:20:03 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/07 15:33:34 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void print_cC_sS(t_flgs_types *lst)
+char *print_cC_sS(t_flgs_types *lst)
 {
 	 int i;
 	 char sgn;
+	 char *newstr;
 
 	 i = 0;
 	 sgn = ' ';
-	 if (check_flg(lst->types, TP_c) && !(check_flg(lst->md_lengh, LN_l)))
+	 newstr = NULL;
+	 if (check_flg(lst->types, TP_c))
 	 {
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
 		 {
-			 write(1, &lst->val.ulng + '0', 1);
-			 if (check_flg(lst->flags, FL_NULL))
-				 sgn = '0';
-			 lst->width = lst->width - 1;
+			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
+			 newstr[i++] = lst->val.ulng + '0';
+			 lst->width--;
 			 while (lst->width--)
-				 write(1, &sgn, 1);
+				 newstr[i++] = sgn;
 		  }
 		 else if (lst->width > 1)
 		 {
+			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
 			 if (check_flg(lst->flags, FL_NULL))
 				 sgn = '0';
-			 lst->width = lst->width - 1;
+			 lst->width--;
 			 while (lst->width--)
-				 write(1, &sgn, 1);
-			 write(1, &lst->val.ulng + '0', 1);
+				 newstr[i++] = sgn;
+			 newstr[i++] = lst->val.ulng + '0';
 		 }
 		 else
-			 write(1, &lst->val.ulng + '0', 1);
+		 {
+			 newstr = (char*)malloc(sizeof(char) * 2);
+			 newstr[i++] = lst->val.ulng + '0';
+		 }
+		 newstr[i] = '\0';
 	 }
-	 else if (check_flg(lst->types, TP_s) && !(check_flg(lst->md_lengh, LN_l)))
+	 else if (check_flg(lst->types, TP_s))
 	 {
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
 		 {
-			 while (lst->val.str || lst->prec)
+			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
+			 while (lst->val.str[i] || lst->prec)
 			 {
-				 write (1, &lst->val.str[i], 1);
+				 newstr[i] = lst->val.str[i];
 				 lst->prec--;
 				 i++;
 				 lst->width--;
 			  }
-			  if (check_flg(lst->flags, FL_NULL))
-				  sgn = '0';
 			  while (lst->width--)
-				  write(1, &sgn, 1);
+				  newstr[i++] = sgn;
 		 }
 		 else if (lst->width > (int)ft_strlen(lst->val.str))
 		 {
+			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
 			 if (check_flg(lst->flags, FL_NULL))
 				 sgn = '0';
 			 if (lst->prec < (int)ft_strlen(lst->val.str))
 				 lst->width = lst->width - lst->prec;
 			 else
 				 lst->width = lst->width - ft_strlen(lst->val.str);
-			 while (lst->width)
-				 write(1, &sgn, 1);
-			 while (lst->val.str || lst->prec)
+			 while (lst->width--)
+				 newstr[i++] = sgn;
+			 while (lst->val.str[i] || lst->prec)
 			 {
-				 write (1, &lst->val.str[i], 1);
+				 newstr[i] = lst->val.str[i];
 				 lst->prec--;
 				 i++;
 			 }
 		  }
 		  else
 		  {
-			  while (lst->val.str || lst->prec)
+			  while (lst->val.str[i] || lst->prec)
 			  {
-				  write (1, &lst->val.str[i], 1);
+				  newstr[i] = lst->val.str[i];
 				  lst->prec--;
 				  i++;
 			  }
 		  }
+		  newstr[i] = '\0';
 	  }
+	 return (newstr);
 }

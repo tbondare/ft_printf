@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/05 12:57:12 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/07 15:11:58 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ int ft_cnt_oO_xX_b(t_flgs_types *lst, int base);
 int cnt_oxX(t_flgs_types *lst, int *cnt, int base);
 int cnt_oxX_j(t_flgs_types *lst, int *cnt, int base);
 
-void print_cC_sS(t_flgs_types *lst);
+char *print_cC_sS(t_flgs_types *lst);
 
 char *pointer(t_flgs_types *lst);
 

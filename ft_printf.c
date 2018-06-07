@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:02:42 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/05 16:31:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/07 14:38:43 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,16 @@ int printing_args(t_flgs_types *prm)
 		else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E | TP_f 
 					| TP_F | TP_g | TP_G))
 			str = itoa_aA_eE_fF_gG(lst);
-		else if (check_flg(lst->types, TP_C | TP_S) ||
-				(check_flg(lst->types, TP_c | TP_s) &&
-						check_flg(lst->md_lengh, LN_l)))
+		else if (check_flg(lst->types, TP_C | TP_S | TP_c | TP_s) &&
+						check_flg(lst->md_lengh, LN_l))
 			str = print_unicode(lst);
 		else if (check_flg(lst->types, TP_p))
 			str = pointer(lst);
 		else if (check_flg(lst->types, TP_pct))
 			str = print_pct(lst);
+		else if (check_flg(lst->types, TP_s) || check_flg(lst->types, TP_S)
+				||check_flg(lst->types, TP_c) || check_flg(lst->types, TP_C))
+			str = print_cC_sS(lst);
 		else
 			str = lst->str_out;
 		total_strlen = total_strlen + ft_strlen(str);
