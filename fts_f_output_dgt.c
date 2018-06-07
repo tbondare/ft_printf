@@ -104,7 +104,8 @@ void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 
 	i = 0;	
 	lc = localeconv();
-	lst->val.ulng == 0 ? newstr[*mem_w] = '0' : 0;
+	if (lst->val.ulng == 0)
+		newstr[(*mem_w)--] = '0';
 	while (lst->val.ulng)
 	{
 		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')

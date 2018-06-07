@@ -6,29 +6,29 @@ void tests()
 	ft_printf("Hello %%!");
 	printf("\nHello %%!\n\n");
 
-	ft_printf("%f", 15.45);
+	ft_printf("1 = %f", 15.45);
 	printf("\n1 = %f\n\n", 15.45);
 
-	ft_printf("%f", 0.15);
+	ft_printf("2 = %f", 0.15);
 	printf("\n2 = %f\n\n", 0.15);
 
 	ft_printf("%ls", L"αρχη");
-	printf("\n%ls", L"αρχη");
+	printf("\n%ls\n\n", L"αρχη");
 
-	ft_printf("%f", 15.45);
+	ft_printf("1 = %f", 15.45);
 	printf("\n1 = %f\n\n", 15.45);
 
-	ft_printf("%f", 19.9999999);
+	ft_printf("1 = %f", 19.9999999);
 	printf("\n1 = %f\n\n", 19.9999999);
 
 	ft_printf("%d", 1545);
 	printf("\n%d\n\n", 1545);
 
 	ft_printf("%p", 0x25f);
-//	printf("\n%p\n\n", 0x25f);
+	printf("\n%p\n\n", 0x25f);
 
 	ft_printf("%p%d", 0x25f, 25);
-//	printf("\n%p%d\n\n", 0x25f, 25);
+	printf("\n%p%d\n\n", 0x25f, 25);
 
 	ft_printf("1 = %f!\n", 15.45);
 	printf("1 = %f!\n\n", 15.45);
@@ -50,11 +50,11 @@ void tests()
 
 	int len1 = ft_printf("%x\n", 0x56f);
 	int len2 = printf("%x\n", 0x56f);
-	ft_printf("%d\n%d\n", len1, len2);
+	ft_printf("%d%d\n\n", len1, len2);
 
 	int len01 = ft_printf("%d\n", 0);
 	int len02 = printf("%d\n", 0);
-	ft_printf("%d\n%d\n", len01, len02);
+	ft_printf("%d%d\n\n", len01, len02);
 
 	ft_printf("%x\n", -22);
 	printf("%x\n\n", -22);
@@ -62,17 +62,62 @@ void tests()
 	ft_printf("%x\n", 22);
 	printf("%x\n\n", 22);
 
+	ft_printf("%5%\n");
+//	printf("%5%\n\n");
+
+	ft_printf("%x\n", 0);
+	printf("%x\n\n", 0);
+
+	ft_printf("%X\n", 0);
+	printf("%X\n\n", 0);
+
+	ft_printf("%x\n", 4294967296);
+	printf("%x\n\n", 4294967296);
+
+	ft_printf("%X\n", 4294967296);
+	printf("%X\n\n", 4294967296);
+
+	ft_printf("%hx\n", 4294967296);
+	printf("%hx\n\n", 4294967296);
+
+	ft_printf("%hhX\n", 4294967296);
+	printf("%hhX\n\n", 4294967296);
+
+	ft_printf("%#x\n", 42);
+	printf("%#x\n\n", 42);
+
+	ft_printf("%#llx\n", 9223372036854775807);
+	printf("%#llx\n\n", 9223372036854775807);
+
+	ft_printf("%#x\n", 0);
+	printf("%#x\n\n", 0);
+
+	ft_printf("%#X\n", 42);
+	printf("%#X\n\n", 42);
+
+	ft_printf("%#8x\n", 42);
+	printf("%#8x\n\n", 42);
+
+	ft_printf("%#08x\n", 42);
+	printf("%#08x\n\n", 42);
+
+	ft_printf("%#-08x\n", 42);
+	printf("%#-08x\n\n", 42);
+
 }
 int main()
 {
 	setlocale(LC_ALL, "");
-//	tests();
+	tests();
 
 //	int len1 = ft_printf("%c\n", 'f');
 //	int len2 = printf("%c\n\n", 'f');
 //	ft_printf("%d\n%d\n", len1, len2);
 
-	ft_printf("%5%\n");
+//	ft_printf("%x\n", test);
+//	printf("%x\n\n", test);
+
+
 
 	return (0);
 }

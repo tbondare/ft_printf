@@ -30,6 +30,10 @@ int cnt_oxX(t_flgs_types *lst, int *cnt, int base)
 	unsigned long long int n;
 
 	n = lst->val.ulng;
+	if (lst->val.ulng == 0)
+		*cnt = 1;
+	else if (check_flg(lst->flags, FL_GRILL) && lst->val.ulng != 0)
+		*cnt = 2;
 	while (n)
 	{
 		n = n / base;
@@ -53,8 +57,10 @@ void if_fl_minus_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base)
 {
 	int res;
 	int mem_w;
+	unsigned long long mem_val;
 
 	mem_w = lst->width;
+	mem_val = lst->val.ulng;
 	newstr[mem_w--] = '\0';
 	res = lst->width - cnt;
 	while (res)
@@ -63,14 +69,24 @@ void if_fl_minus_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base)
 		res--;
 	}
 	output_dgt(lst, newstr, &mem_w, base);
+	if (check_flg(lst->flags, FL_GRILL) && mem_val != 0)
+	{
+		if (check_flg(lst->types, TP_X))
+			newstr[mem_w--] = 'X';
+		else
+			newstr[mem_w--] = 'x';
+		newstr[mem_w--] = '0';
+	}
 }
 
 void if_flg_null_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base)
 {
 	int mem_w;
 	int res;
+	unsigned long long mem_val;
 
 	mem_w = lst->width;
+	mem_val = lst->val.ulng;
 	newstr[mem_w--] = '\0';
 	output_dgt(lst, newstr, &mem_w, base);
 	res = lst->width - cnt;
@@ -79,15 +95,33 @@ void if_flg_null_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base)
 		newstr[mem_w--] = '0';
 		res--;
 	}
+	if (check_flg(lst->flags, FL_GRILL) && mem_val != 0)
+	{
+		if (check_flg(lst->types, TP_X))
+			newstr[mem_w--] = 'X';
+		else
+			newstr[mem_w--] = 'x';
+		newstr[mem_w--] = '0';
+	}
 }
 
 void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 {
 	int mem_w;
+	unsigned long long mem_val;
 
 	mem_w = lst->width;
+	mem_val = lst->val.ulng;
 	newstr[mem_w--] = '\0';
 	output_dgt(lst, newstr, &mem_w, base);
+	if (check_flg(lst->flags, FL_GRILL) && mem_val != 0)
+	{
+		if (check_flg(lst->types, TP_X))
+			newstr[mem_w--] = 'X';
+		else
+			newstr[mem_w--] = 'x';
+		newstr[mem_w--] = '0';
+	}
 	while (mem_w >= 0)
 		newstr[mem_w--] = ' ';
 }
