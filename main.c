@@ -145,7 +145,17 @@ int main()
 	printf("%10s is a string\n\n", "");
 
 	ft_printf("%5.2s is a string\n", "");
-	printf("%5.2s is a string\n\n", ""); */
+	printf("%5.2s is a string\n\n", "");
+
+	ft_printf("%-5.2s is a string\n", "this");
+	printf("%-5.2s is a string\n\n", "this");
+
+	ft_printf("%-5.2s is a string\n", "");
+	printf("%-5.2s is a string\n\n", "");
+
+	ft_printf("@moulitest: %s\n", NULL);
+	printf("@moulitest: %s\n\n", NULL); */
+
 
 	return (0);
 }

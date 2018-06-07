@@ -23,6 +23,17 @@ char *print_cC_sS(t_flgs_types *lst)
 	 j = 0;
 	 sgn = ' ';
 	 newstr = NULL;
+	 if (lst->val.ulng == NULL)
+	 {
+		 newstr = (char*)malloc(sizeof(char) * 7);
+		 newstr[i++] = '(';
+		 newstr[i++] = 'n';
+		 newstr[i++] = 'u';
+		 newstr[i++] = 'l';
+		 newstr[i++] = 'l';
+		 newstr[i++] = ')';
+		 newstr[i] = '\0';
+	 }
 	 if (check_flg(lst->types, TP_c))
 	 {
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
@@ -50,14 +61,14 @@ char *print_cC_sS(t_flgs_types *lst)
 		 }
 		 newstr[i] = '\0';
 	 }
-	 else if (check_flg(lst->types, TP_s))
+	 else if (check_flg(lst->types, TP_s) && lst->val.str != 0)
 	 {
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
 		 {
 			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
 			 if (lst->prec == 0)
 				 lst->prec = ft_strlen(lst->val.str);
-			 while (lst->val.str[i] || lst->prec > 0)
+			 while (lst->val.str[i] && lst->prec > 0)
 			 {
 				 newstr[i] = lst->val.str[i];
 				 lst->prec--;
