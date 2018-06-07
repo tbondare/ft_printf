@@ -107,6 +107,15 @@ void tests()
 	ft_printf("%-10s is a string\n", "");
 	printf("%-10s is a string\n\n", "");
 
+	ft_printf("%s\n", "abc");
+	printf("%s\n\n", "abc");
+
+	ft_printf("%10s is a string\n", "this");
+	printf("%10s is a string\n\n", "this");
+
+	ft_printf("%.2s is a string\n", "this");
+	printf("%.2s is a string\n\n", "this");
+
 }
 int main()
 {
@@ -120,8 +129,23 @@ int main()
 //	ft_printf("%x\n", test);
 //	printf("%x\n\n", test);
 
-//	ft_printf("%s\n", "abc");
-//	printf("%s\n\n", "abc");
+/*	ft_printf("%10s is a string\n", "this");
+	printf("%10s is a string\n\n", "this");
+
+	ft_printf("%s\n", "abc");
+	printf("%s\n\n", "abc");
+
+	ft_printf("%5.2s is a string\n", "this");
+	printf("%5.2s is a string\n\n", "this");
+
+	ft_printf("%.2s is a string\n", "this");
+	printf("%.2s is a string\n\n", "this");
+
+	ft_printf("%10s is a string\n", "");
+	printf("%10s is a string\n\n", "");
+
+	ft_printf("%5.2s is a string\n", "");
+	printf("%5.2s is a string\n\n", ""); */
 
 	return (0);
 }
