@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:12:55 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/07 15:33:34 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/07 16:20:19 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char *print_cC_sS(t_flgs_types *lst)
 				 lst->width = lst->width - ft_strlen(lst->val.str);
 			 while (lst->width--)
 				 newstr[i++] = sgn;
-			 while (lst->val.str[i] || lst->prec > 0)
+			 while (lst->val.str[i] || lst->prec >= 0)
 			 {
 				 newstr[i] = lst->val.str[i];
 				 lst->prec--;
