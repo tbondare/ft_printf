@@ -61,18 +61,21 @@ void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
 	
 	lc = localeconv();
 	i = 0;
-	lst->val.lng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
 	if (lst->val.lng == 0)
 	{
 		newstr[*mem_w] = '0';
 		(*mem_w)--;
 	}
-	while (lst->val.lng)
+	else if (lst->val.lng == -9223372036854775808)
+		lst->val.ulng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
+	else
+		lst->val.ulng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
+	while (lst->val.ulng)
 	{
 		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.lng % 10 + '0';
-		lst->val.lng = lst->val.lng / 10;
+		newstr[(*mem_w)--] = lst->val.ulng % 10 + '0';
+		lst->val.ulng = lst->val.ulng / 10;
 		i++;
 	}
 //	newstr[(*mem_w)] = '\0';

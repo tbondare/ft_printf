@@ -24,7 +24,6 @@ int cnt_oxX_j(t_flgs_types *lst, int *cnt, int base)
 	}
 	return (*cnt);
 }
-
 int cnt_oxX(t_flgs_types *lst, int *cnt, int base)
 {
 	unsigned long long int n;
@@ -32,7 +31,9 @@ int cnt_oxX(t_flgs_types *lst, int *cnt, int base)
 	n = lst->val.ulng;
 	if (lst->val.ulng == 0)
 		*cnt = 1;
-	else if (check_flg(lst->flags, FL_GRILL) && lst->val.ulng != 0)
+	else if (check_flg(lst->flags, FL_GRILL) && !(check_flg(lst->types, TP_x | TP_X)))
+		*cnt = 1;
+	else if (check_flg(lst->flags, FL_GRILL) && lst->val.ulng != 0 && check_flg(lst->types, TP_x | TP_X))
 		*cnt = 2;
 	while (n)
 	{
@@ -73,7 +74,7 @@ void if_fl_minus_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base)
 	{
 		if (check_flg(lst->types, TP_X))
 			newstr[mem_w--] = 'X';
-		else
+		else if (check_flg(lst->types, TP_x))
 			newstr[mem_w--] = 'x';
 		newstr[mem_w--] = '0';
 	}
@@ -118,7 +119,7 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 	{
 		if (check_flg(lst->types, TP_X))
 			newstr[mem_w--] = 'X';
-		else
+		else if (check_flg(lst->types, TP_x))
 			newstr[mem_w--] = 'x';
 		newstr[mem_w--] = '0';
 	}
