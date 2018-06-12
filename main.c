@@ -182,11 +182,14 @@ void tests()
 
 	ft_printf("%lld\n", -9223372036854775808);
 	printf("%lld\n\n", -9223372036854775808);
+
+	ft_printf("%jd\n", -9223372036854775808);
+	printf("%jd\n\n", -9223372036854775808);
 }
 int main()
 {
 	setlocale(LC_ALL, "");
-	tests();
+//	tests();
 
 //	ft_printf("%.2c", NULL);
 //  printf("%.2c", NULL);
@@ -194,6 +197,8 @@ int main()
 //	ft_printf("@moulitest: %c\n", 0);
 //	printf("@moulitest: %c\n\n", 0);
 
+//	ft_printf("%10.5d", 4242);
+	printf("%10.5d", 4242);
 
 	return (0);
 }
