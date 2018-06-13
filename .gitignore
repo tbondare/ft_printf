@@ -41,3 +41,5 @@ CMakeLists.txt
 
 .DS_Store
 Debug/*
+cmake-build-debug/*
+.idea/*
