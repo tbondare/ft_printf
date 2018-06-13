@@ -171,8 +171,8 @@ void tests()
 	printf("%c\n\n", 42);
 
 	len1 = ft_printf("%c\n", 'f');
-	len2 = printf("%c\n\n", 'f');
-	ft_printf("%d\n%d\n", len1, len2);
+	len2 = printf("%c\n", 'f');
+	ft_printf("%d\n%d\n\n", len1, len2);
 
 	ft_printf("%5c\n", 42);
 	printf("%5c\n\n", 42);
@@ -185,20 +185,53 @@ void tests()
 
 	ft_printf("%jd\n", -9223372036854775808);
 	printf("%jd\n\n", -9223372036854775808);
+
+	ft_printf("%10.5d\n", 4242);
+	printf("%10.5d\n\n", 4242);
+
+	ft_printf("%+10.5d\n", 4242);
+	printf("%+10.5d\n\n", 4242);
+
+	ft_printf("% 10.5d\n", 4242);
+	printf("% 10.5d\n\n", 4242);
+
+	ft_printf("%03.2d\n", 0);
+	printf("%03.2d\n\n", 0);
+
+	ft_printf("%03.2d\n", 1);
+	printf("%03.2d\n\n", 1);
+
+	ft_printf("%03.2d\n", -1);
+	printf("%03.2d\n\n", -1);
+
+	ft_printf("@moulitest: %.d %.0d\n", 0, 0);
+	printf("@moulitest: %.d %.0d\n\n", 0, 0);
+
+	ft_printf("@moulitest: %5.d %5.0d\n", 0, 0);
+	printf("@moulitest: %5.d %5.0d\n\n", 0, 0);
+
+	ft_printf("%u\n", 0);
+	printf("%u\n\n", 0);
+
+	ft_printf("%u\n", 4294967296);
+	printf("%u\n\n", 4294967296);
+
+	ft_printf("% u\n", 4294967295);
+	ft_printf("% u\n\n", 4294967295);
+
+	ft_printf("%+u\n", 4294967295);
+	ft_printf("%+u\n\n", 4294967295);
 }
 int main()
 {
 	setlocale(LC_ALL, "");
-//	tests();
+	tests();
 
 //	ft_printf("%.2c", NULL);
 //  printf("%.2c", NULL);
 
 //	ft_printf("@moulitest: %c\n", 0);
 //	printf("@moulitest: %c\n\n", 0);
-
-//	ft_printf("%10.5d", 4242);
-	printf("%10.5d", 4242);
 
 	return (0);
 }
