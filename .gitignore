@@ -36,3 +36,5 @@
 *.project
 *.xml
 *.prefs
+
+CMakeLists.txt
