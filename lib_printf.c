@@ -35,7 +35,7 @@ t_flgs_types *lstnew(void)
 	newlist->indx_arg = 0;
 	newlist->flags = 0;
 	newlist->width = 0;
-	newlist->prec = 0;
+	newlist->prec = -1;
 	newlist->md_lengh = 0;
 	newlist->types = 0;
 	newlist->wdth_star = 0;

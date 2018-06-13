@@ -38,3 +38,6 @@
 *.prefs
 
 CMakeLists.txt
+
+.DS_Store
+Debug/*

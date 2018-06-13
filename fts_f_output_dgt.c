@@ -65,6 +65,7 @@ void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
 	{
 		newstr[*mem_w] = '0';
 		(*mem_w)--;
+		i++;
 	}
 	lst->val.ulng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
 	while (lst->val.ulng)
@@ -75,7 +76,11 @@ void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
 		lst->val.ulng = lst->val.ulng / 10;
 		i++;
 	}
-//	newstr[(*mem_w)] = '\0';
+	if (lst->prec > i)
+	{
+		while (lst->prec-- > i)
+			newstr[(*mem_w)--] = '0';
+	}
 }
 
 void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)

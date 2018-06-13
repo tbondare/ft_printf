@@ -109,6 +109,6 @@ int fill_struct(t_flgs_types **prm, const char *frmt)
 		}
 		i++;
 	}
-	index_args (*prm);
+	index_args(*prm);
 	return (1);
 }
