@@ -19,14 +19,14 @@ void outp_id_j(t_flgs_types *lst, char *newstr, int *mem_w)
 	lc = localeconv();
 	
 	i = 0;
-	lst->val.imax = lst->val.imax < 0 ? -lst->val.imax : lst->val.imax;
+	lst->val.uimax = lst->val.imax < 0 ? -lst->val.imax : lst->val.imax;
 	lst->val.imax == 0 ? newstr[*mem_w] = '0' : 0;
-	while (lst->val.imax)
+	while (lst->val.uimax)
 	{
 		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.imax % 10 + '0';
-		lst->val.imax  = lst->val.imax / 10;
+		newstr[(*mem_w)--] = lst->val.uimax % 10 + '0';
+		lst->val.uimax  = lst->val.uimax / 10;
 		i++;
 	}
 }
@@ -61,21 +61,26 @@ void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
 	
 	lc = localeconv();
 	i = 0;
-	lst->val.lng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
 	if (lst->val.lng == 0)
 	{
 		newstr[*mem_w] = '0';
 		(*mem_w)--;
+		i++;
 	}
-	while (lst->val.lng)
+	lst->val.ulng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
+	while (lst->val.ulng)
 	{
 		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.lng % 10 + '0';
-		lst->val.lng = lst->val.lng / 10;
+		newstr[(*mem_w)--] = lst->val.ulng % 10 + '0';
+		lst->val.ulng = lst->val.ulng / 10;
 		i++;
 	}
-//	newstr[(*mem_w)] = '\0';
+	if (lst->prec > i)
+	{
+		while (lst->prec-- > i)
+			newstr[(*mem_w)--] = '0';
+	}
 }
 
 void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)

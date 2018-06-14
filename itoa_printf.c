@@ -69,7 +69,13 @@ char *itoa_printf(t_flgs_types *lst)
 	sign = check_is_sign(lst, &neg);
 	cnt = ft_cnt_i_d_uU_c(lst);
 	num_q = num_qv(lst, cnt);
-	if (lst->width > cnt + num_q + sign && lst->prec <= cnt + num_q && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
+	if (lst->prec == 0 && check_flg(lst->types, TP_d | TP_D | TP_i))
+	{
+		if (!(newstr = (char*)malloc(sizeof(char) * 1)))
+			return (0);
+		newstr[0] = '\0';
+	}
+	else if (lst->width > cnt + num_q + sign && lst->prec <= cnt + num_q && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
 			return (0);
@@ -114,8 +120,14 @@ char *itoa_printf(t_flgs_types *lst)
 				if (neg != 0)
 					newstr[0] = neg;
 			}
+			else
+			{
+				if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
+					return (0);
+				if_flg_not_null(newstr, lst, lst->width, neg);
+			}
 	}
-	else if (lst->prec + sign > lst->width)
+	else if (lst->prec + sign >= lst->width)
 	{
 		int mem_w = lst->prec + sign;
 		if (!(newstr = (char*)malloc(sizeof(char) * (lst->prec + sign + 1))))

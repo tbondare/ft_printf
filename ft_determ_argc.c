@@ -74,6 +74,13 @@ void determine_args(t_flgs_types *prm, va_list args)
 				lst = lst->next;
 				continue ;
 			}
+			else if (lst->prec == -1)
+			{
+				if (check_flg(lst->types, TP_d | TP_D | TP_i))
+					lst->prec = 1;
+				else
+					lst->prec = 0;
+			}
 			ft_if_detetm(lst, args, &next, &i);
 			lst = lst->next;
 			va_end(args);
