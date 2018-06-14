@@ -25,10 +25,10 @@ void tests()
 	printf("\n%d\n\n", 1545);
 
 	ft_printf("%p", 0x25f);
-	printf("\n%p\n\n", 0x25f);
+//	printf("\n%p\n\n", 0x25f);
 
 	ft_printf("%p%d", 0x25f, 25);
-	printf("\n%p%d\n\n", 0x25f, 25);
+//	printf("\n%p%d\n\n", 0x25f, 25);
 
 	ft_printf("1 = %f!\n", 15.45);
 	printf("1 = %f!\n\n", 15.45);
@@ -72,22 +72,22 @@ void tests()
 	printf("%X\n\n", 0);
 
 	ft_printf("%x\n", 4294967296);
-	printf("%x\n\n", 4294967296);
+//	printf("%x\n\n", 4294967296);
 
 	ft_printf("%X\n", 4294967296);
-	printf("%X\n\n", 4294967296);
+//	printf("%X\n\n", 4294967296);
 
 	ft_printf("%hx\n", 4294967296);
-	printf("%hx\n\n", 4294967296);
+//	printf("%hx\n\n", 4294967296);
 
 	ft_printf("%hhX\n", 4294967296);
-	printf("%hhX\n\n", 4294967296);
+//	printf("%hhX\n\n", 4294967296);
 
 	ft_printf("%#x\n", 42);
 	printf("%#x\n\n", 42);
 
 	ft_printf("%#llx\n", 9223372036854775807);
-	printf("%#llx\n\n", 9223372036854775807);
+//	printf("%#llx\n\n", 9223372036854775807);
 
 	ft_printf("%#x\n", 0);
 	printf("%#x\n\n", 0);
@@ -102,7 +102,7 @@ void tests()
 	printf("%#08x\n\n", 42);
 
 	ft_printf("%#-08x\n", 42);
-	printf("%#-08x\n\n", 42);
+//	printf("%#-08x\n\n", 42);
 
 	ft_printf("%-10s is a string\n", "");
 	printf("%-10s is a string\n\n", "");
@@ -150,7 +150,7 @@ void tests()
 	//	printf("%x\n\n", test);
 
 	ft_printf("%s %s %s %s string. gg!\n", "this", "is", "a", "multi", "string");
-	printf("%s %s %s %s string. gg!\n\n", "this", "is", "a", "multi", "string");
+//	printf("%s %s %s %s string. gg!\n\n", "this", "is", "a", "multi", "string");
 
 	ft_printf("%s%s%s%s%s\n", "this", "is", "a", "multi", "string");
 	printf("%s%s%s%s%s\n\n", "this", "is", "a", "multi", "string");
@@ -180,11 +180,11 @@ void tests()
 	ft_printf("%-5c\n", 42);
 	printf("%-5c\n\n", 42);
 
-	ft_printf("%lld\n", -9223372036854775808);
-	printf("%lld\n\n", -9223372036854775808);
+//	ft_printf("%lld\n", -9223372036854775808);
+//	printf("%lld\n\n", -9223372036854775808);
 
-	ft_printf("%jd\n", -9223372036854775808);
-	printf("%jd\n\n", -9223372036854775808);
+//	ft_printf("%jd\n", -9223372036854775808);
+//	printf("%jd\n\n", -9223372036854775808);
 
 	ft_printf("%10.5d\n", 4242);
 	printf("%10.5d\n\n", 4242);
@@ -214,7 +214,7 @@ void tests()
 	printf("%u\n\n", 0);
 
 	ft_printf("%u\n", 4294967296);
-	printf("%u\n\n", 4294967296);
+//	printf("%u\n\n", 4294967296);
 
 	ft_printf("% u\n", 4294967295);
 	ft_printf("% u\n\n", 4294967295);
