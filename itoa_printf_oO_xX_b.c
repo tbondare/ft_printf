@@ -141,7 +141,13 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	else if (check_flg(lst->types, TP_b))
 		base = 2;
 	cnt = ft_cnt_oO_xX_b(lst, base);
-	if (lst->width > cnt && lst->prec <= cnt && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
+	if (lst->prec == 0)
+	{
+		if (!(newstr = (char*)malloc(sizeof(char) * 1)))
+			return (0);
+		newstr[0] = '\0';
+	}
+	else if (lst->width > cnt && lst->prec <= cnt && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
 			return (0);
