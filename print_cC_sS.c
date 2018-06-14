@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:12:55 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/07 16:20:19 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:14:42 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,12 @@ char *print_cC_sS(t_flgs_types *lst)
 	 j = 0;
 	 sgn = ' ';
 	 newstr = NULL;
-	 if (lst->val.ulng == NULL)
-	 {
-		 newstr = (char*)malloc(sizeof(char) * 7);
-		 newstr[i++] = '(';
-		 newstr[i++] = 'n';
-		 newstr[i++] = 'u';
-		 newstr[i++] = 'l';
-		 newstr[i++] = 'l';
-		 newstr[i++] = ')';
-		 newstr[i] = '\0';
-	 }
 	 if (check_flg(lst->types, TP_c))
 	 {
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
 		 {
 			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 newstr[i++] = lst->val.ulng + '0';
+			 newstr[i++] = lst->val.ulng;
 			 lst->width--;
 			 while (lst->width--)
 				 newstr[i++] = sgn;
@@ -52,13 +41,24 @@ char *print_cC_sS(t_flgs_types *lst)
 			 lst->width--;
 			 while (lst->width--)
 				 newstr[i++] = sgn;
-			 newstr[i++] = lst->val.ulng + '0';
+			 newstr[i++] = lst->val.ulng;
 		 }
 		 else
 		 {
 			 newstr = (char*)malloc(sizeof(char) * 2);
-			 newstr[i++] = lst->val.ulng + '0';
+			 newstr[i++] = lst->val.ulng;
 		 }
+		 newstr[i] = '\0';
+	 }
+	 else if (lst->val.str == NULL)
+	 {
+		 newstr = (char*)malloc(sizeof(char) * 7);
+		 newstr[i++] = '(';
+		 newstr[i++] = 'n';
+		 newstr[i++] = 'u';
+		 newstr[i++] = 'l';
+		 newstr[i++] = 'l';
+		 newstr[i++] = ')';
 		 newstr[i] = '\0';
 	 }
 	 else if (check_flg(lst->types, TP_s) && lst->val.str != 0)
