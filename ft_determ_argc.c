@@ -76,7 +76,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 			}
 			else if (lst->prec == -1)
 			{
-				if (check_flg(lst->types, TP_d | TP_D | TP_i))
+				if (check_flg(lst->types, TP_d | TP_D | TP_i | TP_x | TP_X | TP_o | TP_O))
 					lst->prec = 1;
 				else
 					lst->prec = 0;
