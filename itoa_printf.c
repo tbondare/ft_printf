@@ -51,7 +51,8 @@ void if_flg_null(char *newstr, t_flgs_types *lst, int sum, char neg)
 void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
 {
 	newstr[mem_w--] = '\0';
-	output_dgt(lst, newstr, &mem_w, 10);
+	if (lst->prec != 0 || check_flg(lst->types, TP_u | TP_U))
+		output_dgt(lst, newstr, &mem_w, 10);
 	if (neg != 0)
 		newstr[mem_w--] = neg;
 	while (mem_w >= 0)
@@ -66,10 +67,13 @@ char *itoa_printf(t_flgs_types *lst)
 	int num_q;
 	int sign;
 
-	sign = check_is_sign(lst, &neg);
+	if (check_flg(lst->types, TP_u | TP_U))
+		sign = 0;
+	else
+		sign = check_is_sign(lst, &neg);
 	cnt = ft_cnt_i_d_uU_c(lst);
 	num_q = num_qv(lst, cnt);
-	if (lst->prec == 0 && check_flg(lst->types, TP_d | TP_D | TP_i) && lst->val.lng == 0)
+	if (lst->prec == 0 && check_flg(lst->types, TP_d | TP_D | TP_i) && lst->val.lng == 0 && lst->width == 0)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * 1)))
 			return (0);

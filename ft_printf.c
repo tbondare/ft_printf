@@ -98,7 +98,13 @@ int printing_args(t_flgs_types *prm)
 					write(1, &sgn, 1);
 				write(1, "\0", 1);
 			}
-			 else
+			else if (lst->prec > 0)
+			{
+				while (lst->prec-- != 1)
+					write(1, &sgn, 1);
+				write(1, "\0", 1);
+			}
+			else
 				 write(1, "\0", 1);
 		}
 		else if (check_flg(lst->types, TP_s) || check_flg(lst->types, TP_S)

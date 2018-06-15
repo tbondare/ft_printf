@@ -252,6 +252,20 @@ void tests()
 	ft_printf("@moulitest: %.d %.0d\n", 42, 43);
 	printf("@moulitest: %.d %.0d\n\n", 42, 43);
 
+	ft_printf("@moulitest: %5.o %5.0o\n", 0, 0);
+	printf("@moulitest: %5.o %5.0o\n\n", 0, 0);
+
+	ft_printf("@moulitest: %#.o %#.0o\n", 0, 0);
+	printf("@moulitest: %#.o %#.0o\n\n", 0, 0);
+
+	ft_printf("@moulitest: %5.d %5.0d\n", 0, 0);
+	printf("@moulitest: %5.d %5.0d\n\n", 0, 0);
+
+	ft_printf("% u\n", 4294967295);
+	printf("% u\n\n", 4294967295);
+
+	ft_printf("%+u\n", 4294967295);
+	printf("%+u\n\n", 4294967295);
 }
 
 int main()
@@ -262,8 +276,8 @@ int main()
 //	ft_printf("%.2c", NULL);
 //	printf("%.2c", NULL);
 
-	ft_printf("@moulitest: %5.o %5.0o\n", 0, 0);
-//	printf("@moulitest: %5.o %5.0o\n\n", 0, 0);
+	ft_printf("@moulitest: %.5u\n", 42);
+//	printf("@moulitest: %.5u\n\n", 42);
 
 	return (0);
 }
