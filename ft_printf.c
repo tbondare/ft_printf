@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:02:42 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/07 14:38:43 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:40:33 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ int printing_args(t_flgs_types *prm)
 	char *str;
 	int total_strlen;
 	t_flgs_types *lst;
+	char c;
 
 	total_strlen = 0;
 	lst = prm;
+	c = '\0';
 	while (lst)
 	{
 		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
@@ -79,7 +81,7 @@ int printing_args(t_flgs_types *prm)
 			str = print_pct(lst);
 		else if (check_flg(lst->types, TP_c | TP_C) && lst->val.lng == -1)
 		{
-			write(1, '0', 1);
+			write(1, &c, 1);
 			str = NULL;
 		}
 		else if (check_flg(lst->types, TP_s) || check_flg(lst->types, TP_S)
@@ -88,7 +90,10 @@ int printing_args(t_flgs_types *prm)
 		else
 			str = lst->str_out;
 		total_strlen = total_strlen + ft_strlen(str);
-		print_str(str);
+		if (str != 0)
+		   print_str(str);
+		else
+			continue ;
 		lst = lst->next;
 	}
 	return (total_strlen);
