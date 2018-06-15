@@ -25,13 +25,7 @@ char *print_cC_sS(t_flgs_types *lst)
 	 newstr = NULL;
 	 if (check_flg(lst->types, TP_c))
 	 {
-		 if (lst->val.ulng == 0)
-		 {
-			 newstr = (char*)malloc(sizeof(char) * 2);
-			 newstr[0] = '0';
-			 newstr[1] = '\0';
-		 }
-		 else if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
+		 if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
 		 {
 			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
 			 newstr[i++] = lst->val.ulng;
