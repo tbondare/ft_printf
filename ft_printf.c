@@ -77,6 +77,11 @@ int printing_args(t_flgs_types *prm)
 			str = pointer(lst);
 		else if (check_flg(lst->types, TP_pct))
 			str = print_pct(lst);
+		else if (check_flg(lst->types, TP_c | TP_C) && lst->val.lng == -1)
+		{
+			write(1, '0', 1);
+			str = NULL;
+		}
 		else if (check_flg(lst->types, TP_s) || check_flg(lst->types, TP_S)
 				||check_flg(lst->types, TP_c) || check_flg(lst->types, TP_C))
 			str = print_cC_sS(lst);
