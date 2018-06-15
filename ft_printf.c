@@ -58,11 +58,9 @@ int printing_args(t_flgs_types *prm)
 	char *str;
 	int total_strlen;
 	t_flgs_types *lst;
-	char c;
 
 	total_strlen = 0;
 	lst = prm;
-	c = '\0';
 	while (lst)
 	{
 		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
@@ -81,19 +79,28 @@ int printing_args(t_flgs_types *prm)
 			str = print_pct(lst);
 		else if (check_flg(lst->types, TP_c | TP_C) && lst->val.lng == -1)
 		{
-			write(1, &c, 1);
-			str = NULL;
+			write(1, "\0", 1);
+			str = 0;
 		}
 		else if (check_flg(lst->types, TP_s) || check_flg(lst->types, TP_S)
 				||check_flg(lst->types, TP_c) || check_flg(lst->types, TP_C))
 			str = print_cC_sS(lst);
 		else
 			str = lst->str_out;
-		total_strlen = total_strlen + ft_strlen(str);
+//		total_strlen = total_strlen + ft_strlen(str);
 		if (str != 0)
-		   print_str(str);
-		else
+		{
+			print_str(str);
+			total_strlen = total_strlen + ft_strlen(str);
+		}
+		else if (str == 0 && check_flg(lst->types, TP_c) && lst->val.lng == -1)
+		{
+			total_strlen = total_strlen + 1;
+			lst = lst->next;
 			continue ;
+		}
+/*		else
+			continue ; */
 		lst = lst->next;
 	}
 	return (total_strlen);

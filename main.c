@@ -253,14 +253,13 @@ void tests()
 	printf("@moulitest: %.d %.0d\n\n", 42, 43);
 
 }
-void demo(void)
-{}
+
 int main()
 {
 	setlocale(LC_ALL, "");
 //	tests();
 	ft_printf("%.2c", NULL);
-	demo();
+
 //	printf("%.2c", NULL);
 
 //	ft_printf("@moulitest: %c\n", 0);
