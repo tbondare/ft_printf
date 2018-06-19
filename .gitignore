@@ -41,3 +41,8 @@
 Debug/*
 cmake-build-debug/*
 .idea/*
+
+Makefile
+a.out.dSYM/Contents/Info.plist
+libft/Makefile
+main.c

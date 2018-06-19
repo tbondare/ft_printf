@@ -91,8 +91,14 @@ void dtrm_args_with_if(t_flgs_types *lst, va_list args)
 	else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E
 				| TP_f | TP_F | TP_g | TP_G))
 		determ_args_aA_eE_fF_gG(lst, args);
-	else if (check_flg(lst->types, TP_c) && lst->md_lengh == 0)
+	else if (check_flg(lst->types, TP_c | TP_C) && lst->md_lengh == 0)
+	{
 		lst->val.ulng = (unsigned char)va_arg(args, int);
+		if (lst->val.ulng == 0)
+			lst->val.lng = -1;
+	}
+/*	else if (check_flg(lst->types, TP_c) && lst->md_lengh == 0)
+		lst->val.ulng = (unsigned char)va_arg(args, int); */
 	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
 		lst->val.win = (wint_t)va_arg(args, wint_t);
 	else if (check_flg(lst->types, TP_s) && lst->md_lengh == 0)

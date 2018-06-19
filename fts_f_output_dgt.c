@@ -78,7 +78,7 @@ void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
 	}
 	if (lst->prec > i)
 	{
-		while (lst->prec-- > i)
+		while (lst->prec-- > i && *mem_w != 0)
 			newstr[(*mem_w)--] = '0';
 	}
 }
