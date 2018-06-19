@@ -262,10 +262,10 @@ void tests()
 	printf("@moulitest: %5.d %5.0d\n\n", 0, 0);
 
 	ft_printf("% u\n", 4294967295);
-	printf("% u\n\n", 4294967295);
+//	printf("% u\n\n", 4294967295);
 
 	ft_printf("%+u\n", 4294967295);
-	printf("%+u\n\n", 4294967295);
+//	printf("%+u\n\n", 4294967295);
 }
 
 int main()
