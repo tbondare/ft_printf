@@ -225,7 +225,7 @@ void tests()
 int main()
 {
 	setlocale(LC_ALL, "");
-	tests();
+//	tests();
 
 //	ft_printf("%.2c", NULL);
 //  printf("%.2c", NULL);
@@ -233,5 +233,7 @@ int main()
 //	ft_printf("@moulitest: %c\n", 0);
 //	printf("@moulitest: %c\n\n", 0);
 
+    ft_printf("@moulitest: %#.x %#.0x", 0, 0);
+//  printf("@moulitest: %#.x %#.0x", 0, 0);
 	return (0);
 }
