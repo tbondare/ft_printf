@@ -99,7 +99,9 @@ int fill_struct(t_flgs_types **prm, const char *frmt)
 	lst = *prm;
 	while (frmt[i] != '\0')
 	{
-		if (frmt[i] == '%')
+		if (frmt[i] == '%' && frmt[i + 1] == '\0')
+			return 0;
+		else if (frmt[i] == '%' && frmt[i + 1] != '\0')
 			fill_element(&lst, frmt, &i);
 		else
 		{

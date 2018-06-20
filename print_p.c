@@ -18,8 +18,10 @@ char *pointer(t_flgs_types *lst)
   int cnt;
   char *str;
 
-  cnt = 0;
-  dir = (unsigned long long int)lst->val.point;
+    cnt = 0;
+    dir = (unsigned long long int)lst->val.point;
+    if (lst->val.point == 0)
+        cnt = 1;
   while (dir)
   {
 	  dir = dir / 16;
@@ -29,6 +31,8 @@ char *pointer(t_flgs_types *lst)
   dir = (unsigned long long int)lst->val.point;
   str = (char*)malloc(sizeof(char) * (cnt + 1));
   str[cnt--] = '\0';
+    if (lst->val.point == 0)
+        str[cnt--] = '0';
   while (dir)
   {
 	  if (dir % 16 > 9)
