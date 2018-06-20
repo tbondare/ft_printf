@@ -51,7 +51,7 @@ void if_flg_null(char *newstr, t_flgs_types *lst, int sum, char neg)
 void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
 {
 	newstr[mem_w--] = '\0';
-	if (lst->prec != 0 || check_flg(lst->types, TP_u | TP_U))
+	if (lst->val.lng != 0 || lst->prec != 0 || check_flg(lst->types, TP_u | TP_U))
 		output_dgt(lst, newstr, &mem_w, 10);
 	if (neg != 0)
 		newstr[mem_w--] = neg;
@@ -68,7 +68,10 @@ char *itoa_printf(t_flgs_types *lst)
 	int sign;
 
 	if (check_flg(lst->types, TP_u | TP_U))
+	{
 		sign = 0;
+		neg = 0;
+	}
 	else
 		sign = check_is_sign(lst, &neg);
 	cnt = ft_cnt_i_d_uU_c(lst);

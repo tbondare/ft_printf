@@ -59,10 +59,12 @@ int printing_args(t_flgs_types *prm)
 	int total_strlen;
 	t_flgs_types *lst;
 	char sgn;
+	int mem_w;
 
 	total_strlen = 0;
 	lst = prm;
 	sgn = ' ';
+	mem_w = lst->width;
 	while (lst)
 	{
 		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
@@ -98,12 +100,6 @@ int printing_args(t_flgs_types *prm)
 					write(1, &sgn, 1);
 				write(1, "\0", 1);
 			}
-			else if (lst->prec > 0)
-			{
-				while (lst->prec-- != 1)
-					write(1, &sgn, 1);
-				write(1, "\0", 1);
-			}
 			else
 				 write(1, "\0", 1);
 		}
@@ -119,7 +115,10 @@ int printing_args(t_flgs_types *prm)
 		}
 		else if (str == 0 && check_flg(lst->types, TP_c) && lst->val.lng == -1)
 		{
-			total_strlen = total_strlen + 1;
+			if (mem_w != 0)
+				total_strlen = mem_w;
+			else
+				total_strlen = total_strlen + 1;
 			lst = lst->next;
 			continue ;
 		}
