@@ -43,12 +43,12 @@ void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str)
 {
     wchar_t wc;
 
-    if (check_flg(lst->types, TP_c))
+    if (check_flg(lst->types, TP_c | TP_C))
 	{
 		wc = lst->val.win;
 		uf_in_ucod(cnt, wc, str);
 	}
-	else if ((check_flg(lst->types, TP_s)))
+	else if ((check_flg(lst->types, TP_s | TP_S)))
 	{
 		wc = ((wchar_t*)lst->val.point)[i];
 		uf_in_ucod(cnt, wc, str);
@@ -66,13 +66,13 @@ char *print_unicode(t_flgs_types *lst)
 	i = 0;
 	cnt = 1;
 	mem_cnt = 0;
-	if (check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l)))
+	if ((check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_C)))
 	{
 		str = (char*)malloc(sizeof(char) * 4 + 1);
 		bin_op_for_unicode(lst, &cnt, i, str);
 		str[cnt] = '\0';
 	}
-	else if (check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l)))
+	else if ((check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_S)))
 	{
 		while (((wchar_t*)lst->val.point)[i] != '\0')
 			i++;

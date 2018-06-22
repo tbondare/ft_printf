@@ -273,17 +273,10 @@ int main()
 	setlocale(LC_ALL, "");
 //	tests();
 
-//	ft_printf("%.2c", NULL);
-//	printf("%.2c", NULL);
+    ft_printf("%S", L"Á±≥");
+//    printf("%S", L"Á±≥");
 
-//	ft_printf("@moulitest: %.5u\n", 42);
-//	printf("@moulitest: %.5u\n\n", 42);
-int i;
-    i=ft_printf("%2c\n", 0);
-	printf("%i", i);
-    i =printf("%2c\n", 0);
-	printf("%i", i);
-	printf("\n");
-
+//    ft_printf("% Zoooo");
+//    printf("% Zoooo");
 	return (0);
 }

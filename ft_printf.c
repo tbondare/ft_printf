@@ -74,9 +74,11 @@ int printing_args(t_flgs_types *prm)
 		else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E | TP_f 
 					| TP_F | TP_g | TP_G))
 			str = itoa_aA_eE_fF_gG(lst);
-		else if (check_flg(lst->types, TP_C | TP_S | TP_c | TP_s) &&
+		else if (check_flg(lst->types, TP_c | TP_s) &&
 						check_flg(lst->md_lengh, LN_l))
 			str = print_unicode(lst);
+        else if (check_flg(lst->types, TP_C | TP_S))
+            str = print_unicode(lst);
 		else if (check_flg(lst->types, TP_p))
 			str = pointer(lst);
 		else if (check_flg(lst->types, TP_pct))
@@ -133,9 +135,10 @@ int ft_printf(const char *format, ...)
 	t_flgs_types *prm;
 	int total_strlen;
 
+    prm = NULL;
 	va_start(args, format);
 	if(fill_struct(&prm, format) == 0)
-		return(-1);
+		return(0);
 	determine_args(prm, args);
 	total_strlen = printing_args(prm);
 	return (total_strlen);
