@@ -74,6 +74,18 @@ char *print_unicode(t_flgs_types *lst)
 	}
 	else if ((check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_S)))
 	{
+        if ((wchar_t*)lst->val.point == NULL)
+        {
+            str = (char*)malloc(sizeof(char) * 7);
+            str[0] = '(';
+            str[1] = 'n';
+            str[2] = 'u';
+            str[3] = 'l';
+            str[4] = 'l';
+            str[5] = ')';
+            str[6] = '\0';
+            return (str);
+        }
 		while (((wchar_t*)lst->val.point)[i] != '\0')
 			i++;
 		str = (char*)malloc(sizeof(char) * i * 4 + 1);
