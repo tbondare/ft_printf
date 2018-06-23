@@ -109,11 +109,11 @@ int printing_args(t_flgs_types *prm)
 				||check_flg(lst->types, TP_c) || check_flg(lst->types, TP_C))
 			str = print_cC_sS(lst);
 		else
-			str = lst->str_out;
+			str = ft_strdup(lst->str_out);
 		if (str != 0)
 		{
-			print_str(str);
 			total_strlen = total_strlen + ft_strlen(str);
+			print_str(str);
 		}
 		else if (str == 0 && check_flg(lst->types, TP_c) && lst->val.lng == -1)
 		{
@@ -134,6 +134,7 @@ int ft_printf(const char *format, ...)
 	va_list args;
 	t_flgs_types *prm;
 	int total_strlen;
+	t_flgs_types *mem_var;
 
     prm = NULL;
 	va_start(args, format);
@@ -141,5 +142,12 @@ int ft_printf(const char *format, ...)
 		return(0);
 	determine_args(prm, args);
 	total_strlen = printing_args(prm);
+	while (prm)
+    {
+        free(prm->str_out);
+        mem_var = prm->next;
+        free(prm);
+        prm = mem_var;
+    }
 	return (total_strlen);
 }

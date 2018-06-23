@@ -16,25 +16,25 @@ void uf_in_ucod(int *cnt, wchar_t wc, char *str)
 {
 	if (0 <= wc && wc <= 0x7f)
 		str[0] = (char)wc;
-	else if ( 0x80 <= wc && wc <= 0x7ff)
+	else if (0x80 <= wc && wc <= 0x7ff)
 	{
 		str[0] = (0xc0 | (wc >> 6));
 		str[1] = (0x80 | (wc & 0x3f));
 		*cnt = 2;
 	}
-	else if ( 0x800 <= wc && wc <= 0xffff)
+	else if (0x800 <= wc && wc <= 0xffff)
 	{
-		str[0] = ( 0xe0 | (wc >> 12));
-		str[1] = ( 0x80 | ((wc >> 6) & 0x3f));
-		str[2] = ( 0x80 | (wc & 0x3f));
+		str[0] = (0xe0 | (wc >> 12));
+		str[1] = (0x80 | ((wc >> 6) & 0x3f));
+		str[2] = (0x80 | (wc & 0x3f));
 		*cnt = 3;
 	}
 	else if ( 0x10000 <= wc && wc <= 0x1fffff)
 	{
-		str[0] = ( 0xf0 | (wc >> 18));
-		str[1] = ( 0x80 | ((wc >> 12) & 0x3f));
-		str[2] = ( 0x80 | ((wc >> 6) & 0x3f));
-		str[3] = ( 0x80 | (wc & 0x3f));
+		str[0] = (0xf0 | (wc >> 18));
+		str[1] = (0x80 | ((wc >> 12) & 0x3f));
+		str[2] = (0x80 | ((wc >> 6) & 0x3f));
+		str[3] = (0x80 | (wc & 0x3f));
 		*cnt = 4;
 	}
 }
@@ -81,13 +81,15 @@ char *print_unicode(t_flgs_types *lst)
 		j = 0;
 		while (((wchar_t*)lst->val.point)[i] != '\0')
 		{
+		    cnt = 1;
 			bin_op_for_unicode(lst, &cnt, i, &str[j]);
 			mem_cnt = cnt + mem_cnt;
-			while (cnt > 0)
+/*			while (cnt > 0)
 			{
 				j++;
 				cnt--;
-			}
+			}*/
+			j = j + cnt;
 			i++;
 		}
 		str[mem_cnt] = '\0';
