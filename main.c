@@ -1,5 +1,6 @@
 #include "libftprintf.h"
 #include <stdio.h>
+#include <limits.h>
 
 void tests()
 {
@@ -266,24 +267,56 @@ void tests()
 
 	ft_printf("%+u\n", 4294967295);
 //	printf("%+u\n\n", 4294967295);
+
+    int i;
+    char c;
+
+    i = ft_printf("%s%d%p%%%S%D%i%o%O%u%U%x%X%c%C\n","bonjour", 42, &c, L"暖炉", LONG_MAX, 42, 42, 42, 100000, ULONG_MAX, 42, 42, 'c', L'플');
+    printf("%d\n", i);
+//    printf("%s%d%p%%%S%D%i%o%O%u%U%x%X%c%C\n","bonjour", 42, &c, L"暖炉", LONG_MAX, 42, 42, 42, 100000, ULONG_MAX, 42, 42, 'c', L'플');
+    printf("%d\n", i);
+
+    i = ft_printf("%C\n", 0);
+    printf("%d\n", i);
+    i = printf("%C\n", 0);
+    printf("%d\n\n", i);
+
+    ft_printf("%S\n", L"Á±≥");
+    printf("%S\n\n", L"Á±≥");
+
+    i = ft_printf("%ju, %ju\n", 0, ULLONG_MAX);
+    printf("%d\n", i);
+//    i = printf("%ju, %ju\n", 0, ULLONG_MAX);
+    printf("%d\n\n", i);
+
+    i = ft_printf("%zu, %zu\n", 0, ULLONG_MAX);
+    printf("%d\n", i);
+//    i = printf("%zu, %zu\n", 0, ULLONG_MAX);
+    printf("%d\n\n", i);
+
+    i = ft_printf("{%3c}\n", 0);
+    printf("%d\n", i);
+    i = printf("{%3c}\n", 0);
+    printf("%d\n\n", i);
+
+
 }
 
 int main()
 {
+    int i;
+
 	setlocale(LC_ALL, "");
 //	tests();
 
-//    ft_printf("%S", L"Á±≥");
-//    printf("%S", L"Á±≥");
+//  ft_printf("% Zoooo");
+//  printf("% Zoooo");
 
-//    ft_printf("% Zoooo");
-//    printf("% Zoooo");
-int i;
 
-i = ft_printf("%C\n", 0);
-//    printf("%d\n", i);
-i = printf("%C\n", 0);
-//    printf("%d\n", i);
+    i = ft_printf("{%5p}", 0);
+    printf("%d\n", i);
+//    i = printf("{%5p}", 0);
+    printf("%d\n", i);
 
 	return (0);
 }

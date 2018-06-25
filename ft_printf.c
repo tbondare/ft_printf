@@ -64,9 +64,10 @@ int printing_args(t_flgs_types *prm)
 	total_strlen = 0;
 	lst = prm;
 	sgn = ' ';
-	mem_w = lst->width;
+//	mem_w = lst->width;
 	while (lst)
 	{
+        mem_w = lst->width;
 		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
 			str = itoa_printf(lst);
 		else if (check_flg(lst->types, TP_o | TP_O | TP_x | TP_X | TP_b))
@@ -78,7 +79,16 @@ int printing_args(t_flgs_types *prm)
 						check_flg(lst->md_lengh, LN_l))
 			str = print_unicode(lst);
         else if (check_flg(lst->types, TP_C | TP_S))
-            str = print_unicode(lst);
+        {
+            if (check_flg(lst->types, TP_C) && lst->val.win == 0)
+            {
+                str = 0;
+                write(1, "\0", 1);
+                total_strlen = 1;
+            }
+            else
+                str = print_unicode(lst);
+        }
 		else if (check_flg(lst->types, TP_p))
 			str = pointer(lst);
 		else if (check_flg(lst->types, TP_pct))
@@ -105,8 +115,7 @@ int printing_args(t_flgs_types *prm)
 			else
 				 write(1, "\0", 1);
 		}
-		else if (check_flg(lst->types, TP_s) || check_flg(lst->types, TP_S)
-				||check_flg(lst->types, TP_c) || check_flg(lst->types, TP_C))
+		else if (check_flg(lst->types, TP_s | TP_c))
 			str = print_cC_sS(lst);
 		else
 			str = ft_strdup(lst->str_out);
@@ -118,7 +127,7 @@ int printing_args(t_flgs_types *prm)
 		else if (str == 0 && check_flg(lst->types, TP_c) && lst->val.lng == -1)
 		{
 			if (mem_w != 0)
-				total_strlen = mem_w;
+				total_strlen = total_strlen + mem_w;
 			else
 				total_strlen = total_strlen + 1;
 			lst = lst->next;

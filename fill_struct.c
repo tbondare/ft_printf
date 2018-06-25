@@ -48,6 +48,8 @@ void fill_element(t_flgs_types **lst, const char *frmt, int *i)
 	}
 	if (frmt[*i] == '%')
 	{
+        if (frmt[*i + 1] != '\0')
+            lstnewadd(lst);
 		(*lst)->str_out = rejoin((*lst)->str_out, '%');
 		return ;
 	}

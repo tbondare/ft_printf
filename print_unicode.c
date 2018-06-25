@@ -44,7 +44,7 @@ void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str)
     wchar_t wc;
 
     if (check_flg(lst->types, TP_c | TP_C))
-	{
+    {
 		wc = lst->val.win;
 		uf_in_ucod(cnt, wc, str);
 	}

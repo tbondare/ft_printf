@@ -38,7 +38,7 @@ void outp_uoxX_j(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 	
 	lc = localeconv();
 	i = 0;
-	lst->val.uimax == 0 ? newstr[*mem_w] = '0' : 0;
+	lst->val.uimax == 0 ? newstr[(*mem_w)--] = '0' : 0;
 	while (lst->val.uimax)
 	{
 		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')

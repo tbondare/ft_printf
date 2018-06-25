@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:08:48 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:15:20 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/25 19:25:11 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,23 @@ int cnt_oxX(t_flgs_types *lst, int *cnt, int base)
 	return (*cnt);
 }
 
+int cnt_p(t_flgs_types *lst, int *cnt, int base)
+{
+	unsigned long long int n;
+
+	n = (unsigned long long int)lst->val.point;
+	if (lst->val.point == 0)
+		*cnt = 1;
+	else
+		*cnt = 2;
+	while (n)
+	{
+		n = n / base;
+		(*cnt)++;
+	}
+	return (*cnt);
+}
+
 int ft_cnt_oO_xX_b(t_flgs_types *lst, int base)
 {
 	int	cnt;
@@ -50,6 +67,8 @@ int ft_cnt_oO_xX_b(t_flgs_types *lst, int base)
 	cnt = 0;
 	if (check_flg(lst->types, TP_o | TP_x | TP_X) && check_flg(lst->md_lengh, LN_j))
 		return (cnt_oxX_j(lst, &cnt, base));
+	else if (check_flg(lst->types, TP_p))
+		return (cnt_p(lst, &cnt, base));
 	else
 		return (cnt_oxX(lst, &cnt, base));
 }
@@ -140,7 +159,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	base = 0;
 	if (check_flg(lst->types, TP_o | TP_O))
 		base = 8;
-	else if (check_flg(lst->types, TP_x | TP_X))
+	else if (check_flg(lst->types, TP_x | TP_X | TP_p))
 		base = 16;
 	else if (check_flg(lst->types, TP_b))
 		base = 2;
@@ -153,6 +172,15 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 				return (0);
 			newstr[0] = '0';
 			newstr[1] = '\0';
+		}
+		else if (check_flg(lst->types, TP_p))
+		{
+			if (!(newstr = (char*)malloc(sizeof(char) * cnt + 1)))
+				return (0);
+			newstr[0] = '0';
+			newstr[1] = 'x';
+			newstr[2] = '0';
+			newstr[3] = '\0';
 		}
 		else
 		{

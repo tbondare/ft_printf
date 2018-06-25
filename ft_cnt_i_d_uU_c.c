@@ -47,6 +47,8 @@ int cnt_u_j(t_flgs_types *lst, int *cnt)
 	uintmax_t n;
 	
 	n = lst->val.uimax;
+	if (lst->val.uimax == 0)
+		*cnt = 1;
 	while (n)
 	{
 		n = n / 10;

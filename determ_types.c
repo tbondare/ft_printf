@@ -45,7 +45,7 @@ void determ_args_o_u_xX(t_flgs_types *lst, va_list args)
 	else if (check_flg(lst->md_lengh, LN_j))
 		lst->val.uimax = va_arg(args, uintmax_t);
 	else if (check_flg(lst->md_lengh, LN_z))
-		lst->val.lng = va_arg(args, size_t);
+		lst->val.ulng = va_arg(args, size_t);
 }
 
 void determ_args_n(t_flgs_types *lst, va_list args)
