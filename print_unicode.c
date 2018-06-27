@@ -58,53 +58,64 @@ void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str)
 char *print_unicode(t_flgs_types *lst)
 {
 	char *str = NULL;
+	char *allstr = NULL;
 	int cnt;
 	int i;
 	int mem_cnt;
 	int j;
-	
+
 	i = 0;
 	cnt = 1;
 	mem_cnt = 0;
 	if ((check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_C)))
 	{
-		str = (char*)malloc(sizeof(char) * 4 + 1);
+		str = (char *) malloc(sizeof(char) * 4 + 1);
 		bin_op_for_unicode(lst, &cnt, i, str);
 		str[cnt] = '\0';
 	}
 	else if ((check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_S)))
 	{
-        if ((wchar_t*)lst->val.point == NULL)
-        {
-            str = (char*)malloc(sizeof(char) * 7);
-            str[0] = '(';
-            str[1] = 'n';
-            str[2] = 'u';
-            str[3] = 'l';
-            str[4] = 'l';
-            str[5] = ')';
-            str[6] = '\0';
-            return (str);
-        }
-		while (((wchar_t*)lst->val.point)[i] != '\0')
+		if ((wchar_t *) lst->val.point == NULL)
+		{
+			str = (char *) malloc(sizeof(char) * 7);
+			str[0] = '(';
+			str[1] = 'n';
+			str[2] = 'u';
+			str[3] = 'l';
+			str[4] = 'l';
+			str[5] = ')';
+			str[6] = '\0';
+			return (str);
+		}
+		while (((wchar_t *) lst->val.point)[i] != '\0')
 			i++;
-		str = (char*)malloc(sizeof(char) * i * 4 + 1);
+		str = (char *) malloc(sizeof(char) * i * 4 + 1);
 		i = 0;
 		j = 0;
-		while (((wchar_t*)lst->val.point)[i] != '\0')
+		while (((wchar_t *) lst->val.point)[i] != '\0')
 		{
-		    cnt = 1;
+			cnt = 1;
 			bin_op_for_unicode(lst, &cnt, i, &str[j]);
 			mem_cnt = cnt + mem_cnt;
-/*			while (cnt > 0)
-			{
-				j++;
-				cnt--;
-			}*/
 			j = j + cnt;
 			i++;
 		}
 		str[mem_cnt] = '\0';
+		if (check_flg(lst->flags, FL_NULL))
+		{
+			i = 0;
+			j = 0;
+			allstr = (char *) malloc(sizeof(char) * lst->width + 1);
+			lst->width = lst->width - mem_cnt;
+			while (lst->width--)
+				allstr[i++] = '0';
+			while (str[j] != '\0')
+				allstr[i++] = str[j++];
+			free(str);
+			allstr[i] = '\0';
+			return (allstr);
+		}
 	}
 	return (str);
 }
+

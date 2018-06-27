@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:08:48 by tbondare          #+#    #+#             */
-/*   Updated: 2018/06/25 19:25:11 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/05/29 19:15:20 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,13 @@ int cnt_p(t_flgs_types *lst, int *cnt, int base)
 	n = (unsigned long long int)lst->val.point;
 	if (lst->val.point == 0)
 		*cnt = 1;
-	else
-		*cnt = 2;
 	while (n)
 	{
 		n = n / base;
-		(*cnt)++;
+        (*cnt)++;
 	}
-	return (*cnt);
+    *cnt = *cnt + 2;
+    return (*cnt);
 }
 
 int ft_cnt_oO_xX_b(t_flgs_types *lst, int base)
@@ -111,20 +110,28 @@ void if_flg_null_oOxXb(char *newstr, t_flgs_types *lst, int cnt, int base)
 	mem_w = lst->width;
 	mem_val = lst->val.ulng;
 	newstr[mem_w--] = '\0';
-	output_dgt(lst, newstr, &mem_w, base);
-	res = lst->width - cnt;
-	while (res)
+	if (check_flg(lst->types, TP_p) && lst->val.point == 0)
 	{
-		newstr[mem_w--] = '0';
-		res--;
+		lst->width = lst->width - cnt;
+		while (lst->width-- > 0)
+			newstr[mem_w--] = '0';
+		output_dgt(lst, newstr, &mem_w, base);
 	}
-	if (check_flg(lst->flags, FL_GRILL) && mem_val != 0)
+	else
 	{
-		if (check_flg(lst->types, TP_X))
-			newstr[mem_w--] = 'X';
-		else
-			newstr[mem_w--] = 'x';
-		newstr[mem_w--] = '0';
+		output_dgt(lst, newstr, &mem_w, base);
+		res = lst->width - cnt;
+		while (res) {
+			newstr[mem_w--] = '0';
+			res--;
+		}
+		if (check_flg(lst->flags, FL_GRILL) && mem_val != 0) {
+			if (check_flg(lst->types, TP_X))
+				newstr[mem_w--] = 'X';
+			else
+				newstr[mem_w--] = 'x';
+			newstr[mem_w--] = '0';
+		}
 	}
 }
 
@@ -136,7 +143,7 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 	mem_w = lst->width;
 	mem_val = lst->val.ulng;
 	newstr[mem_w--] = '\0';
-	if (lst->prec != 0)
+	if (lst->prec != 0 || check_flg(lst->types, TP_p))
 		output_dgt(lst, newstr, &mem_w, base);
 	if (check_flg(lst->flags, FL_GRILL) && mem_val != 0)
 	{
@@ -164,7 +171,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	else if (check_flg(lst->types, TP_b))
 		base = 2;
 	cnt = ft_cnt_oO_xX_b(lst, base);
-	if (lst->prec == 0 && lst->width == 0)
+	if (lst->prec == 0 && lst->width == 0 && !check_flg(lst->types, TP_p))
 	{
 		if (check_flg(lst->flags, FL_GRILL) && check_flg(lst->types, TP_o | TP_O))
 		{
@@ -173,7 +180,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 			newstr[0] = '0';
 			newstr[1] = '\0';
 		}
-		else if (check_flg(lst->types, TP_p))
+/*		else if (check_flg(lst->types, TP_p))
 		{
 			if (!(newstr = (char*)malloc(sizeof(char) * cnt + 1)))
 				return (0);
@@ -181,7 +188,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 			newstr[1] = 'x';
 			newstr[2] = '0';
 			newstr[3] = '\0';
-		}
+		} */
 		else
 		{
 			if (!(newstr = (char*)malloc(sizeof(char) * 1)))

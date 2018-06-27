@@ -130,3 +130,22 @@ void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
             newstr[(*mem_w)--] = '0';
     }
 }
+
+void outp_p(t_flgs_types *lst, char *newstr, int *mem_w, int base)
+{
+	unsigned long long int dir;
+
+	dir = (unsigned long long int)lst->val.point;
+	if (lst->val.point == 0)
+		newstr[(*mem_w)--] = '0';
+	while (dir)
+	{
+		if (dir % 16 > 9)
+			newstr[(*mem_w)--] = dir % base + 'a' - 10;
+		else
+			newstr[(*mem_w)--] = dir % base + '0';
+		dir = dir / base;
+	}
+	newstr[(*mem_w)--] = 'x';
+	newstr[(*mem_w)--] = '0';
+}

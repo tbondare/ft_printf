@@ -70,7 +70,7 @@ int printing_args(t_flgs_types *prm)
         mem_w = lst->width;
 		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
 			str = itoa_printf(lst);
-		else if (check_flg(lst->types, TP_o | TP_O | TP_x | TP_X | TP_b))
+		else if (check_flg(lst->types, TP_o | TP_O | TP_x | TP_X | TP_p| TP_b))
 			str = itoa_printf_oO_xX_b(lst);
 		else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E | TP_f 
 					| TP_F | TP_g | TP_G))
@@ -84,13 +84,13 @@ int printing_args(t_flgs_types *prm)
             {
                 str = 0;
                 write(1, "\0", 1);
-                total_strlen = 1;
+                total_strlen = total_strlen + 1;
             }
             else
                 str = print_unicode(lst);
         }
-		else if (check_flg(lst->types, TP_p))
-			str = pointer(lst);
+//		else if (check_flg(lst->types, TP_p))
+//			str = pointer(lst);
 		else if (check_flg(lst->types, TP_pct))
 			str = print_pct(lst);
 		else if (check_flg(lst->types, TP_c | TP_C) && lst->val.lng == -1)

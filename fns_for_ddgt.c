@@ -91,4 +91,6 @@ int num_qv(t_flgs_types *lst, int cnt)
 		outp_uU_oO_xX(lst, newstr, mem_w, base);
 	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
 		outp_c_l(lst, newstr, mem_w);
+	else if (check_flg(lst->types, TP_p))
+		outp_p(lst, newstr, mem_w, base);
 }

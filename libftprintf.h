@@ -151,6 +151,8 @@ int cnt_u_j(t_flgs_types *lst, int *cnt);
 int cnt_id_j(t_flgs_types *lst, int *cnt);
 int cnt_idD(t_flgs_types *lst, int *cnt);
 
+int cnt_p(t_flgs_types *lst, int *cnt, int base);
+
 void determine_args(t_flgs_types *prm, va_list args);
 int cnt_args(t_flgs_types *lst);
 void ft_if_detetm(t_flgs_types *lst, va_list args, va_list *next, int *i);
@@ -171,6 +173,8 @@ void output_dgt(t_flgs_types *lst, char *newstr, int *mem_w, int base);
 int num_qv(t_flgs_types *lst, int cnt);
 int check_is_sign(t_flgs_types *lst, char *neg);
 int check_sign_dif_tp(t_flgs_types *lst);
+
+void outp_p(t_flgs_types *lst, char *newstr, int *mem_w, int base);
 
 char *itoa_printf(t_flgs_types *lst);
 void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg);
