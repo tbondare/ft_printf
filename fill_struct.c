@@ -31,6 +31,12 @@ void ft_while_determ(t_flgs_types *lst, const char *frmt, int *i, t_arr_el *arr)
 			(lst)->types = set_flg((lst)->types, arr[frmt[*i] - arr_first].bit_flg);
 			return ;
 		}
+		else
+		{
+			lst->types = set_flg(lst->types, TP_err);
+			lst->val.ulng = frmt[*i];
+			return ;
+		}
 		(*i)++;
 	}
 }

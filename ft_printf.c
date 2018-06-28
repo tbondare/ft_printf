@@ -68,6 +68,8 @@ int printing_args(t_flgs_types *prm)
 	while (lst)
 	{
         mem_w = lst->width;
+        if (check_flg(lst->types, TP_err))
+        	lst->types = set_flg(0, TP_c);
 		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
 			str = itoa_printf(lst);
 		else if (check_flg(lst->types, TP_o | TP_O | TP_x | TP_X | TP_p| TP_b))

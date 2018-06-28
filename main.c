@@ -299,6 +299,10 @@ void tests()
     i = printf("{%3c}\n", 0);
     printf("%d\n\n", i);
 
+    i = ft_printf("{%5p}\n", 0);
+    printf("%d\n", i);
+    i = printf("{%5p}\n", 0);
+    printf("%d\n\n", i);
 
 }
 
@@ -309,14 +313,13 @@ int main()
 	setlocale(LC_ALL, "");
 //	tests();
 
-//  ft_printf("% Zoooo");
+  ft_printf("% Zoooo\n");
 //  printf("% Zoooo");
 
-
-    i = ft_printf("{%5p}", 0);
+    i = ft_printf("{%10R}");
     printf("%d\n", i);
-//    i = printf("{%5p}", 0);
-    printf("%d\n", i);
+//    i = printf("{%10R}");
+//    printf("%d\n", i);
 
 	return (0);
 }

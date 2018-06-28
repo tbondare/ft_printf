@@ -147,8 +147,8 @@ char *itoa_printf(t_flgs_types *lst)
 			newstr[mem_w--] = '0'; */
 		if (neg != 0)
 			newstr[mem_w] = neg;
-		else
-			newstr[mem_w] = '0';
+//		else if (mem_w > 0)
+//			newstr[mem_w] = '0';
 	}
 	return (newstr);
 }

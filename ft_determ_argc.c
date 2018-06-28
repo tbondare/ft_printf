@@ -69,7 +69,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 		lst = prm;
 		  while (lst)
 		  {
-			if (lst->types == 0)
+			if (lst->types == 0 || check_flg(lst->types, TP_err))
 			{
 				lst = lst->next;
 				continue ;
