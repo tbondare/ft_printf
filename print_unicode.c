@@ -101,14 +101,28 @@ char *print_unicode(t_flgs_types *lst)
 			i++;
 		}
 		str[mem_cnt] = '\0';
-		if (check_flg(lst->flags, FL_NULL))
+		if (lst->width > mem_cnt)
 		{
 			i = 0;
 			j = 0;
 			allstr = (char *) malloc(sizeof(char) * lst->width + 1);
 			lst->width = lst->width - mem_cnt;
-			while (lst->width--)
-				allstr[i++] = '0';
+			if (check_flg(lst->flags, FL_NULL))
+				while (lst->width--)
+					allstr[i++] = '0';
+			else if (check_flg(lst->flags, FL_MINUS))
+			{
+				while (str[j] != '\0')
+					allstr[i++] = str[j++];
+				while (lst->width--)
+					allstr[i++] = ' ';
+				allstr[i] = '\0';
+				free(str);
+				return (allstr);
+			}
+			else
+				while (lst->width--)
+					allstr[i++] = ' ';
 			while (str[j] != '\0')
 				allstr[i++] = str[j++];
 			free(str);

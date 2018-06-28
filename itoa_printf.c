@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 18:03:08 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:12:32 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/28 19:17:11 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
 	newstr[mem_w--] = '\0';
 	if (lst->val.lng != 0 || lst->prec != 0 || check_flg(lst->types, TP_u | TP_U))
 		output_dgt(lst, newstr, &mem_w, 10);
+	if (check_flg(lst->types, TP_u | TP_U) && neg == '-')
+	{
+		neg = 0;
+		while (lst->prec-- > 0)
+			newstr[mem_w--] = '0';
+	}
 	if (neg != 0)
 		newstr[mem_w--] = neg;
 	while (mem_w >= 0)
@@ -133,6 +139,11 @@ char *itoa_printf(t_flgs_types *lst)
 			{
 				if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
 					return (0);
+				if (lst->prec > cnt && check_flg(lst->types, TP_u | TP_U))
+				{
+					neg = '-';
+					lst->prec = lst->prec - cnt;
+				}
 				if_flg_not_null(newstr, lst, lst->width, neg);
 			}
 	}
@@ -147,8 +158,8 @@ char *itoa_printf(t_flgs_types *lst)
 			newstr[mem_w--] = '0'; */
 		if (neg != 0)
 			newstr[mem_w] = neg;
-//		else if (mem_w > 0)
-//			newstr[mem_w] = '0';
+		else if (mem_w >= 0)
+			newstr[mem_w] = '0';
 	}
 	return (newstr);
 }

@@ -301,8 +301,8 @@ void tests()
 
     i = ft_printf("{%5p}\n", 0);
     printf("%d\n", i);
-    i = printf("{%5p}\n", 0);
-    printf("%d\n\n", i);
+//    i = printf("{%5p}\n", 0);
+//    printf("%d\n\n", i);
 
 }
 
