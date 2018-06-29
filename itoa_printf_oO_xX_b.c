@@ -240,6 +240,19 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 					res--;
 				}
 			}
+/*            else
+            {
+                if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
+                    return (0);
+                int mem_w = lst->width;
+                cnt = lst->prec - cnt;
+                newstr[mem_w--] = '\0';
+                output_dgt(lst, newstr, &mem_w, base);
+                while (cnt--)
+                    newstr[mem_w--] = '0';
+                while (mem_w--)
+                    newstr[mem_w--] = ' ';
+            } */
 	}
 	else if (lst->prec > lst->width)
 	{
