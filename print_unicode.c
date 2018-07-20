@@ -66,6 +66,7 @@ char *print_unicode(t_flgs_types *lst)
 
 	i = 0;
 	cnt = 1;
+	j = 0;
 	mem_cnt = 0;
 	if ((check_flg(lst->types, TP_c) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_C)))
 	{
@@ -87,18 +88,35 @@ char *print_unicode(t_flgs_types *lst)
 			str[6] = '\0';
 			return (str);
 		}
-		while (((wchar_t *) lst->val.point)[i] != '\0')
-			i++;
-		str = (char *) malloc(sizeof(char) * i * 4 + 1);
-		i = 0;
-		j = 0;
-		while (((wchar_t *) lst->val.point)[i] != '\0')
+		if (lst->prec == 0)
 		{
-			cnt = 1;
-			bin_op_for_unicode(lst, &cnt, i, &str[j]);
-			mem_cnt = cnt + mem_cnt;
-			j = j + cnt;
-			i++;
+			str = (char *) malloc(sizeof(char));
+			mem_cnt = 0;
+		}
+		else
+		{
+			if (lst->prec > 0)
+				str = (char *) malloc(sizeof(char) * lst->prec + 4 + 1);
+			else
+			{
+				while (((wchar_t *) lst->val.point)[i] != '\0')
+					i++;
+				str = (char *) malloc(sizeof(char) * i * 4 + 1);
+				i = 0;
+			}
+			while (((wchar_t *) lst->val.point)[i] != '\0')
+			{
+				cnt = 1;
+				bin_op_for_unicode(lst, &cnt, i, &str[j]);
+				mem_cnt = cnt + mem_cnt;
+				j = j + cnt;
+				if (lst->prec < mem_cnt && lst->prec > 0)
+				{
+					mem_cnt = mem_cnt - cnt;
+					break;
+				}
+				i++;
+			}
 		}
 		str[mem_cnt] = '\0';
 		if (lst->width > mem_cnt)
@@ -132,4 +150,3 @@ char *print_unicode(t_flgs_types *lst)
 	}
 	return (str);
 }
-

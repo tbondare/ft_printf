@@ -43,6 +43,7 @@ t_flgs_types *lstnew(void)
 	newlist->indx_arg_wdth = 0;
 	newlist->indx_arg_prec = 0;
 	newlist->val.lng = 0;
+	newlist->val.ulng = 0;
 	newlist->next = NULL;
 	return (newlist);
 }

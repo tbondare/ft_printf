@@ -121,7 +121,7 @@ void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 			newstr[(*mem_w)--] = lst->val.ulng % base + 'A' - 10;
 		else
 			newstr[(*mem_w)--] = lst->val.ulng % base + '0';
-		lst->val.ulng  = lst->val.ulng / base;
+		lst->val.ulng = lst->val.ulng / base;
 		i++;
 	}
     if (check_flg(lst->types, TP_u| TP_U) && lst->prec > lst->width)
@@ -129,6 +129,13 @@ void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
         while (*mem_w >= 0)
             newstr[(*mem_w)--] = '0';
     }
+    else if (check_flg(lst->types, TP_x| TP_X) && lst->prec > lst->width)
+	{
+		while (*mem_w > 1)
+			newstr[(*mem_w)--] = '0';
+		newstr[(*mem_w)--] = 'x';
+		newstr[(*mem_w)--] = '0';
+	}
 }
 
 void outp_p(t_flgs_types *lst, char *newstr, int *mem_w, int base)
@@ -145,6 +152,11 @@ void outp_p(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 		else
 			newstr[(*mem_w)--] = dir % base + '0';
 		dir = dir / base;
+	}
+	if (lst->prec > lst->width)
+	{
+		while (*mem_w >= 2)
+			newstr[(*mem_w)--] = '0';
 	}
 	newstr[(*mem_w)--] = 'x';
 	newstr[(*mem_w)--] = '0';

@@ -63,7 +63,11 @@ int cnt_uU(t_flgs_types *lst, int *cnt)
 	
 	n = lst->val.ulng;
 	if (lst->val.ulng == 0)
+	{
+		if (lst->prec == 0)
+			return (*cnt);
 		*cnt = 1;
+	}
 	while (n)
 	{
 		n = n / 10;

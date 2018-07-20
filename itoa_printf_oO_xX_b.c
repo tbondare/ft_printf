@@ -49,13 +49,16 @@ int cnt_p(t_flgs_types *lst, int *cnt, int base)
 
 	n = (unsigned long long int)lst->val.point;
 	if (lst->val.point == 0)
-		*cnt = 1;
-	while (n)
+		*cnt = 6;
+	else
 	{
-		n = n / base;
-        (*cnt)++;
+		while (n)
+		{
+			n = n / base;
+			(*cnt)++;
+		}
+		*cnt = *cnt + 2;
 	}
-    *cnt = *cnt + 2;
     return (*cnt);
 }
 
@@ -157,6 +160,17 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 		newstr[mem_w--] = ' ';
 }
 
+void if_val_null(t_flgs_types *lst, char *newstr)
+{
+	newstr[0] = '(';
+	newstr[1] = 'n';
+	newstr[2] = 'u';
+	newstr[3] = 'l';
+	newstr[4] = 'l';
+	newstr[5] = ')';
+	newstr[6] = '\0';
+}
+
 char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 {
 	char* newstr = NULL;
@@ -180,15 +194,6 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 			newstr[0] = '0';
 			newstr[1] = '\0';
 		}
-/*		else if (check_flg(lst->types, TP_p))
-		{
-			if (!(newstr = (char*)malloc(sizeof(char) * cnt + 1)))
-				return (0);
-			newstr[0] = '0';
-			newstr[1] = 'x';
-			newstr[2] = '0';
-			newstr[3] = '\0';
-		} */
 		else
 		{
 			if (!(newstr = (char*)malloc(sizeof(char) * 1)))
@@ -214,50 +219,53 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + 1))))
 			return (0);
-		lst->width = cnt;
-		if_flg_not_null_oOxXb(newstr, lst, base);
+		if (check_flg(lst->types, TP_p) && lst->val.point == 0)
+			if_val_null(lst, newstr);
+		else
+		{
+			lst->width = cnt;
+			if_flg_not_null_oOxXb(newstr, lst, base);
+		}
 	}
 	else if (lst->width > cnt && lst->prec > cnt && lst->width > lst->prec) // w>cnt, cnt <p, w>p (2)
 	{
-			if (check_flg(lst->flags, FL_MINUS))
+		if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
+			return (0);
+		if (check_flg(lst->flags, FL_MINUS))
+		{
+			int mem_w = lst->width;
+			int res;
+			newstr[mem_w--] = '\0';
+			res = lst->width - lst->prec;
+			while (res)
 			{
-				if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
-					return (0);
-				int mem_w = lst->width;
-				int res;
-				newstr[mem_w--] = '\0';
-				res = lst->width - lst->prec;
-				while (res)
-				{
-					newstr[mem_w--] = ' ';
-					res--;
-				}
-				output_dgt(lst, newstr, &mem_w, base);
-				res = lst->prec - cnt;
-				while (res)
-				{
-					newstr[mem_w--] = '0';
-					res--;
-				}
+				newstr[mem_w--] = ' ';
+				res--;
 			}
-/*            else
-            {
-                if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
-                    return (0);
-                int mem_w = lst->width;
-                cnt = lst->prec - cnt;
-                newstr[mem_w--] = '\0';
-                output_dgt(lst, newstr, &mem_w, base);
-                while (cnt--)
-                    newstr[mem_w--] = '0';
-                while (mem_w--)
-                    newstr[mem_w--] = ' ';
-            } */
+			output_dgt(lst, newstr, &mem_w, base);
+			res = lst->prec - cnt;
+			while (res)
+			{
+				newstr[mem_w--] = '0';
+				res--;
+			}
+		}
+		else
+		{
+			int mem_w = lst->width;
+			cnt = lst->prec - cnt;
+			newstr[mem_w--] = '\0';
+			output_dgt(lst, newstr, &mem_w, base);
+			while (cnt--)
+				newstr[mem_w--] = '0';
+			while (mem_w >= 0)
+				newstr[mem_w--] = ' ';
+		}
 	}
 	else if (lst->prec > lst->width)
 	{
-		int mem_w = lst->prec;
-		if (!(newstr = (char*)malloc(sizeof(char) * (lst->prec + 1))))
+        int mem_w = lst->prec + 2;
+		if (!(newstr = (char*)malloc(sizeof(char) * (mem_w + 1))))
 			return (0);
 		newstr[mem_w--] = '\0';
 		output_dgt(lst, newstr, &mem_w, base);

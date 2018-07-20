@@ -66,8 +66,8 @@ char *print_cC_sS(t_flgs_types *lst)
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
 		 {
 			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 if (lst->prec == 0)
-				 lst->prec = ft_strlen(lst->val.str);
+//			 if (lst->prec == 0)
+//				 lst->prec = ft_strlen(lst->val.str);
 			 while (lst->val.str[i] && lst->prec > 0)
 			 {
 				 newstr[i] = lst->val.str[i];
@@ -78,19 +78,19 @@ char *print_cC_sS(t_flgs_types *lst)
 			  while (lst->width--)
 				  newstr[i++] = sgn;
 		 }
-		 else if (lst->width > (int)ft_strlen(lst->val.str))
+		 else if (lst->width > (int)ft_strlen(lst->val.str) || lst->width > lst->prec)
 		 {
 			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
 			 if (check_flg(lst->flags, FL_NULL))
 				 sgn = '0';
-			 if (lst->prec < (int)ft_strlen(lst->val.str) && lst->prec > 0)
+			 if (lst->prec < (int)ft_strlen(lst->val.str) && lst->prec >= 0)
 				 lst->width = lst->width - lst->prec;
 			 else
 				 lst->width = lst->width - ft_strlen(lst->val.str);
 			 while (lst->width--)
 				 newstr[i++] = sgn;
-			 if (lst->prec == 0)
-				 lst->prec = ft_strlen(lst->val.str);
+//			 if (lst->prec == 0)
+//				 lst->prec = ft_strlen(lst->val.str);
 			 while (lst->val.str[j] && lst->prec > 0)
 			 {
 				 newstr[i] = lst->val.str[j];
