@@ -48,10 +48,12 @@ void determine_precision(const char *frmt, int *i, t_flgs_types *lst)
 	char *num;
 	
 	(*i)++;
-	if ((frmt[*i] < '0' || frmt[*i] > '9') && frmt[*i] != '*')
+	if ((frmt[*i] <= '0' || frmt[*i] > '9') && frmt[*i] != '*')
 	{
 		lst->prec = 0;
-		(*i)--;
+		lst->prec_star = '-';
+		if (frmt[*i] != '0')
+			(*i)--;
 		return ;
 	}
 	if ((frmt[*i] == '*'))

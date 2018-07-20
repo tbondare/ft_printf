@@ -88,7 +88,7 @@ char *print_unicode(t_flgs_types *lst)
 			str[6] = '\0';
 			return (str);
 		}
-		if (lst->prec == 0)
+		if (lst->prec == 0 && lst->prec_star == '-')
 		{
 			str = (char *) malloc(sizeof(char));
 			mem_cnt = 0;

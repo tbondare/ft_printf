@@ -160,7 +160,7 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 		newstr[mem_w--] = ' ';
 }
 
-void if_val_null(t_flgs_types *lst, char *newstr)
+void if_val_null(char *newstr)
 {
 	newstr[0] = '(';
 	newstr[1] = 'n';
@@ -220,7 +220,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + 1))))
 			return (0);
 		if (check_flg(lst->types, TP_p) && lst->val.point == 0)
-			if_val_null(lst, newstr);
+			if_val_null(newstr);
 		else
 		{
 			lst->width = cnt;
@@ -264,7 +264,11 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	}
 	else if (lst->prec > lst->width)
 	{
-        int mem_w = lst->prec + 2;
+		int mem_w = 0;
+        if (check_flg(lst->types, TP_o | TP_O))
+			mem_w = lst->prec;
+		else
+			mem_w = lst->prec + 2;
 		if (!(newstr = (char*)malloc(sizeof(char) * (mem_w + 1))))
 			return (0);
 		newstr[mem_w--] = '\0';
