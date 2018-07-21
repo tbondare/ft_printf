@@ -83,6 +83,8 @@ void determine_args(t_flgs_types *prm, va_list args)
 					lst->prec = 0;
 					lst->prec_star = 0;
 				}
+                else if (check_flg(lst->types, TP_p))
+                    lst->prec = -1;
 				else
 					lst->prec = 0;
 			}

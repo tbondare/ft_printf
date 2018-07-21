@@ -52,14 +52,26 @@ char *print_cC_sS(t_flgs_types *lst)
 	 }
 	 else if (lst->val.str == NULL)
 	 {
-		 newstr = (char*)malloc(sizeof(char) * 7);
-		 newstr[i++] = '(';
-		 newstr[i++] = 'n';
-		 newstr[i++] = 'u';
-		 newstr[i++] = 'l';
-		 newstr[i++] = 'l';
-		 newstr[i++] = ')';
-		 newstr[i] = '\0';
+		 if (lst->prec_star == '-' && lst->width > 0)
+		 {
+			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
+			 if (check_flg(lst->flags, FL_NULL))
+				 sgn = '0';
+			 while (lst->width-- > 0)
+				 newstr[i++] = sgn;
+			 newstr[i] = '\0';
+		 }
+		 else
+		 {
+			 newstr = (char*)malloc(sizeof(char) * 7);
+			 newstr[i++] = '(';
+			 newstr[i++] = 'n';
+			 newstr[i++] = 'u';
+			 newstr[i++] = 'l';
+			 newstr[i++] = 'l';
+			 newstr[i++] = ')';
+			 newstr[i] = '\0';
+		 }
 	 }
 	 else if (check_flg(lst->types, TP_s) && lst->val.str != 0)
 	 {

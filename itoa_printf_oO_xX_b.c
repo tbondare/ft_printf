@@ -48,8 +48,10 @@ int cnt_p(t_flgs_types *lst, int *cnt, int base)
 	unsigned long long int n;
 
 	n = (unsigned long long int)lst->val.point;
-	if (lst->val.point == 0)
-		*cnt = 6;
+/*	if (lst->val.point == 0 && lst->prec == 0)
+		*cnt = 6; */
+    if (lst->val.point == 0 && lst->prec == -1)
+        *cnt = 3;
 	else
 	{
 		while (n)
@@ -142,12 +144,16 @@ void if_flg_not_null_oOxXb(char *newstr, t_flgs_types *lst, int base)
 {
 	int mem_w;
 	unsigned long long mem_val;
-
-	mem_w = lst->width;
+    mem_w = lst->width;
 	mem_val = lst->val.ulng;
 	newstr[mem_w--] = '\0';
-	if (lst->prec != 0 || check_flg(lst->types, TP_p))
+	if (lst->prec != 0 || (check_flg(lst->types, TP_p) && lst->prec != 0))
 		output_dgt(lst, newstr, &mem_w, base);
+    else if (check_flg(lst->types, TP_p) && lst->prec == 0)
+    {
+        newstr[mem_w--] = 'x';
+        newstr[mem_w--] = '0';
+    }
 	if (check_flg(lst->flags, FL_GRILL) && mem_val != 0)
 	{
 		if (check_flg(lst->types, TP_X))
@@ -219,8 +225,13 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + 1))))
 			return (0);
-		if (check_flg(lst->types, TP_p) && lst->val.point == 0)
-			if_val_null(newstr);
+        if (check_flg(lst->types, TP_p) && lst->prec < 0 && lst->val.point == 0)
+        {
+            lst->width = cnt;
+            if_flg_not_null_oOxXb(newstr, lst, base);
+        }
+//		if (check_flg(lst->types, TP_p) && lst->val.point == 0 && lst->prec == 0)
+//			if_val_null(newstr);
 		else
 		{
 			lst->width = cnt;
@@ -265,7 +276,7 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 	else if (lst->prec > lst->width)
 	{
 		int mem_w = 0;
-        if (check_flg(lst->types, TP_o | TP_O))
+        if (check_flg(lst->types, TP_o | TP_O | TP_x | TP_X) && !(check_flg(lst->flags, FL_GRILL)))
 			mem_w = lst->prec;
 		else
 			mem_w = lst->prec + 2;
@@ -273,8 +284,16 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
 			return (0);
 		newstr[mem_w--] = '\0';
 		output_dgt(lst, newstr, &mem_w, base);
-		while (mem_w >= 0)
-			newstr[mem_w--] = '0';
+        if (check_flg(lst->flags, FL_GRILL))
+        {
+            while (mem_w > 1)
+                newstr[(mem_w)--] = '0';
+            newstr[(mem_w)--] = 'x';
+            newstr[(mem_w)--] = '0';
+        }
+        else
+            while (mem_w >= 0)
+                newstr[mem_w--] = '0';
 	}
 	return (newstr);
 }
