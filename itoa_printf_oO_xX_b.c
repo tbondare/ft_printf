@@ -204,6 +204,10 @@ char *itoa_printf_oO_xX_b(t_flgs_types *lst)
         {
             if (!(newstr = (char*)malloc(sizeof(char) * cnt + 1)))
                 return (0);
+            newstr[cnt--] = '\0';
+            output_dgt(lst, newstr, &cnt, base);
+            if (check_flg(lst->flags, FL_GRILL))
+                newstr[cnt] = '0';
         }
 		else
 		{

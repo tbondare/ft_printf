@@ -82,6 +82,8 @@ char *itoa_printf(t_flgs_types *lst)
 		sign = check_is_sign(lst, &neg);
 	cnt = ft_cnt_i_d_uU_c(lst);
 	num_q = num_qv(lst, cnt);
+	if (lst->wdth_star == '*' && lst->width < 0)
+		lst->width = lst->width * -1;
 	if (lst->prec == 0 && check_flg(lst->types, TP_d | TP_D | TP_i) && lst->val.lng == 0 && lst->width == 0)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * 1)))

@@ -98,6 +98,11 @@ int printing_args(t_flgs_types *prm)
 		else if (check_flg(lst->types, TP_c | TP_C) && lst->val.lng == -1)
 		{
 			str = 0;
+            if (lst->wdth_star == '*' && lst->width < 0)
+            {
+                lst->width = lst->width * -1;
+                mem_w = lst->width;
+            }
 			if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
 			{
 				write(1, "\0", 1);
