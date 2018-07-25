@@ -67,6 +67,7 @@ int printing_args(t_flgs_types *prm)
 //	mem_w = lst->width;
 	while (lst)
 	{
+
         mem_w = lst->width;
         if (check_flg(lst->types, TP_err))
         	lst->types = set_flg(0, TP_c);

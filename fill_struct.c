@@ -77,12 +77,12 @@ void index_args (t_flgs_types *lst)
 	cnt = 1;
 	while (lst)
 	{
-		if (lst->wdth_star == '*' && lst->width == 0)
+		if (lst->wdth_star == '*' && lst->width >= 0)
 		{
 			lst->indx_arg_wdth = cnt;
 			cnt++;
 		}
-		if (lst->prec_star == '*' && lst->prec == 0)
+		if (lst->prec_star == '*' && lst->prec == -1)
 		{
 			lst->indx_arg_prec = cnt;
 			cnt++;

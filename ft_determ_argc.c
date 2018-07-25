@@ -51,6 +51,8 @@ void ft_if_detetm(t_flgs_types *lst, va_list args, va_list *next, int *i)
 		va_end(*next);
 		va_copy(*next, args);
 		lst->prec = va_arg(*next, int);
+        if (lst->prec == 0 && lst->prec_star == '*')
+            lst->prec_star = '-';
 	}
 }
 
@@ -78,7 +80,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 			{
 				if (check_flg(lst->types, TP_d | TP_D | TP_i | TP_x | TP_X | TP_o | TP_O | TP_u | TP_U))
 					lst->prec = 1;
-				else if (check_flg(lst->types, TP_S | TP_s))
+				else if (check_flg(lst->types, TP_S | TP_s) && lst->prec_star != '*')
 				{
 					lst->prec = 0;
 					lst->prec_star = 0;
