@@ -41,7 +41,7 @@ int cnt_till_aA_eE_fF_gG(int base, long double *mem_val, t_flgs_types *lst)
 	int cnt;
 	
 	cnt = 0;
-	*mem_val =  *mem_val < 0 ? -  *mem_val :  *mem_val;
+	*mem_val =  *mem_val < 0 ? - *mem_val : *mem_val;
 	if (*mem_val >= 1)
 	{
 		while (*mem_val >= 1)

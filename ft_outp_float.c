@@ -24,6 +24,12 @@ char *outp_float(t_flgs_types *lst, int num_dgt, int cnt, long double *mem_val)
 	i = 0;
 	mem_cnt = cnt;
 	arr = (char*)malloc(sizeof(char) * (num_dgt + 2));
+	if (lst->val.lndbl < 0)
+	{
+		lst->val.lndbl = lst->val.lndbl * -1;
+		arr[i++] = '-';
+		num_dgt--;
+	}
 	if (lst->val.lndbl < 1)
 	{
 		arr[i++] = '0';

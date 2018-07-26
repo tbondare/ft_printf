@@ -184,18 +184,18 @@ char *itoa_aA_eE_fF_gG(t_flgs_types *lst)
 	long double mem_val;
 
 	num_q = 0;
-	mem_val = lst->val.lndbl;
 	sign = check_is_sign_in_float(lst, &neg);
 	if (check_flg(lst->types, TP_a | TP_A))
 		base = 16;
 	else
 		base = 10;
+	mem_val = lst->val.lndbl;
 	cnt = cnt_till_aA_eE_fF_gG(base, &mem_val, lst);
 	if (check_flg(lst->types, TP_f | TP_F | TP_g | TP_G))
 		num_q = num_qv(lst, cnt);
 	if (lst->prec == 0)
 		lst->prec = 6;
-	arr = outp_float(lst, cnt + lst->prec, cnt, &mem_val);
+	arr = outp_float(lst, cnt + lst->prec + sign + num_q, cnt, &mem_val);
 /*	if (lst->width > cnt + num_q + sign && lst->prec <= cnt + num_q && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
