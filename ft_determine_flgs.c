@@ -73,13 +73,14 @@ void determine_precision(const char *frmt, int *i, t_flgs_types *lst)
 void determine_width(const char *frmt, int *i, t_flgs_types *lst)
 {
 	char *num;
-	
+
 	lst->wdth_star = '*';
 	if ((frmt[(*i) + 1] < '0' || frmt[(*i) + 1] > '9'))
 		return ;
 	(*i)++;
 	num = create_dgt_str(frmt, i);
-	lst->width = ft_atoi(num);
+	lst->mem = ft_atoi(num);
+    (*i)--;
 	free(num);
 }
 

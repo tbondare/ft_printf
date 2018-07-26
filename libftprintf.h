@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/07/20 14:27:28 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/06/07 15:11:58 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_flgs_types
 	int					indx_arg_wdth;
 	int					indx_arg_prec;
 	t_value				val;
+	int mem;
 	struct s_flgs_types	*next;
 }						t_flgs_types;
 
@@ -199,7 +200,5 @@ void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str);
 void uf_in_ucod(int *cnt, wchar_t wc, char *str);
 
 char *print_pct(t_flgs_types *lst);
-
-void if_val_null(char *newstr);
 
 #endif /* LIBFTPRINTF_H_ */

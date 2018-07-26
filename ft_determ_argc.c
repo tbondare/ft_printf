@@ -43,6 +43,8 @@ void ft_if_detetm(t_flgs_types *lst, va_list args, va_list *next, int *i)
 		va_end(*next);
 		va_copy(*next, args);
 		lst->width = va_arg(*next, int);
+		if (lst->mem > 0)
+			lst->width = lst->mem;
 		if (lst->width < 0)
 			lst->flags = set_flg(lst->flags, FL_MINUS);
 	}

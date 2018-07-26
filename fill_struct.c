@@ -17,9 +17,9 @@ void ft_while_determ(t_flgs_types *lst, const char *frmt, int *i, t_arr_el *arr)
 	while (frmt[*i] != '\0')
 	{
 		if (frmt[*i] > '0' && frmt[*i] <= '9')
-			determine_dgt_data(frmt, i, lst);
+            determine_dgt_data(frmt, i, lst);
 		else if (frmt[*i] == '*')
-			determine_width(frmt, i, lst);
+            determine_width(frmt, i, lst);
 		else if (frmt[*i] == '.')
 			determine_precision(frmt, i, lst);
 		else if (arr[frmt[*i] - arr_first].flg_or_tp_or_ln == AR_fl)
