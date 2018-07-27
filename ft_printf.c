@@ -15,7 +15,8 @@
 void print_str(char *str)
 {
 	write(1, str, ft_strlen(str));
-	free(str);
+	ft_strdel(&str);
+//	free(str);
 }
 
 char *print_pct(t_flgs_types *lst)
@@ -161,7 +162,8 @@ int ft_printf(const char *format, ...)
 	total_strlen = printing_args(prm);
 	while (prm)
     {
-        free(prm->str_out);
+//      free(prm->str_out);
+		ft_strdel(&(prm->str_out));
         mem_var = prm->next;
         free(prm);
         prm = mem_var;

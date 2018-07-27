@@ -76,6 +76,7 @@ char *rejoin(char *s1, const char c)
 {
 	char *tmp;
 	tmp = ft_strchar(s1, c);
-	free(s1);
+	ft_strdel(&s1);
+//	free(s1);
 	return (tmp);
 }
