@@ -92,6 +92,8 @@ void determine_args(t_flgs_types *prm, va_list args)
 				else
 					lst->prec = 0;
 			}
+			else if (lst->prec < 0 && lst->prec != -1)
+				lst->prec = -lst->prec;
 			ft_if_detetm(lst, args, &next, &i);
 			lst = lst->next;
 			va_end(args);
