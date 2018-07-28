@@ -66,45 +66,47 @@ void determ_args_n(t_flgs_types *lst, va_list args)
 		lst->val.point = va_arg(args, size_t*);
 }
 
-void determ_args_aA_eE_fF_gG(t_flgs_types *lst, va_list args)
+void else_determ(t_flgs_types *lst, va_list args)
 {
-	if (lst->md_lengh == 0)
-		lst->val.lndbl = va_arg(args, double);
-	else if (check_flg(lst->md_lengh, LN_l))
-		lst->val.lndbl = va_arg(args, double);
-	else if (check_flg(lst->md_lengh, LN_L))
-		lst->val.lndbl = va_arg(args, long double);
+	if ((check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l)) ||
+			(check_flg(lst->types, TP_C)))
+		lst->val.win = (wint_t)va_arg(args, wint_t);
+	else if (check_flg(lst->types, TP_D))
+		lst->val.lng = va_arg(args, long int);
+	else if (check_flg(lst->types, TP_O | TP_U))
+		lst->val.ulng = va_arg(args, unsigned long int);
+	else if (check_flg(lst->types, tp_s) && lst->md_lengh == 0)
+		lst->val.str = va_arg(args, char*);
+	else if ((check_flg(lst->types, tp_s) && check_flg(lst->md_lengh, LN_l)) ||
+			(check_flg(lst->types, tp_sa)))
+		lst->val.point = va_arg(args, wchar_t*);
+	else if (check_flg(lst->types, TP_p))
+		lst->val.point = va_arg(args, void*);
 }
 
 void dtrm_args_with_if(t_flgs_types *lst, va_list args)
 {
 	if (check_flg(lst->types, TP_i | TP_d))
 		determ_args_d_i(lst, args);
-	else if (check_flg(lst->types, TP_D))
-		lst->val.lng = va_arg(args, long int);
-	else if (check_flg(lst->types, TP_O | TP_U))
-		lst->val.ulng = va_arg(args, unsigned long int);
 	else if (check_flg(lst->types, TP_o | TP_u | TP_x | TP_X))
 		determ_args_o_u_xX(lst, args);
 	else if (check_flg(lst->types, TP_n))
 		determ_args_n(lst, args);
 	else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E
 				| TP_f | TP_F | TP_g | TP_G))
-		determ_args_aA_eE_fF_gG(lst, args);
+	{
+		if (lst->md_lengh == 0)
+			lst->val.lndbl = va_arg(args, double);
+		else if (check_flg(lst->md_lengh, LN_l))
+			lst->val.lndbl = va_arg(args, double);
+		else if (check_flg(lst->md_lengh, LN_L))
+			lst->val.lndbl = va_arg(args, long double);
+	}
 	else if (check_flg(lst->types, TP_c) && lst->md_lengh == 0)
 	{
 		lst->val.ulng = (unsigned char)va_arg(args, int);
 		if (lst->val.ulng == 0)
 			lst->val.lng = -1;
 	}
-/*	else if (check_flg(lst->types, TP_c) && lst->md_lengh == 0)
-		lst->val.ulng = (unsigned char)va_arg(args, int); */
-	else if ((check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l)) || (check_flg(lst->types, TP_C)))
-		lst->val.win = (wint_t)va_arg(args, wint_t);
-	else if (check_flg(lst->types, TP_s) && lst->md_lengh == 0)
-		lst->val.str = va_arg(args, char*);
-	else if ((check_flg(lst->types, TP_s) && check_flg(lst->md_lengh, LN_l)) || (check_flg(lst->types, TP_S)))
-		lst->val.point = va_arg(args, wchar_t*);
-	else if (check_flg(lst->types, TP_p))
-		lst->val.point = va_arg(args, void*);
+	else_determ(lst, args);
 }

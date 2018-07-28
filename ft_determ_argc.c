@@ -82,7 +82,7 @@ void determine_args(t_flgs_types *prm, va_list args)
 			{
 				if (check_flg(lst->types, TP_d | TP_D | TP_i | TP_x | TP_X | TP_o | TP_O | TP_u | TP_U))
 					lst->prec = 1;
-				else if (check_flg(lst->types, TP_S | TP_s) && lst->prec_star != '*')
+				else if (check_flg(lst->types, tp_sa | tp_s) && lst->prec_star != '*')
 				{
 					lst->prec = 0;
 					lst->prec_star = 0;

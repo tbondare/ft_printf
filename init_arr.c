@@ -45,9 +45,9 @@ void init_length(t_arr_el *arr)
 void init_types_1(t_arr_el *arr)
 {
 	arr['s' - arr_first].flg_or_tp_or_ln = AR_tp;
-	arr['s' - arr_first].bit_flg = TP_s;
+	arr['s' - arr_first].bit_flg = tp_s;
 	arr['S' - arr_first].flg_or_tp_or_ln = AR_tp;
-	arr['S' - arr_first].bit_flg = TP_S;
+	arr['S' - arr_first].bit_flg = tp_sa;
 	arr['p' - arr_first].flg_or_tp_or_ln = AR_tp;
 	arr['p' - arr_first].bit_flg = TP_p;
 	arr['d' - arr_first].flg_or_tp_or_ln = AR_tp;

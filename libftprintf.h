@@ -78,8 +78,8 @@ static const int		LN_ll = 16;
 static const int		LN_j = 32;
 static const int		LN_z = 64;
 
-static const int		TP_s = 1;
-static const int		TP_S = 2;
+static const int		tp_s = 1;
+static const int		tp_sa = 2;
 static const int		TP_p = 4;
 static const int		TP_d = 8;
 static const int		TP_D = 16;
@@ -134,8 +134,8 @@ char					*ft_strchar(char const *s1, char const c);
 void					determ_args_d_i(t_flgs_types *lst, va_list args);
 void					determ_args_o_u_xX(t_flgs_types *lst, va_list args);
 void					determ_args_n(t_flgs_types *lst, va_list args);
-void					determ_args_aA_eE_fF_gG(t_flgs_types *lst, va_list args);
 void					dtrm_args_with_if(t_flgs_types *lst, va_list args);
+void					else_determ(t_flgs_types *lst, va_list args);
 
 void					determine_args(t_flgs_types *prm, va_list args);
 void					ft_if_detetm (t_flgs_types *lst, va_list args, va_list *next, int *i);

@@ -48,7 +48,7 @@ void bin_op_for_unicode(t_flgs_types *lst, int *cnt, int i, char *str)
 		wc = lst->val.win;
 		uf_in_ucod(cnt, wc, str);
 	}
-	else if ((check_flg(lst->types, TP_s | TP_S)))
+	else if ((check_flg(lst->types, tp_s | tp_sa)))
 	{
 		wc = ((wchar_t*)lst->val.point)[i];
 		uf_in_ucod(cnt, wc, str);
@@ -74,7 +74,7 @@ char *print_unicode(t_flgs_types *lst)
 		bin_op_for_unicode(lst, &cnt, i, str);
 		str[cnt] = '\0';
 	}
-	else if ((check_flg(lst->types, TP_s) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, TP_S)))
+	else if ((check_flg(lst->types, tp_s) && (check_flg(lst->md_lengh, LN_l))) || (check_flg(lst->types, tp_sa)))
 	{
 		if ((wchar_t *) lst->val.point == NULL)
 		{

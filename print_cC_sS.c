@@ -73,7 +73,7 @@ char *print_cC_sS(t_flgs_types *lst)
 			 newstr[i] = '\0';
 		 }
 	 }
-	 else if (check_flg(lst->types, TP_s) && lst->val.str != 0)
+	 else if (check_flg(lst->types, tp_s) && lst->val.str != 0)
 	 {
 		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
 		 {

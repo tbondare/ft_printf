@@ -126,8 +126,8 @@ void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 	}
     if (check_flg(lst->types, TP_u| TP_U) && lst->prec > lst->width)
     {
-        while (*mem_w >= 0)
-            newstr[(*mem_w)--] = '0';
+		while (*mem_w >= 0)
+			newstr[(*mem_w)--] = '0';
     }
 /*	else if (check_flg(lst->types, TP_x| TP_X) && lst->prec > lst->width)
 		while (*mem_w >= 0)

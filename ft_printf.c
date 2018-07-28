@@ -78,10 +78,10 @@ int printing_args(t_flgs_types *prm)
 		else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E | TP_f 
 					| TP_F | TP_g | TP_G))
 			str = itoa_aA_eE_fF_gG(lst);
-		else if (check_flg(lst->types, TP_c | TP_s) &&
+		else if (check_flg(lst->types, TP_c | tp_s) &&
 						check_flg(lst->md_lengh, LN_l))
 			str = print_unicode(lst);
-        else if (check_flg(lst->types, TP_C | TP_S))
+        else if (check_flg(lst->types, TP_C | tp_sa))
         {
             if (check_flg(lst->types, TP_C) && lst->val.win == 0)
             {
@@ -123,7 +123,7 @@ int printing_args(t_flgs_types *prm)
 			else
 				 write(1, "\0", 1);
 		}
-		else if (check_flg(lst->types, TP_s | TP_c))
+		else if (check_flg(lst->types, tp_s | TP_c))
 			str = print_cC_sS(lst);
 		else
 			str = ft_strdup(lst->str_out);
