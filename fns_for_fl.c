@@ -12,16 +12,17 @@
 
 #include "libftprintf.h"
 
-int check_is_sign_in_float(t_flgs_types *lst, char *neg)
+int		check_is_sign_in_float(t_fl_tp *lst, char *neg)
 {
 	int sign;
+
 	sign = 0;
-	if (check_flg(lst->flags, FL_PLUS))
+	if (check_fl(lst->flg, fl_plus))
 	{
 		*neg = lst->val.lndbl < 0 ? '-' : '+';
 		sign = 1;
 	}
-	else if (check_flg(lst->flags, FL_SPACE))
+	else if (check_fl(lst->flg, fl_space))
 	{
 		*neg = lst->val.lndbl < 0 ? '-' : ' ';
 		sign = 1;
@@ -36,7 +37,7 @@ int check_is_sign_in_float(t_flgs_types *lst, char *neg)
 	return (sign);
 }
 
-int cnt_till_aA_eE_fF_gG(int base, long double *mem_val, t_flgs_types *lst)
+int		cnt_till_aa_ee_ff_gg(int base, long double *mem_val, t_fl_tp *lst)
 {
 	int cnt;
 	
@@ -58,30 +59,38 @@ int cnt_till_aA_eE_fF_gG(int base, long double *mem_val, t_flgs_types *lst)
 			cnt++;
 		}
 		*mem_val = lst->val.lndbl;
-		if (check_flg(*mem_val, TP_e | TP_E | TP_g | TP_G))
+		if (check_fl(*mem_val, tp_e | tp_ea | tp_g | tp_ga))
 			cnt = -cnt;
 	}
 	return (cnt);
 }
 
-char *quote(char *arr, int cnt)
+char	*if_quote(char *arr, int *cnt, int *i, int *j)
 {
 	char *str;
-	int i;
-	int j;
-	int multiple;
-	struct lconv *lc;
+
+	if ((*cnt) % 3 == 0)
+		*cnt = (*cnt) / 3 - 1;
+	else if ((*cnt) % 3 != 0)
+		*cnt = (*cnt) / 3;
+	while (arr[(*i)] != '\0')
+		(*i)++;
+	*j = *i + *cnt;
+	str = (char *)malloc(sizeof(char) * *j + 1);
+	return (str);
+}
+
+char	*quote(char *arr, int cnt)
+{
+	char	*str;
+	int		i;
+	int		j;
+	int		multiple;
+	struct	lconv *lc;
 	
 	lc = localeconv();
 	i = 0;
-	if (cnt % 3 == 0)
-		cnt = cnt / 3 - 1;
-	else if (cnt % 3 != 0)
-		cnt = cnt / 3;
-	while (arr[i] != '\0')
-		i++;
-	j = i + cnt;
-	str = (char *)malloc(sizeof(char) * j + 1);
+	str = if_quote(arr, &cnt, &i, &j);
 	while (arr[i] != *(lc->decimal_point))
 		str[j--] = arr[i--];
 	str[j--] = arr[i--];
@@ -94,6 +103,6 @@ char *quote(char *arr, int cnt)
 		cnt--;
 	}
 	str[j] = arr[i];
-	free (arr);
+	ft_strdel(&arr);
 	return (str);
 }

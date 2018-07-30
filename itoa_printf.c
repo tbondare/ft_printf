@@ -12,14 +12,14 @@
 
 # include "libftprintf.h"
 
-void if_fl_minus(char *newstr, t_flgs_types *lst, int sum, char neg)
+void if_fl_minus(char *newstr, t_fl_tp *lst, int sum, char neg)
 {
 	int res;
 	int mem_w;
 
-	mem_w = lst->width;
+	mem_w = lst->wdth;
 	newstr[mem_w--] = '\0';
-	res = lst->width - sum;
+	res = lst->wdth - sum;
 	while (res)
 	{
 		newstr[mem_w--] = ' ';
@@ -30,15 +30,15 @@ void if_fl_minus(char *newstr, t_flgs_types *lst, int sum, char neg)
 		newstr[0] = neg;
 }
 
-void if_flg_null(char *newstr, t_flgs_types *lst, int sum, char neg)
+void if_flg_null(char *newstr, t_fl_tp *lst, int sum, char neg)
 {
 	int mem_w;
 	int res;
 
-	mem_w = lst->width;
+	mem_w = lst->wdth;
 	newstr[mem_w--] = '\0';
 	output_dgt(lst, newstr, &mem_w, 10);
-	res = lst->width - sum;
+	res = lst->wdth - sum;
 	while (res)
 	{
 		newstr[mem_w--] = '0';
@@ -48,15 +48,15 @@ void if_flg_null(char *newstr, t_flgs_types *lst, int sum, char neg)
 		newstr[0] = neg;
 }
 
-void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
+void if_flg_not_null (char *newstr, t_fl_tp *lst, int mem_w, char neg)
 {
 	newstr[mem_w--] = '\0';
-	if ((lst->val.lng != 0 || lst->prec != 0 || check_flg(lst->types, TP_u | TP_U)) && mem_w >= 0)
+	if ((lst->val.ln != 0 || lst->prc != 0 || check_fl(lst->typ, tp_u | tp_ua)) && mem_w >= 0)
 		output_dgt(lst, newstr, &mem_w, 10);
-	if (check_flg(lst->types, TP_u | TP_U) && neg == '-')
+	if (check_fl(lst->typ, tp_u | tp_ua) && neg == '-')
 	{
 		neg = 0;
-		while (lst->prec-- > 0)
+		while (lst->prc-- > 0)
 			newstr[mem_w--] = '0';
 	}
 	if (neg != 0)
@@ -65,7 +65,7 @@ void if_flg_not_null (char *newstr, t_flgs_types *lst, int mem_w, char neg)
 		newstr[mem_w--] = ' ';
 }
 
-char *itoa_printf(t_flgs_types *lst)
+char *itoa_printf(t_fl_tp *lst)
 {
 	char *newstr = NULL;
 	int	cnt;
@@ -73,60 +73,60 @@ char *itoa_printf(t_flgs_types *lst)
 	int num_q;
 	int sign;
 
-	if (check_flg(lst->types, TP_u | TP_U))
+	if (check_fl(lst->typ, tp_u | tp_ua))
 	{
 		sign = 0;
 		neg = 0;
 	}
 	else
 		sign = check_is_sign(lst, &neg);
-	cnt = ft_cnt_i_d_uU_c(lst);
+	cnt = ft_cnt_i_d_u_ua_c(lst);
 	num_q = num_qv(lst, cnt);
-	if (lst->wdth_star == '*' && lst->width < 0)
-		lst->width = lst->width * -1;
-	if (lst->prec == 0 && check_flg(lst->types, TP_d | TP_D | TP_i) && lst->val.lng == 0 && lst->width == 0)
+	if (lst->wdth_star == '*' && lst->wdth < 0)
+		lst->wdth = lst->wdth * -1;
+	if (lst->prc == 0 && check_fl(lst->typ, tp_d | tp_da | tp_i) && lst->val.ln == 0 && lst->wdth == 0)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * 1)))
 			return (0);
 		newstr[0] = '\0';
 	}
-	else if (lst->width > cnt + num_q + sign && lst->prec <= cnt + num_q && lst->width > lst->prec) // w>cnt, cnt>p, p<w (1)
+	else if (lst->wdth > cnt + num_q + sign && lst->prc <= cnt + num_q && lst->wdth > lst->prc) // w>cnt, cnt>p, p<w (1)
 	{
-		if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
+		if (!(newstr = (char*)malloc(sizeof(char) * (lst->wdth + 1))))
 			return (0);
-		if (check_flg(lst->flags, FL_MINUS))
+		if (check_fl(lst->flg, fl_minus))
 			if_fl_minus(newstr, lst, cnt + num_q + sign, neg);
 		else
 		{
-			if (check_flg(lst->flags, FL_NULL))
+			if (check_fl(lst->flg, fl_null))
 				if_flg_null(newstr, lst, cnt + num_q + sign, neg);
 			else
-				if_flg_not_null(newstr, lst, lst->width, neg);
+				if_flg_not_null(newstr, lst, lst->wdth, neg);
 		}
 	}
-	else if (lst->width <= cnt + sign + num_q && lst->prec <= cnt + num_q) // cnt > p, cnt > w (3)
+	else if (lst->wdth <= cnt + sign + num_q && lst->prc <= cnt + num_q) // cnt > p, cnt > w (3)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + sign + num_q + 1))))
 			return (0);
 		if_flg_not_null(newstr, lst, cnt + sign + num_q, neg);
 	}
-	else if (lst->width > cnt + num_q + sign && lst->prec > cnt + num_q && lst->width > lst->prec + sign) // w>cnt, cnt <p, w>p (2)
+	else if (lst->wdth > cnt + num_q + sign && lst->prc > cnt + num_q && lst->wdth > lst->prc + sign) // w>cnt, cnt <p, w>p (2)
 	{
-			if (check_flg(lst->flags, FL_MINUS))
+			if (check_fl(lst->flg, fl_minus))
 			{
-				if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
+				if (!(newstr = (char*)malloc(sizeof(char) * (lst->wdth + 1))))
 					return (0);
-				int mem_w = lst->width;
+				int mem_w = lst->wdth;
 				int res;
 				newstr[mem_w--] = '\0';
-				res = lst->width - lst->prec - sign;
+				res = lst->wdth - lst->prc - sign;
 				while (res)
 				{
 					newstr[mem_w--] = ' ';
 					res--;
 				}
 				output_dgt(lst, newstr, &mem_w, 10);
-/*				res = lst->prec - cnt - num_q;
+/*				res = lst->prc - cnt - num_q;
 				while (res)
 				{
 					newstr[mem_w--] = '0';
@@ -139,20 +139,20 @@ char *itoa_printf(t_flgs_types *lst)
 			}
 			else
 			{
-				if (!(newstr = (char*)malloc(sizeof(char) * (lst->width + 1))))
+				if (!(newstr = (char*)malloc(sizeof(char) * (lst->wdth + 1))))
 					return (0);
-				if (lst->prec > cnt && check_flg(lst->types, TP_u | TP_U))
+				if (lst->prc > cnt && check_fl(lst->typ, tp_u | tp_ua))
 				{
 					neg = '-';
-					lst->prec = lst->prec - cnt;
+					lst->prc = lst->prc - cnt;
 				}
-				if_flg_not_null(newstr, lst, lst->width, neg);
+				if_flg_not_null(newstr, lst, lst->wdth, neg);
 			}
 	}
-	else if (lst->prec + sign >= lst->width)
+	else if (lst->prc + sign >= lst->wdth)
 	{
-		int mem_w = lst->prec + sign;
-		if (!(newstr = (char*)malloc(sizeof(char) * (lst->prec + sign + 1))))
+		int mem_w = lst->prc + sign;
+		if (!(newstr = (char*)malloc(sizeof(char) * (lst->prc + sign + 1))))
 			return (0);
 		newstr[mem_w--] = '\0';
 		output_dgt(lst, newstr, &mem_w, 10);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_cC_sS.c                                      :+:      :+:    :+:   */
+/*   print_cca_ssa.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-char *print_cC_sS(t_flgs_types *lst)
+char *print_cca_ssa(t_fl_tp *lst)
 {
 	 int i;
 	 int j;
@@ -23,41 +23,41 @@ char *print_cC_sS(t_flgs_types *lst)
 	 j = 0;
 	 sgn = ' ';
 	 newstr = NULL;
-	 if (check_flg(lst->types, TP_c))
+	 if (check_fl(lst->typ, tp_c))
 	 {
-		 if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
+		 if (check_fl(lst->flg, fl_minus) && lst->wdth > 1)
 		 {
-			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 newstr[i++] = lst->val.ulng;
-			 lst->width--;
-			 while (lst->width--)
+			 newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
+			 newstr[i++] = lst->val.uln;
+			 lst->wdth--;
+			 while (lst->wdth--)
 				 newstr[i++] = sgn;
 		  }
-		 else if (lst->width > 1)
+		 else if (lst->wdth > 1)
 		 {
-			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 if (check_flg(lst->flags, FL_NULL))
+			 newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
+			 if (check_fl(lst->flg, fl_null))
 				 sgn = '0';
-			 lst->width--;
-			 while (lst->width--)
+			 lst->wdth--;
+			 while (lst->wdth--)
 				 newstr[i++] = sgn;
-			 newstr[i++] = lst->val.ulng;
+			 newstr[i++] = lst->val.uln;
 		 }
 		 else
 		 {
 			 newstr = (char*)malloc(sizeof(char) * 2);
-			 newstr[i++] = lst->val.ulng;
+			 newstr[i++] = lst->val.uln;
 		 }
 		 newstr[i] = '\0';
 	 }
 	 else if (lst->val.str == NULL)
 	 {
-		 if (lst->prec_star == '-' && lst->width > 0)
+		 if (lst->prc_star == '-' && lst->wdth > 0)
 		 {
-			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 if (check_flg(lst->flags, FL_NULL))
+			 newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
+			 if (check_fl(lst->flg, fl_null))
 				 sgn = '0';
-			 while (lst->width-- > 0)
+			 while (lst->wdth-- > 0)
 				 newstr[i++] = sgn;
 			 newstr[i] = '\0';
 		 }
@@ -73,61 +73,61 @@ char *print_cC_sS(t_flgs_types *lst)
 			 newstr[i] = '\0';
 		 }
 	 }
-	 else if (check_flg(lst->types, tp_s) && lst->val.str != 0)
+	 else if (check_fl(lst->typ, tp_s) && lst->val.str != 0)
 	 {
-		 if (check_flg(lst->flags, FL_MINUS) && lst->width > (int)ft_strlen(lst->val.str))
+		 if (check_fl(lst->flg, fl_minus) && lst->wdth > (int)ft_strlen(lst->val.str))
 		 {
-			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 if (lst->prec == 0 && lst->prec_star != '-')
-				 lst->prec = ft_strlen(lst->val.str);
-			 while (lst->val.str[i] && lst->prec > 0)
+			 newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
+			 if (lst->prc == 0 && lst->prc_star != '-')
+				 lst->prc = ft_strlen(lst->val.str);
+			 while (lst->val.str[i] && lst->prc > 0)
 			 {
 				 newstr[i] = lst->val.str[i];
-				 lst->prec--;
+				 lst->prc--;
 				 i++;
-				 lst->width--;
+				 lst->wdth--;
 			  }
-			  while (lst->width--)
+			  while (lst->wdth--)
 				  newstr[i++] = sgn;
 		 }
-		 else if ((lst->width > (int)ft_strlen(lst->val.str) || lst->width > lst->prec) && lst->prec_star != '-')
+		 else if ((lst->wdth > (int)ft_strlen(lst->val.str) || lst->wdth > lst->prc) && lst->prc_star != '-')
 		 {
-			 newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-			 if (check_flg(lst->flags, FL_NULL))
+			 newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
+			 if (check_fl(lst->flg, fl_null))
 				 sgn = '0';
-			 if (lst->prec < (int)ft_strlen(lst->val.str) && lst->prec > 0 && lst->prec_star != '-')
-				 lst->width = lst->width - lst->prec;
+			 if (lst->prc < (int)ft_strlen(lst->val.str) && lst->prc > 0 && lst->prc_star != '-')
+				 lst->wdth = lst->wdth - lst->prc;
 			 else
-				 lst->width = lst->width - ft_strlen(lst->val.str);
-			 while (lst->width--)
+				 lst->wdth = lst->wdth - ft_strlen(lst->val.str);
+			 while (lst->wdth--)
 				 newstr[i++] = sgn;
-			 if (lst->prec == 0 && lst->prec_star != '-')
-				 lst->prec = ft_strlen(lst->val.str);
-			 while (lst->val.str[j] && lst->prec > 0)
+			 if (lst->prc == 0 && lst->prc_star != '-')
+				 lst->prc = ft_strlen(lst->val.str);
+			 while (lst->val.str[j] && lst->prc > 0)
 			 {
 				 newstr[i] = lst->val.str[j];
-				 lst->prec--;
+				 lst->prc--;
 				 i++;
 				 j++;
 			 }
 		  }
-          else if (lst->prec == 0 && lst->prec_star == '-' && lst->width > (int)ft_strlen(lst->val.str))
+          else if (lst->prc == 0 && lst->prc_star == '-' && lst->wdth > (int)ft_strlen(lst->val.str))
           {
-              newstr = (char*)malloc(sizeof(char) * lst->width + 1);
-              if (check_flg(lst->flags, FL_NULL))
+              newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
+              if (check_fl(lst->flg, fl_null))
                   sgn = '0';
-              while (lst->width--)
+              while (lst->wdth--)
                   newstr[i++] = sgn;
           }
 		  else
 		  {
 			  newstr = (char*)malloc(sizeof(char) * (int)ft_strlen(lst->val.str) + 1);
-			  if (lst->prec == 0 && lst->prec_star != '-')
-				  lst->prec = ft_strlen(lst->val.str);
-			  while (lst->val.str[i] && lst->prec > 0)
+			  if (lst->prc == 0 && lst->prc_star != '-')
+				  lst->prc = ft_strlen(lst->val.str);
+			  while (lst->val.str[i] && lst->prc > 0)
 			  {
 				  newstr[i] = lst->val.str[i];
-				  lst->prec--;
+				  lst->prc--;
 				  i++;
 			  }
 		  }

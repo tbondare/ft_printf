@@ -12,78 +12,78 @@
 
 # include "libftprintf.h"
 
-void outp_id_j(t_flgs_types *lst, char *newstr, int *mem_w)
+void outp_id_j(t_fl_tp *lst, char *newstr, int *mem_w)
 {
 	int i;
 	struct lconv *lc;
 	lc = localeconv();
 	
 	i = 0;
-	lst->val.uimax = lst->val.imax < 0 ? -lst->val.imax : lst->val.imax;
-	lst->val.imax == 0 ? newstr[*mem_w] = '0' : 0;
-	while (lst->val.uimax)
+	lst->val.uimx = lst->val.imx < 0 ? -lst->val.imx : lst->val.imx;
+	lst->val.imx == 0 ? newstr[*mem_w] = '0' : 0;
+	while (lst->val.uimx)
 	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.uimax % 10 + '0';
-		lst->val.uimax  = lst->val.uimax / 10;
+		newstr[(*mem_w)--] = lst->val.uimx % 10 + '0';
+		lst->val.uimx  = lst->val.uimx / 10;
 		i++;
 	}
 }
 
-void outp_uoxX_j(t_flgs_types *lst, char *newstr, int *mem_w, int base)
+void outp_uox_xa_j(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 {
 	int i;
 	struct lconv *lc;
 	
 	lc = localeconv();
 	i = 0;
-	lst->val.uimax == 0 ? newstr[(*mem_w)--] = '0' : 0;
-	while (lst->val.uimax)
+	lst->val.uimx == 0 ? newstr[(*mem_w)--] = '0' : 0;
+	while (lst->val.uimx)
 	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		if (check_flg(lst->types, TP_x) && lst->val.uimax % base > 9)
-			newstr[(*mem_w)--] = lst->val.uimax % base + 'a' - 10;
-		else if(check_flg(lst->types, TP_X) && lst->val.uimax % base > 9)
-			newstr[(*mem_w)--] = lst->val.uimax % base + 'A' - 10;
+		if (check_fl(lst->typ, tp_x) && lst->val.uimx % base > 9)
+			newstr[(*mem_w)--] = lst->val.uimx % base + 'a' - 10;
+		else if(check_fl(lst->typ, tp_xa) && lst->val.uimx % base > 9)
+			newstr[(*mem_w)--] = lst->val.uimx % base + 'A' - 10;
 		else
-			newstr[(*mem_w)--] = lst->val.uimax % base + '0';
-		lst->val.uimax  = lst->val.uimax / base;
+			newstr[(*mem_w)--] = lst->val.uimx % base + '0';
+		lst->val.uimx  = lst->val.uimx / base;
 		i++;
 	}
 }
 
-void outp_idD(t_flgs_types *lst, char *newstr, int *mem_w)
+void outp_id_da(t_fl_tp *lst, char *newstr, int *mem_w)
 {
 	int i;
 	struct lconv *lc;
 	
 	lc = localeconv();
 	i = 0;
-	if (lst->val.lng == 0)
+	if (lst->val.ln == 0)
 	{
 		newstr[*mem_w] = '0';
 		(*mem_w)--;
 		i++;
 	}
-	lst->val.ulng = lst->val.lng < 0 ? -lst->val.lng : lst->val.lng;
-	while (lst->val.ulng)
+	lst->val.uln = lst->val.ln < 0 ? -lst->val.ln : lst->val.ln;
+	while (lst->val.uln)
 	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		newstr[(*mem_w)--] = lst->val.ulng % 10 + '0';
-		lst->val.ulng = lst->val.ulng / 10;
+		newstr[(*mem_w)--] = lst->val.uln % 10 + '0';
+		lst->val.uln = lst->val.uln / 10;
 		i++;
 	}
-	if (lst->prec > i)
+	if (lst->prc > i)
 	{
-		while (lst->prec-- > i && *mem_w != 0)
+		while (lst->prc-- > i && *mem_w != 0)
 			newstr[(*mem_w)--] = '0';
 	}
 }
 
-void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)
+void outp_c_l(t_fl_tp *lst, char *newstr, int *mem_w)
 {
 	int i;
 	struct lconv *lc;
@@ -94,7 +94,7 @@ void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)
 	lst->val.win = lst->val.win < 0 ? -lst->val.win : lst->val.win;
 	while (lst->val.win)
 	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
 		newstr[(*mem_w)--] = lst->val.win % 10 + '0';
 		lst->val.win  = lst->val.win / 10;
@@ -102,37 +102,37 @@ void outp_c_l(t_flgs_types *lst, char *newstr, int *mem_w)
 	}
 }
 
-void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
+void outp_uua_ooa_xxa(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 {
 	int i;
 	struct lconv *lc;
 
 	i = 0;	
 	lc = localeconv();
-	if (lst->val.ulng == 0)
+	if (lst->val.uln == 0)
 		newstr[(*mem_w)--] = '0';
-	while (lst->val.ulng)
+	while (lst->val.uln)
 	{
-		if (check_flg(lst->flags, FL_QUOTE) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
-		if (check_flg(lst->types, TP_x) && lst->val.ulng % base > 9)
-			newstr[(*mem_w)--] = lst->val.ulng % base + 'a' - 10;
-		else if(check_flg(lst->types, TP_X) && lst->val.ulng % base > 9)
-			newstr[(*mem_w)--] = lst->val.ulng % base + 'A' - 10;
+		if (check_fl(lst->typ, tp_x) && lst->val.uln % base > 9)
+			newstr[(*mem_w)--] = lst->val.uln % base + 'a' - 10;
+		else if(check_fl(lst->typ, tp_xa) && lst->val.uln % base > 9)
+			newstr[(*mem_w)--] = lst->val.uln % base + 'A' - 10;
 		else
-			newstr[(*mem_w)--] = lst->val.ulng % base + '0';
-		lst->val.ulng = lst->val.ulng / base;
+			newstr[(*mem_w)--] = lst->val.uln % base + '0';
+		lst->val.uln = lst->val.uln / base;
 		i++;
 	}
-    if (check_flg(lst->types, TP_u| TP_U) && lst->prec > lst->width)
+    if (check_fl(lst->typ, tp_u | tp_ua) && lst->prc > lst->wdth)
     {
 		while (*mem_w >= 0)
 			newstr[(*mem_w)--] = '0';
     }
-/*	else if (check_flg(lst->types, TP_x| TP_X) && lst->prec > lst->width)
+/*	else if (check_flg(lst->typ, tp_x| tp_xa) && lst->prc > lst->wdth)
 		while (*mem_w >= 0)
 			newstr[(*mem_w)--] = '0';
-	else if (check_flg(lst->types, TP_x| TP_X) && lst->prec < lst->width)
+	else if (check_fl(lst->typ, tp_x| tp_xa) && lst->prc < lst->wdth)
 	{
 		while (*mem_w > 1)
 			newstr[(*mem_w)--] = '0';
@@ -141,12 +141,12 @@ void outp_uU_oO_xX(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 	} */
 }
 
-void outp_p(t_flgs_types *lst, char *newstr, int *mem_w, int base)
+void outp_p(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 {
 	unsigned long long int dir;
 
-	dir = (unsigned long long int)lst->val.point;
-	if (lst->val.point == 0)
+	dir = (unsigned long long int)lst->val.pnt;
+	if (lst->val.pnt == 0)
 		newstr[(*mem_w)--] = '0';
 	while (dir)
 	{
@@ -156,7 +156,7 @@ void outp_p(t_flgs_types *lst, char *newstr, int *mem_w, int base)
 			newstr[(*mem_w)--] = dir % base + '0';
 		dir = dir / base;
 	}
-	if (lst->prec > lst->width)
+	if (lst->prc > lst->wdth)
 	{
 		while (*mem_w >= 2)
 			newstr[(*mem_w)--] = '0';

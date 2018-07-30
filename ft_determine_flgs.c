@@ -12,7 +12,7 @@
 
 # include "libftprintf.h"
 
-char *create_dgt_str(const char *frmt, int *i)
+char	*create_dgt_str(const char *frmt, int *i)
 {
 	char *num;
 	char str[2];
@@ -28,49 +28,49 @@ char *create_dgt_str(const char *frmt, int *i)
 	return (num);
 }
 
-void determine_dgt_data(const char *frmt, int *i, t_flgs_types *lst)
+void	determine_dgt_data(const char *frmt, int *i, t_fl_tp *lst)
 {
 	char *num;
 	
 	num = create_dgt_str(frmt, i);
 	if (frmt[*i] == '$')
-		lst->indx_arg = ft_atoi(num);
+		lst->ind_arg = ft_atoi(num);
 	else
 	{
-		lst->width = ft_atoi(num);
+		lst->wdth = ft_atoi(num);
 		(*i)--;
 	}
 	free(num);
 }
 
-void determine_precision(const char *frmt, int *i, t_flgs_types *lst)
+void	determine_precision(const char *frmt, int *i, t_fl_tp *lst)
 {
 	char *num;
 	
 	(*i)++;
 	if ((frmt[*i] <= '0' || frmt[*i] > '9') && frmt[*i] != '*')
 	{
-		lst->prec = 0;
-		lst->prec_star = '-';
+		lst->prc = 0;
+		lst->prc_star = '-';
 		if (frmt[*i] != '0')
 			(*i)--;
 		return ;
 	}
 	if ((frmt[*i] == '*'))
 	{
-		lst->prec_star = '*';
+		lst->prc_star = '*';
 		if (frmt[(*i) + 1] < '0' || frmt[(*i) + 1] > '9')
 			return ;
 		(*i)++;
 	}
 	num = create_dgt_str(frmt, i);
-	lst->prec = ft_atoi(num);
+	lst->prc = ft_atoi(num);
 	free(num);
-	if (lst->prec_star != '*')
+	if (lst->prc_star != '*')
 		(*i)--;
 }
 
-void determine_width(const char *frmt, int *i, t_flgs_types *lst)
+void	determine_width(const char *frmt, int *i, t_fl_tp *lst)
 {
 	char *num;
 
@@ -84,18 +84,18 @@ void determine_width(const char *frmt, int *i, t_flgs_types *lst)
 	free(num);
 }
 
-void determine_md_len(const char *frmt, int *i, t_flgs_types *lst, t_arr_el *arr)
+void	determine_md_len(const char *frmt, int *i, t_fl_tp *lst, t_arr *arr)
 {
 	if (frmt[*i] == 'h' && frmt[(*i) + 1] == 'h')
 	{
-		(*lst).md_lengh = set_flg((*lst).md_lengh, LN_hh);
+		(*lst).md_len = set_flg((*lst).md_len, ln_hh);
 		(*i)++;
 	}
 	else if (frmt[*i] == 'l' && frmt[(*i) + 1] == 'l')
 	{
-		(*lst).md_lengh = set_flg((*lst).md_lengh, LN_ll);
+		(*lst).md_len = set_flg((*lst).md_len, ln_ll);
 		(*i)++;
 	}
 	else
-		(*lst).md_lengh = set_flg((*lst).md_lengh, arr[frmt[*i] - arr_first].bit_flg);
+		(*lst).md_len = set_flg((*lst).md_len, arr[frmt[*i] - ar_frst].bit_flg);
 }

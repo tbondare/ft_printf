@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cnt_i_d_uU_c.c                                  :+:      :+:    :+:   */
+/*   ft_cnt_i_d_u_ua_c.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,13 @@
 
 # include "libftprintf.h"
 
-int cnt_idD(t_flgs_types *lst, int *cnt)
+int	cnt_id_da(t_fl_tp *lst, int *cnt)
 {
 	long long int n;
 	
-	if (lst->val.lng == 0)
+	if (lst->val.ln == 0)
 		*cnt = 1;
-	n = lst->val.lng;
+	n = lst->val.ln;
 	n = n < 0 ? -n : n;
 	while (n)
 	{
@@ -28,11 +28,11 @@ int cnt_idD(t_flgs_types *lst, int *cnt)
 	return (*cnt);
 }
 
-int cnt_id_j(t_flgs_types *lst, int *cnt)
+int	cnt_id_j(t_fl_tp *lst, int *cnt)
 {
 	intmax_t n;
 	
-	n = lst->val.imax;
+	n = lst->val.imx;
 	n = n < 0 ? -n : n;
 	while (n)
 	{
@@ -42,12 +42,12 @@ int cnt_id_j(t_flgs_types *lst, int *cnt)
 	return (*cnt);
 }
 
-int cnt_u_j(t_flgs_types *lst, int *cnt)
+int	cnt_u_j(t_fl_tp *lst, int *cnt)
 {
 	uintmax_t n;
 	
-	n = lst->val.uimax;
-	if (lst->val.uimax == 0)
+	n = lst->val.uimx;
+	if (lst->val.uimx == 0)
 		*cnt = 1;
 	while (n)
 	{
@@ -57,14 +57,14 @@ int cnt_u_j(t_flgs_types *lst, int *cnt)
 	return (*cnt);
 }
 
-int cnt_uU(t_flgs_types *lst, int *cnt)
+int	cnt_u_ua(t_fl_tp *lst, int *cnt)
 {
 	unsigned long long int n;
 	
-	n = lst->val.ulng;
-	if (lst->val.ulng == 0)
+	n = lst->val.uln;
+	if (lst->val.uln == 0)
 	{
-		if (lst->prec == 0)
+		if (lst->prc == 0)
 			return (*cnt);
 		*cnt = 1;
 	}
@@ -76,21 +76,21 @@ int cnt_uU(t_flgs_types *lst, int *cnt)
 	return (*cnt);
 }
 
-int ft_cnt_i_d_uU_c(t_flgs_types *lst)
+int	ft_cnt_i_d_u_ua_c(t_fl_tp *lst)
 {
-	int cnt;
-	wint_t n;
+	int		cnt;
+	wint_t	n;
 	
 	cnt = 0;
-	if (check_flg(lst->types, TP_i | TP_d) && check_flg(lst->md_lengh, LN_j))
+	if (check_fl(lst->typ, tp_i | tp_d) && check_fl(lst->md_len, ln_j))
 		return (cnt_id_j(lst, &cnt));
-	else if (check_flg(lst->types, TP_u) && check_flg(lst->md_lengh, LN_j))
+	else if (check_fl(lst->typ, tp_u) && check_fl(lst->md_len, ln_j))
 		return (cnt_u_j(lst, &cnt));
-	else if (check_flg(lst->types, TP_i | TP_d | TP_D))
-		return (cnt_idD(lst, &cnt));
-	else if (check_flg(lst->types, TP_u | TP_U))
-		return (cnt_uU(lst, &cnt));
-	else if (check_flg(lst->types, TP_c) && check_flg(lst->md_lengh, LN_l))
+	else if (check_fl(lst->typ, tp_i | tp_d | tp_da))
+		return (cnt_id_da(lst, &cnt));
+	else if (check_fl(lst->typ, tp_u | tp_ua))
+		return (cnt_u_ua(lst, &cnt));
+	else if (check_fl(lst->typ, tp_c) && check_fl(lst->md_len, ln_l))
 	{
 		n = lst->val.win;
 		n = n < 0 ? -n : n;

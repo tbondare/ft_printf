@@ -18,32 +18,32 @@ unsigned int set_flg(unsigned int flags, unsigned int flg)
 	return (flags);
 }
 
-int check_flg(unsigned int flags, unsigned int flg)
+int check_fl(unsigned int flags, unsigned int flg)
 {
 	if ((flags & flg) != 0)
 		return (1);
 	return (0);
 }
 
-t_flgs_types *lstnew(void)
+t_fl_tp *lstnew(void)
 {
-	t_flgs_types *newlist;
+	t_fl_tp *newlist;
 
-	if (!(newlist = (t_flgs_types*)malloc(sizeof(t_flgs_types))))
+	if (!(newlist = (t_fl_tp*)malloc(sizeof(t_fl_tp))))
 		return (NULL);
 	newlist->str_out = ft_strnew(0);
-	newlist->indx_arg = 0;
-	newlist->flags = 0;
-	newlist->width = 0;
-	newlist->prec = -1;
-	newlist->md_lengh = 0;
-	newlist->types = 0;
+	newlist->ind_arg = 0;
+	newlist->flg = 0;
+	newlist->wdth = 0;
+	newlist->prc = -1;
+	newlist->md_len = 0;
+	newlist->typ = 0;
 	newlist->wdth_star = 0;
-	newlist->prec_star = 0;
-	newlist->indx_arg_wdth = 0;
-	newlist->indx_arg_prec = 0;
-	newlist->val.lng = 0;
-	newlist->val.ulng = 0;
+	newlist->prc_star = 0;
+	newlist->ind_arg_wdth = 0;
+	newlist->ind_arg_prc = 0;
+	newlist->val.ln = 0;
+	newlist->val.uln = 0;
 	newlist->mem = 0;
 	newlist->next = NULL;
 	return (newlist);

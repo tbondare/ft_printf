@@ -16,74 +16,69 @@ void print_str(char *str)
 {
 	write(1, str, ft_strlen(str));
 	ft_strdel(&str);
-//	free(str);
 }
 
-char *print_pct(t_flgs_types *lst)
+void if_f_tp_c(t_fl_tp *lst, int *mem_w, char sgn)
 {
-	char *str;
-	int i;
-
-	str = NULL;
-	i = 0;
-	if (lst->width == 0)
-		str = (char*)malloc(sizeof(char) * 2);
-	str = (char*)malloc(sizeof(char) * lst->width + 1);
-	if (check_flg(lst->flags, FL_MINUS) || (check_flg(lst->flags, FL_MINUS)
-				&& (check_flg(lst->flags, FL_NULL))))
+	if (lst->wdth_star == '*' && lst->wdth < 0)
 	{
-		str[i++] = '%';
-		while (lst->width > i)
-			str[i++] = ' ';
+		lst->wdth = lst->wdth * -1;
+		*mem_w = lst->wdth;
 	}
-	else if (check_flg(lst->flags, FL_NULL))
+	if (check_fl(lst->flg, fl_minus) && lst->wdth > 1)
 	{
-		while (i < lst->width - 1)
-			str[i++] = '0';
-		str[i++] = '%';
+		write(1, "\0", 1);
+		lst->wdth--;
+		while (lst->wdth--)
+			write(1, &sgn, 1);
 	}
-	else if (lst->width > 0 || check_flg(lst->flags, FL_SPACE))
+	else if (lst->wdth > 1)
 	{
-		while (i < lst->width - 1)
-			str[i++] = ' ';
-		str[i++] = '%';
+		if (check_fl(lst->flg, fl_null))
+			sgn = '0';
+		lst->wdth--;
+		while (lst->wdth--)
+			write(1, &sgn, 1);
+		write(1, "\0", 1);
 	}
 	else
-		str[i++] = '%';
-	str[i] = '\0';
-	return (str);
+		write(1, "\0", 1);
 }
 
-int printing_args(t_flgs_types *prm)
+//void if_print_args(t_fl_tp *lst, char *str)
+//{
+//
+//}
+
+int printing_args(t_fl_tp *prm)
 {
 	char *str;
 	int total_strlen;
-	t_flgs_types *lst;
+	t_fl_tp *lst;
 	char sgn;
 	int mem_w;
 
 	total_strlen = 0;
 	lst = prm;
 	sgn = ' ';
-//	mem_w = lst->width;
 	while (lst)
 	{
-        mem_w = lst->width;
-        if (check_flg(lst->types, TP_err))
-        	lst->types = set_flg(0, TP_c);
-		if (check_flg(lst->types, TP_d | TP_i | TP_D | TP_u | TP_U))
+        mem_w = lst->wdth;
+        if (check_fl(lst->typ, tp_err))
+        	lst->typ = set_flg(0, tp_c);
+		if (check_fl(lst->typ, tp_d | tp_i | tp_da | tp_u | tp_ua))
 			str = itoa_printf(lst);
-		else if (check_flg(lst->types, TP_o | TP_O | TP_x | TP_X | TP_p| TP_b))
-			str = itoa_printf_oO_xX_b(lst);
-		else if (check_flg(lst->types, TP_a | TP_A | TP_e | TP_E | TP_f 
-					| TP_F | TP_g | TP_G))
-			str = itoa_aA_eE_fF_gG(lst);
-		else if (check_flg(lst->types, TP_c | tp_s) &&
-						check_flg(lst->md_lengh, LN_l))
+		else if (check_fl(lst->typ, tp_o | tp_oa | tp_x | tp_xa | tp_p | tp_b))
+			str = itoa_printf_ooa_xxa_b(lst);
+		else if (check_fl(lst->typ, tp_a | tp_aa | tp_e | tp_ea | tp_f
+									  | tp_fa | tp_g | tp_ga))
+			str = itoa_aaa_eea_ffa_gga(lst);
+		else if (check_fl(lst->typ, tp_c | tp_s) &&
+				check_fl(lst->md_len, ln_l))
 			str = print_unicode(lst);
-        else if (check_flg(lst->types, TP_C | tp_sa))
+        else if (check_fl(lst->typ, tp_ca | tp_sa))
         {
-            if (check_flg(lst->types, TP_C) && lst->val.win == 0)
+            if (check_fl(lst->typ, tp_ca) && lst->val.win == 0)
             {
                 str = 0;
                 write(1, "\0", 1);
@@ -92,39 +87,16 @@ int printing_args(t_flgs_types *prm)
             else
                 str = print_unicode(lst);
         }
-//		else if (check_flg(lst->types, TP_p))
-//			str = pointer(lst);
-		else if (check_flg(lst->types, TP_pct))
+		else if (check_fl(lst->typ, tp_pct))
 			str = print_pct(lst);
-		else if (check_flg(lst->types, TP_c | TP_C) && lst->val.lng == -1)
+		else if (check_fl(lst->typ, tp_c | tp_ca) && lst->val.ln == -1)
 		{
+
 			str = 0;
-            if (lst->wdth_star == '*' && lst->width < 0)
-            {
-                lst->width = lst->width * -1;
-                mem_w = lst->width;
-            }
-			if (check_flg(lst->flags, FL_MINUS) && lst->width > 1)
-			{
-				write(1, "\0", 1);
-				lst->width--;
-				while (lst->width--)
-					write(1, &sgn, 1);
-			}
-			else if (lst->width > 1)
-			{
-				if (check_flg(lst->flags, FL_NULL))
-					sgn = '0';
-				lst->width--;
-				while (lst->width--)
-					write(1, &sgn, 1);
-				write(1, "\0", 1);
-			}
-			else
-				 write(1, "\0", 1);
+			if_f_tp_c(lst, &mem_w, sgn);
 		}
-		else if (check_flg(lst->types, tp_s | TP_c))
-			str = print_cC_sS(lst);
+		else if (check_fl(lst->typ, tp_s | tp_c))
+			str = print_cca_ssa(lst);
 		else
 			str = ft_strdup(lst->str_out);
 		if (str != 0)
@@ -132,7 +104,7 @@ int printing_args(t_flgs_types *prm)
 			total_strlen = total_strlen + ft_strlen(str);
 			print_str(str);
 		}
-		else if (str == 0 && check_flg(lst->types, TP_c) && lst->val.lng == -1)
+		else if (str == 0 && check_fl(lst->typ, tp_c) && lst->val.ln == -1)
 		{
 			if (mem_w != 0)
 				total_strlen = total_strlen + mem_w;
@@ -149,9 +121,9 @@ int printing_args(t_flgs_types *prm)
 int ft_printf(const char *format, ...)
 {
 	va_list args;
-	t_flgs_types *prm;
+	t_fl_tp *prm;
 	int total_strlen;
-	t_flgs_types *mem_var;
+	t_fl_tp *mem_var;
 
     prm = NULL;
 	va_start(args, format);
@@ -161,7 +133,6 @@ int ft_printf(const char *format, ...)
 	total_strlen = printing_args(prm);
 	while (prm)
     {
-//      free(prm->str_out);
 		ft_strdel(&(prm->str_out));
         mem_var = prm->next;
         free(prm);

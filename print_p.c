@@ -12,15 +12,15 @@
 
 #include "libftprintf.h"
 
-char *pointer(t_flgs_types *lst)
+char *pointer(t_fl_tp *lst)
 {
   unsigned long long int dir;
   int cnt;
   char *str;
 
   cnt = 0;
-  dir = (unsigned long long int)lst->val.point;
-  if (lst->val.point == 0)
+  dir = (unsigned long long int)lst->val.pnt;
+  if (lst->val.pnt == 0)
       cnt = 6;
   while (dir)
   {
@@ -29,7 +29,7 @@ char *pointer(t_flgs_types *lst)
   }
   str = (char*)malloc(sizeof(char) * (cnt + 1));
   str[cnt--] = '\0';
-  if (lst->val.point == 0)
+  if (lst->val.pnt == 0)
   {
       str[0] = '(';
       str[1] = 'n';
@@ -41,7 +41,7 @@ char *pointer(t_flgs_types *lst)
   else
   {
       cnt = cnt + 2;
-      dir = (unsigned long long int)lst->val.point;
+      dir = (unsigned long long int)lst->val.pnt;
       while (dir)
       {
           if (dir % 16 > 9)
