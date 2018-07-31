@@ -161,9 +161,14 @@ void			ft_if_detetm(t_fl_tp *lst, va_list args, va_list *next, int *i);
 void			if_prc_min_one(t_fl_tp	*lst, va_list args, va_list *next, int *i);
 
 int				ft_printf(const char *format, ...);
-int				printing_args(t_fl_tp *prm);
+int				printing_args(t_fl_tp *prm, int *total_strlen);
 void			print_str(char *str);
+
 void			if_f_tp_c(t_fl_tp *lst, int *mem_w, char sgn);
+int				if_print_args(t_fl_tp *lst, char **str);
+int				if_print_args2(t_fl_tp *lst, char **str, int *total_strlen);
+int				if_print_args3(t_fl_tp *lst, char **str, int *mem_w);
+int				if_str_nul(t_fl_tp **lst, char **str, int *total_strlen, int *mem_w);
 
 char			*if_quote(char *arr, int *cnt, int *i, int *j);
 char			*quote(char *arr, int cnt);

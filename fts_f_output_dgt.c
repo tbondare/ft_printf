@@ -113,7 +113,8 @@ void outp_uua_ooa_xxa(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 		newstr[(*mem_w)--] = '0';
 	while (lst->val.uln)
 	{
-		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 &&
+                lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
 		if (check_fl(lst->typ, tp_x) && lst->val.uln % base > 9)
 			newstr[(*mem_w)--] = lst->val.uln % base + 'a' - 10;
@@ -125,20 +126,8 @@ void outp_uua_ooa_xxa(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 		i++;
 	}
     if (check_fl(lst->typ, tp_u | tp_ua) && lst->prc > lst->wdth)
-    {
 		while (*mem_w >= 0)
 			newstr[(*mem_w)--] = '0';
-    }
-/*	else if (check_flg(lst->typ, tp_x| tp_xa) && lst->prc > lst->wdth)
-		while (*mem_w >= 0)
-			newstr[(*mem_w)--] = '0';
-	else if (check_fl(lst->typ, tp_x| tp_xa) && lst->prc < lst->wdth)
-	{
-		while (*mem_w > 1)
-			newstr[(*mem_w)--] = '0';
-		newstr[(*mem_w)--] = 'x';
-		newstr[(*mem_w)--] = '0';
-	} */
 }
 
 void outp_p(t_fl_tp *lst, char *newstr, int *mem_w, int base)
