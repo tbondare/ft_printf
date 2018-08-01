@@ -41,7 +41,8 @@ void outp_uox_xa_j(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 	lst->val.uimx == 0 ? newstr[(*mem_w)--] = '0' : 0;
 	while (lst->val.uimx)
 	{
-		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 &&
+                lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
 		if (check_fl(lst->typ, tp_x) && lst->val.uimx % base > 9)
 			newstr[(*mem_w)--] = lst->val.uimx % base + 'a' - 10;
@@ -70,17 +71,16 @@ void outp_id_da(t_fl_tp *lst, char *newstr, int *mem_w)
 	lst->val.uln = lst->val.ln < 0 ? -lst->val.ln : lst->val.ln;
 	while (lst->val.uln)
 	{
-		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 &&
+                lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
 		newstr[(*mem_w)--] = lst->val.uln % 10 + '0';
 		lst->val.uln = lst->val.uln / 10;
 		i++;
 	}
 	if (lst->prc > i)
-	{
 		while (lst->prc-- > i && *mem_w != 0)
 			newstr[(*mem_w)--] = '0';
-	}
 }
 
 void outp_c_l(t_fl_tp *lst, char *newstr, int *mem_w)
@@ -94,7 +94,8 @@ void outp_c_l(t_fl_tp *lst, char *newstr, int *mem_w)
 	lst->val.win = lst->val.win < 0 ? -lst->val.win : lst->val.win;
 	while (lst->val.win)
 	{
-		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 && lc->thousands_sep[0] != '\0')
+		if (check_fl(lst->flg, fl_quote) && i != 0 && i % 3 == 0 &&
+                lc->thousands_sep[0] != '\0')
 			newstr[(*mem_w)--] = *(lc->thousands_sep);
 		newstr[(*mem_w)--] = lst->val.win % 10 + '0';
 		lst->val.win  = lst->val.win / 10;

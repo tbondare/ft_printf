@@ -77,12 +77,14 @@ void	if_prc_min_one(t_fl_tp	*lst, va_list args, va_list *next, int *i)
 	}
 	else if (lst->prc < 0 && lst->prc != -1)
 		lst->prc = 0;
+	if (lst->wdth_star == '*' && lst->wdth < 0)
+			lst->wdth = -lst->wdth;
 	ft_if_detetm(lst, args, next, i);
 }
 
 void	determine_args(t_fl_tp *prm, va_list args)
 {
-	va_list next;
+	va_list	next;
 	t_fl_tp	*lst;
 	int		i;
 	int		cnt;

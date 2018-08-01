@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+# include "libftprintf.h"
 
 char	*if_op_fl(t_fl_tp *lst, int *num_dgt, int *mem_cnt, int *i)
 {
