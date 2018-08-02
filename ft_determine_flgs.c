@@ -6,20 +6,20 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:19:36 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:07:28 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:34:34 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libftprintf.h"
+#include "libftprintf.h"
 
 char	*create_dgt_str(const char *frmt, int *i)
 {
 	char *num;
 	char str[2];
-	
+
 	str[1] = '\0';
 	num = ft_strnew(0);
-	while(frmt[*i] && (frmt[*i] >= '0' && frmt[*i] <= '9'))
+	while (frmt[*i] && (frmt[*i] >= '0' && frmt[*i] <= '9'))
 	{
 		str[0] = frmt[*i];
 		num = rejoin(num, str[0]);
@@ -31,7 +31,7 @@ char	*create_dgt_str(const char *frmt, int *i)
 void	determine_dgt_data(const char *frmt, int *i, t_fl_tp *lst)
 {
 	char *num;
-	
+
 	num = create_dgt_str(frmt, i);
 	if (frmt[*i] == '$')
 		lst->ind_arg = ft_atoi(num);
@@ -46,7 +46,7 @@ void	determine_dgt_data(const char *frmt, int *i, t_fl_tp *lst)
 void	determine_precision(const char *frmt, int *i, t_fl_tp *lst)
 {
 	char *num;
-	
+
 	(*i)++;
 	if ((frmt[*i] <= '0' || frmt[*i] > '9') && frmt[*i] != '*')
 	{
@@ -80,7 +80,7 @@ void	determine_width(const char *frmt, int *i, t_fl_tp *lst)
 	(*i)++;
 	num = create_dgt_str(frmt, i);
 	lst->mem = ft_atoi(num);
-    (*i)--;
+	(*i)--;
 	free(num);
 }
 

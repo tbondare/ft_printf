@@ -6,11 +6,11 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:35:46 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 16:46:57 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:43:22 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libftprintf.h"
+#include "libftprintf.h"
 
 char	*if_op_fl(t_fl_tp *lst, int *num_dgt, int *mem_cnt, int *i)
 {
@@ -29,7 +29,7 @@ char	*if_op_fl(t_fl_tp *lst, int *num_dgt, int *mem_cnt, int *i)
 		(*mem_cnt)--;
 		(*num_dgt)--;
 	}
-	return(arr);
+	return (arr);
 }
 
 void	if_dgt_more_five(int dgt, char *arr, int i, struct lconv *lc)
@@ -52,8 +52,8 @@ void	if_dgt_more_five(int dgt, char *arr, int i, struct lconv *lc)
 
 int		while_if(long double *mem_val, int *mem_cnt, char *arr, int *i)
 {
-	int		dgt;
-	struct	lconv *lc;
+	int				dgt;
+	struct lconv	*lc;
 
 	lc = localeconv();
 	dgt = *mem_val * 10;
@@ -70,11 +70,11 @@ int		while_if(long double *mem_val, int *mem_cnt, char *arr, int *i)
 
 char	*outp_float(t_fl_tp *lst, int num_dgt, int cnt, long double *mem_val)
 {
-	int		i;
-	int		dgt;
-	char	*arr;
-	int		mem_cnt;
-	struct	lconv *lc;
+	int				i;
+	int				dgt;
+	char			*arr;
+	int				mem_cnt;
+	struct lconv	*lc;
 
 	lc = localeconv();
 	i = 0;

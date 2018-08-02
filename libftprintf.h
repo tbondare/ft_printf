@@ -158,7 +158,7 @@ int				cnt_p(t_fl_tp *lst, int *cnt, int base);
 void			determine_args(t_fl_tp *prm, va_list args);
 int				cnt_args(t_fl_tp *lst);
 void			ft_if_detetm(t_fl_tp *lst, va_list args, va_list *next, int *i);
-void			if_prc_min_one(t_fl_tp	*lst, va_list args, va_list *next, int *i);
+void			if_prc_min_one(t_fl_tp	**lst, va_list args, va_list *next, int *i);
 
 int				ft_printf(const char *format, ...);
 int				printing_args(t_fl_tp *prm, int *total_strlen);
@@ -206,7 +206,7 @@ void			if_lg_min(t_fl_tp *lst, char *newstr, int base, int cnt);
 char			*if_f_prc_nul(t_fl_tp *lst, char *newstr, int cnt, int base);
 char			*itoa_o_x_b(t_fl_tp *lst, int *base, int *cnt, char *newstr);
 
-void			if_flg_not_null_oOxXb(char *newstr, t_fl_tp *lst, int base);
+void			if_flg_not_null_oxb(char *newstr, t_fl_tp *lst, int base);
 void			if_flg_null_ooxxb(char *newstr, t_fl_tp *lst, int cnt, int base);
 void			if_fl_grill(t_fl_tp *lst, char *newstr, int *mem_w);
 void			if_fl_minus_ooxxb(char *newstr, t_fl_tp *lst, int cnt, int base);
@@ -226,6 +226,12 @@ char *if_tp_s_str_n_nul(t_fl_tp *lst, char *newstr, int i, char sgn);
 char *str_null(t_fl_tp *lst, char *newstr, int i, char sgn);
 
 char			*print_unicode(t_fl_tp *lst);
+char *if_wd_m_cnt(t_fl_tp *lst, char *allstr, char *str, int mem_cnt);
+int ft_memory(t_fl_tp *lst, char **str);
+char *ft_else_tp_s(t_fl_tp *lst, char *str, int cnt, int *mem_cnt);
+char *ft_else_if_pr_un(t_fl_tp *lst, char *str, int cnt);
+
+
 void			bin_op_for_unicode(t_fl_tp *lst, int *cnt, int i, char *str);
 void			uf_in_ucod(int *cnt, wchar_t wc, char *str);
 

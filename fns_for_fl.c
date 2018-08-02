@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:15:46 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:23:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:45:04 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int		check_is_sign_in_float(t_fl_tp *lst, char *neg)
 int		cnt_till_aa_ee_ff_gg(int base, long double *mem_val, t_fl_tp *lst)
 {
 	int cnt;
-	
+
 	cnt = 0;
-	*mem_val =  *mem_val < 0 ? - *mem_val : *mem_val;
+	*mem_val = *mem_val < 0 ? -*mem_val : *mem_val;
 	if (*mem_val >= 1)
 	{
 		while (*mem_val >= 1)
@@ -82,12 +82,12 @@ char	*if_quote(char *arr, int *cnt, int *i, int *j)
 
 char	*quote(char *arr, int cnt)
 {
-	char	*str;
-	int		i;
-	int		j;
-	int		multiple;
-	struct	lconv *lc;
-	
+	char			*str;
+	int				i;
+	int				j;
+	int				multiple;
+	struct lconv	*lc;
+
 	lc = localeconv();
 	i = 0;
 	str = if_quote(arr, &cnt, &i, &j);

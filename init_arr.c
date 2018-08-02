@@ -6,13 +6,13 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:09:38 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 16:39:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 19:13:10 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libftprintf.h"
+#include "libftprintf.h"
 
-void init_flags(t_arr *arr)
+void	init_flags(t_arr *arr)
 {
 	arr['+' - ar_frst].flg_or_tp_or_ln = ar_fl;
 	arr['+' - ar_frst].bit_flg = fl_plus;
@@ -28,7 +28,7 @@ void init_flags(t_arr *arr)
 	arr['\'' - ar_frst].bit_flg = fl_quote;
 }
 
-void init_length(t_arr *arr)
+void	init_length(t_arr *arr)
 {
 	arr['L' - ar_frst].flg_or_tp_or_ln = ar_ln;
 	arr['L' - ar_frst].bit_flg = ln_la;
@@ -42,7 +42,7 @@ void init_length(t_arr *arr)
 	arr['z' - ar_frst].bit_flg = ln_z;
 }
 
-void init_types_1(t_arr *arr)
+void	init_types_1(t_arr *arr)
 {
 	arr['s' - ar_frst].flg_or_tp_or_ln = at_tp;
 	arr['s' - ar_frst].bit_flg = tp_s;
@@ -70,7 +70,7 @@ void init_types_1(t_arr *arr)
 	arr['X' - ar_frst].bit_flg = tp_xa;
 }
 
-void init_types_2(t_arr *arr)
+void	init_types_2(t_arr *arr)
 {
 	arr['c' - ar_frst].flg_or_tp_or_ln = at_tp;
 	arr['c' - ar_frst].bit_flg = tp_c;
@@ -96,7 +96,7 @@ void init_types_2(t_arr *arr)
 	arr['n' - ar_frst].bit_flg = tp_n;
 }
 
-void init_arr(t_arr *arr)
+void	init_arr(t_arr *arr)
 {
 	int i;
 

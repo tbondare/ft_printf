@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:08:48 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:15:20 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 18:42:04 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char *itoa_o_x_b(t_fl_tp *lst, int *base, int *cnt, char *newstr)
 			if (check_fl(lst->flg, fl_null))
 				if_flg_null_ooxxb(newstr, lst, *cnt, *base);
 			else
-				if_flg_not_null_oOxXb(newstr, lst, *base);
+				if_flg_not_null_oxb(newstr, lst, *base);
 		}
 	}
 	return (newstr);
@@ -164,7 +164,7 @@ char *itoa_printf_ooa_xxa_b(t_fl_tp *lst)
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + 1))))
 			return (0);
         lst->wdth = cnt;
-        if_flg_not_null_oOxXb(newstr, lst, base);
+        if_flg_not_null_oxb(newstr, lst, base);
 	}
 	else if (lst->wdth > cnt && lst->prc > cnt && lst->wdth > lst->prc)
 	{

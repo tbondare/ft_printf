@@ -12,141 +12,118 @@
 
 #include "libftprintf.h"
 
-void uf_in_ucod(int *cnt, wchar_t wc, char *str)
+char *if_wd_m_cnt(t_fl_tp *lst, char *allstr, char *str, int mem_cnt)
 {
-	if (0 <= wc && wc <= 0x7f)
-		str[0] = (char)wc;
-	else if (0x80 <= wc && wc <= 0x7ff)
-	{
-		str[0] = (0xc0 | (wc >> 6));
-		str[1] = (0x80 | (wc & 0x3f));
-		*cnt = 2;
-	}
-	else if (0x800 <= wc && wc <= 0xffff)
-	{
-		str[0] = (0xe0 | (wc >> 12));
-		str[1] = (0x80 | ((wc >> 6) & 0x3f));
-		str[2] = (0x80 | (wc & 0x3f));
-		*cnt = 3;
-	}
-	else if ( 0x10000 <= wc && wc <= 0x1fffff)
-	{
-		str[0] = (0xf0 | (wc >> 18));
-		str[1] = (0x80 | ((wc >> 12) & 0x3f));
-		str[2] = (0x80 | ((wc >> 6) & 0x3f));
-		str[3] = (0x80 | (wc & 0x3f));
-		*cnt = 4;
-	}
-}
+    int i;
+    int j;
 
-void bin_op_for_unicode(t_fl_tp *lst, int *cnt, int i, char *str)
-{
-    wchar_t wc;
-
-    if (check_fl(lst->typ, tp_c | tp_ca))
+    i = 0;
+    j = 0;
+    allstr = (char *) malloc(sizeof(char) * lst->wdth + 1);
+    lst->wdth = lst->wdth - mem_cnt;
+    if (check_fl(lst->flg, fl_null))
+        while (lst->wdth--)
+            allstr[i++] = '0';
+    else if (check_fl(lst->flg, fl_minus))
     {
-		wc = lst->val.win;
-		uf_in_ucod(cnt, wc, str);
-	}
-	else if ((check_fl(lst->typ, tp_s | tp_sa)))
-	{
-		wc = ((wchar_t*)lst->val.pnt)[i];
-		uf_in_ucod(cnt, wc, str);
-	}
+        while (str[j] != '\0')
+            allstr[i++] = str[j++];
+        while (lst->wdth--)
+            allstr[i++] = ' ';
+    }
+    else
+        while (lst->wdth--)
+            allstr[i++] = ' ';
+    while (str[j] != '\0')
+        allstr[i++] = str[j++];
+    ft_strdel(&str);
+    allstr[i] = '\0';
+    return (allstr);
 }
+
+int ft_memory(t_fl_tp *lst, char **str)
+{
+    int i;
+
+    i = 0;
+    if (lst->prc > 0)
+    {
+        if (!(*str = (char *) malloc(sizeof(char) * lst->prc + 4 + 1)))
+            return (0);
+    }
+    else
+    {
+        while (((wchar_t *) lst->val.pnt)[i] != '\0')
+            i++;
+        if (!(*str = (char *) malloc(sizeof(char) * i * 4 + 1)))
+            return (0);
+    }
+    return (0);
+}
+
+char *ft_else_tp_s(t_fl_tp *lst, char *str, int cnt, int *mem_cnt)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+    ft_memory(lst, &str);
+    while (((wchar_t *) lst->val.pnt)[i] != '\0')
+    {
+        cnt = 1;
+        bin_op_for_unicode(lst, &cnt, i, &str[j]);
+        *mem_cnt = cnt + *mem_cnt;
+        j = j + cnt;
+        if (lst->prc < *mem_cnt && lst->prc > 0)
+        {
+            *mem_cnt = *mem_cnt - cnt;
+            break;
+        }
+        i++;
+    }
+    return (str);
+}
+
+char *ft_else_if_pr_un(t_fl_tp *lst, char *str, int cnt)
+{
+    char *allstr = NULL;
+    int mem_cnt;
+
+    mem_cnt = 0;
+    if ((wchar_t *) lst->val.pnt == NULL)
+        return (if_val_null(str));
+    if (lst->prc == 0 && lst->prc_star == '-')
+    {
+        str = (char *) malloc(sizeof(char));
+        mem_cnt = 0;
+    }
+    else
+        str = ft_else_tp_s(lst, str, cnt, &mem_cnt);
+    str[mem_cnt] = '\0';
+    if (lst->wdth > mem_cnt)
+        return (if_wd_m_cnt(lst, allstr, str, mem_cnt));
+    return (str);
+}
+
 
 char *print_unicode(t_fl_tp *lst)
 {
 	char *str = NULL;
-	char *allstr = NULL;
 	int cnt;
 	int i;
-	int mem_cnt;
-	int j;
 
 	i = 0;
 	cnt = 1;
-	j = 0;
-	mem_cnt = 0;
-	if ((check_fl(lst->typ, tp_c) && (check_fl(lst->md_len, ln_l))) || (check_fl(lst->typ, tp_ca)))
+	if ((check_fl(lst->typ, tp_c) && (check_fl(lst->md_len, ln_l))) ||
+            (check_fl(lst->typ, tp_ca)))
 	{
 		str = (char *) malloc(sizeof(char) * 4 + 1);
 		bin_op_for_unicode(lst, &cnt, i, str);
 		str[cnt] = '\0';
 	}
-	else if ((check_fl(lst->typ, tp_s) && (check_fl(lst->md_len, ln_l))) || (check_fl(lst->typ, tp_sa)))
-	{
-		if ((wchar_t *) lst->val.pnt == NULL)
-		{
-			str = (char *) malloc(sizeof(char) * 7);
-			str[0] = '(';
-			str[1] = 'n';
-			str[2] = 'u';
-			str[3] = 'l';
-			str[4] = 'l';
-			str[5] = ')';
-			str[6] = '\0';
-			return (str);
-		}
-		if (lst->prc == 0 && lst->prc_star == '-')
-		{
-			str = (char *) malloc(sizeof(char));
-			mem_cnt = 0;
-		}
-		else
-		{
-			if (lst->prc > 0)
-				str = (char *) malloc(sizeof(char) * lst->prc + 4 + 1);
-			else
-			{
-				while (((wchar_t *) lst->val.pnt)[i] != '\0')
-					i++;
-				str = (char *) malloc(sizeof(char) * i * 4 + 1);
-				i = 0;
-			}
-			while (((wchar_t *) lst->val.pnt)[i] != '\0')
-			{
-				cnt = 1;
-				bin_op_for_unicode(lst, &cnt, i, &str[j]);
-				mem_cnt = cnt + mem_cnt;
-				j = j + cnt;
-				if (lst->prc < mem_cnt && lst->prc > 0)
-				{
-					mem_cnt = mem_cnt - cnt;
-					break;
-				}
-				i++;
-			}
-		}
-		str[mem_cnt] = '\0';
-		if (lst->wdth > mem_cnt)
-		{
-			i = 0;
-			j = 0;
-			allstr = (char *) malloc(sizeof(char) * lst->wdth + 1);
-			lst->wdth = lst->wdth - mem_cnt;
-			if (check_fl(lst->flg, fl_null))
-				while (lst->wdth--)
-					allstr[i++] = '0';
-			else if (check_fl(lst->flg, fl_minus))
-			{
-				while (str[j] != '\0')
-					allstr[i++] = str[j++];
-				while (lst->wdth--)
-					allstr[i++] = ' ';
-				allstr[i] = '\0';
-				free(str);
-				return (allstr);
-			}
-			else
-				while (lst->wdth--)
-					allstr[i++] = ' ';
-			while (str[j] != '\0')
-				allstr[i++] = str[j++];
-			free(str);
-			allstr[i] = '\0';
-			return (allstr);
-		}
-	}
+	else if ((check_fl(lst->typ, tp_s) && (check_fl(lst->md_len, ln_l))) ||
+            (check_fl(lst->typ, tp_sa)))
+        str = ft_else_if_pr_un(lst, str, cnt);
 	return (str);
 }

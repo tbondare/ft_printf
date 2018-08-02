@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:10:17 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/23 17:25:01 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:36:52 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	determ_args_d_i(t_fl_tp *lst, va_list args)
 		lst->val.ln = va_arg(args, long long int);
 	else if (check_fl(lst->md_len, ln_j))
 		lst->val.imx = va_arg(args, intmax_t);
-	else if(check_fl(lst->md_len, ln_z))
+	else if (check_fl(lst->md_len, ln_z))
 		lst->val.ln = va_arg(args, size_t);
 }
 
@@ -69,7 +69,7 @@ void	determ_args_n(t_fl_tp *lst, va_list args)
 void	else_determ(t_fl_tp *lst, va_list args)
 {
 	if ((check_fl(lst->typ, tp_c) && check_fl(lst->md_len, ln_l)) ||
-            (check_fl(lst->typ, tp_ca)))
+			(check_fl(lst->typ, tp_ca)))
 		lst->val.win = (wint_t)va_arg(args, wint_t);
 	else if (check_fl(lst->typ, tp_da))
 		lst->val.ln = va_arg(args, long int);
@@ -78,7 +78,7 @@ void	else_determ(t_fl_tp *lst, va_list args)
 	else if (check_fl(lst->typ, tp_s) && lst->md_len == 0)
 		lst->val.str = va_arg(args, char*);
 	else if ((check_fl(lst->typ, tp_s) && check_fl(lst->md_len, ln_l)) ||
-            (check_fl(lst->typ, tp_sa)))
+			(check_fl(lst->typ, tp_sa)))
 		lst->val.pnt = va_arg(args, wchar_t*);
 	else if (check_fl(lst->typ, tp_p))
 		lst->val.pnt = va_arg(args, void*);
@@ -89,11 +89,11 @@ void	dtrm_args_with_if(t_fl_tp *lst, va_list args)
 	if (check_fl(lst->typ, tp_i | tp_d))
 		determ_args_d_i(lst, args);
 	else if (check_fl(lst->typ, tp_o | tp_u | tp_x | tp_xa))
-        determ_args_o_u_x_xa(lst, args);
+		determ_args_o_u_x_xa(lst, args);
 	else if (check_fl(lst->typ, tp_n))
 		determ_args_n(lst, args);
 	else if (check_fl(lst->typ, tp_a | tp_aa | tp_e | tp_ea
-                                  | tp_f | tp_fa | tp_g | tp_ga))
+				| tp_f | tp_fa | tp_g | tp_ga))
 	{
 		if (lst->md_len == 0)
 			lst->val.lndbl = va_arg(args, double);

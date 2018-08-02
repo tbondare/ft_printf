@@ -6,11 +6,11 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:49:20 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/29 19:26:35 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:47:15 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libftprintf.h"
+#include "libftprintf.h"
 
 int		check_sign_dif_tp(t_fl_tp *lst)
 {
@@ -30,7 +30,7 @@ int		check_sign_dif_tp(t_fl_tp *lst)
 int		check_is_sign(t_fl_tp *lst, char *neg)
 {
 	int sign;
-	
+
 	sign = 0;
 	if (check_fl(lst->flg, fl_plus))
 	{
@@ -54,8 +54,8 @@ int		check_is_sign(t_fl_tp *lst, char *neg)
 
 int		num_qv(t_fl_tp *lst, int cnt)
 {
-	int num_q;
-	struct lconv *lc;
+	int				num_q;
+	struct lconv	*lc;
 
 	lc = localeconv();
 	num_q = 0;
@@ -78,9 +78,9 @@ void	output_dgt(t_fl_tp *lst, char *newstr, int *mem_w, int base)
 {
 	if (check_fl(lst->typ, tp_i | tp_d) && check_fl(lst->md_len, ln_j))
 		outp_id_j(lst, newstr, mem_w);
-	else if (check_fl(lst->typ, tp_u | tp_o | tp_x | tp_xa | tp_p)
-			&& check_fl(lst->md_len, ln_j))
-        outp_uox_xa_j(lst, newstr, mem_w, base);
+	else if (check_fl(lst->typ, tp_u | tp_o | tp_x | tp_xa | tp_p) &&
+			check_fl(lst->md_len, ln_j))
+		outp_uox_xa_j(lst, newstr, mem_w, base);
 	else if (check_fl(lst->typ, tp_i | tp_d | tp_da))
 		outp_id_da(lst, newstr, mem_w);
 	else if (check_fl(lst->typ, tp_u | tp_ua | tp_o | tp_oa

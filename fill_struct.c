@@ -6,20 +6,20 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:07:31 by tbondare          #+#    #+#             */
-/*   Updated: 2018/05/25 17:18:40 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:59:13 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libftprintf.h"
+#include "libftprintf.h"
 
 void	ft_while_determ(t_fl_tp *lst, const char *frmt, int *i, t_arr *arr)
 {
 	while (frmt[*i] != '\0')
 	{
 		if (frmt[*i] > '0' && frmt[*i] <= '9')
-            determine_dgt_data(frmt, i, lst);
+			determine_dgt_data(frmt, i, lst);
 		else if (frmt[*i] == '*')
-            determine_width(frmt, i, lst);
+			determine_width(frmt, i, lst);
 		else if (frmt[*i] == '.')
 			determine_precision(frmt, i, lst);
 		else if (arr[frmt[*i] - ar_frst].flg_or_tp_or_ln == ar_fl)
@@ -43,19 +43,19 @@ void	ft_while_determ(t_fl_tp *lst, const char *frmt, int *i, t_arr *arr)
 
 void	fill_element(t_fl_tp **lst, const char *frmt, int *i)
 {
-	static		t_arr arr[91];
-	static char	init = 0;
+	static t_arr	arr[91];
+	static char		init = 0;
 
 	(*i)++;
-	if(init == 0)
+	if (init == 0)
 	{
 		init_arr(arr);
 		init = 1;
 	}
 	if (frmt[*i] == '%')
 	{
-        if (frmt[*i + 1] != '\0')
-            lstnewadd(lst);
+		if (frmt[*i + 1] != '\0')
+			lstnewadd(lst);
 		(*lst)->str_out = rejoin((*lst)->str_out, '%');
 		return ;
 	}
@@ -70,10 +70,10 @@ void	lstnewadd(t_fl_tp **lst)
 	*lst = (*lst)->next;
 }
 
-void	index_args (t_fl_tp *lst)
+void	index_args(t_fl_tp *lst)
 {
 	int cnt;
-	
+
 	cnt = 1;
 	while (lst)
 	{
@@ -100,7 +100,7 @@ int		fill_struct(t_fl_tp **prm, const char *frmt)
 {
 	int		i;
 	t_fl_tp	*lst;
-	
+
 	i = 0;
 	if (!(*prm = lstnew()))
 		return (0);
@@ -108,7 +108,7 @@ int		fill_struct(t_fl_tp **prm, const char *frmt)
 	while (frmt[i] != '\0')
 	{
 		if (frmt[i] == '%' && frmt[i + 1] == '\0')
-			return 0;
+			return (0);
 		else if (frmt[i] == '%' && frmt[i + 1] != '\0')
 			fill_element(&lst, frmt, &i);
 		else
