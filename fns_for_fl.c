@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:15:46 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 16:45:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:25:26 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int		check_is_sign_in_float(t_fl_tp *lst, char *neg)
 	int sign;
 
 	sign = 0;
-	if (check_fl(lst->flg, fl_plus))
+	if (check_fl(lst->flg, g_fl_pls))
 	{
 		*neg = lst->val.lndbl < 0 ? '-' : '+';
 		sign = 1;
 	}
-	else if (check_fl(lst->flg, fl_space))
+	else if (check_fl(lst->flg, g_fl_spc))
 	{
 		*neg = lst->val.lndbl < 0 ? '-' : ' ';
 		sign = 1;
@@ -59,7 +59,7 @@ int		cnt_till_aa_ee_ff_gg(int base, long double *mem_val, t_fl_tp *lst)
 			cnt++;
 		}
 		*mem_val = lst->val.lndbl;
-		if (check_fl(*mem_val, tp_e | tp_ea | tp_g | tp_ga))
+		if (check_fl(*mem_val, g_tp_e | g_tp_ea | g_tp_g | g_tp_ga))
 			cnt = -cnt;
 	}
 	return (cnt);

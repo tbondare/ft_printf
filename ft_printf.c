@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:02:42 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 17:51:06 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:57:54 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int		printing_args(t_fl_tp *prm, int *total_strlen)
 	while (lst)
 	{
 		mem_w = lst->wdth;
-		if (check_fl(lst->typ, tp_err))
-			lst->typ = set_flg(0, tp_c);
+		if (check_fl(lst->typ, g_tp_err))
+			lst->typ = set_flg(0, g_tp_c);
 		if ((if_print_args(lst, &str) != 0 ||
 					if_print_args2(lst, &str, total_strlen) ||
 					if_print_args3(lst, &str, &mem_w)) && str != 0)

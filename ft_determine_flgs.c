@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:19:36 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 17:34:34 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 16:26:21 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,15 @@ void	determine_md_len(const char *frmt, int *i, t_fl_tp *lst, t_arr *arr)
 {
 	if (frmt[*i] == 'h' && frmt[(*i) + 1] == 'h')
 	{
-		(*lst).md_len = set_flg((*lst).md_len, ln_hh);
+		(*lst).md_len = set_flg((*lst).md_len, g_ln_hh);
 		(*i)++;
 	}
 	else if (frmt[*i] == 'l' && frmt[(*i) + 1] == 'l')
 	{
-		(*lst).md_len = set_flg((*lst).md_len, ln_ll);
+		(*lst).md_len = set_flg((*lst).md_len, g_ln_ll);
 		(*i)++;
 	}
 	else
-		(*lst).md_len = set_flg((*lst).md_len, arr[frmt[*i] - ar_frst].bit_flg);
+		(*lst).md_len = set_flg((*lst).md_len, arr[frmt[*i] -
+				g_ar_frst].bit_flg);
 }

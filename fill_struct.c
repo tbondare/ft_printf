@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 16:07:31 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 16:59:13 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:57:19 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ void	ft_while_determ(t_fl_tp *lst, const char *frmt, int *i, t_arr *arr)
 			determine_width(frmt, i, lst);
 		else if (frmt[*i] == '.')
 			determine_precision(frmt, i, lst);
-		else if (arr[frmt[*i] - ar_frst].flg_or_tp_or_ln == ar_fl)
-			(lst)->flg = set_flg(lst->flg, arr[frmt[*i] - ar_frst].bit_flg);
-		else if (arr[frmt[*i] - ar_frst].flg_or_tp_or_ln == ar_ln)
+		else if (arr[frmt[*i] - g_ar_frst].flg_or_tp_or_ln == g_ar_fl)
+			(lst)->flg = set_flg(lst->flg, arr[frmt[*i] - g_ar_frst].bit_flg);
+		else if (arr[frmt[*i] - g_ar_frst].flg_or_tp_or_ln == g_ar_ln)
 			determine_md_len(frmt, i, lst, arr);
-		else if (arr[frmt[*i] - ar_frst].flg_or_tp_or_ln == at_tp)
+		else if (arr[frmt[*i] - g_ar_frst].flg_or_tp_or_ln == g_ar_tp)
 		{
-			(lst)->typ = set_flg((lst)->typ, arr[frmt[*i] - ar_frst].bit_flg);
+			(lst)->typ = set_flg((lst)->typ, arr[frmt[*i] - g_ar_frst].bit_flg);
 			return ;
 		}
 		else
 		{
-			lst->typ = set_flg(lst->typ, tp_err);
+			lst->typ = set_flg(lst->typ, g_tp_err);
 			lst->val.uln = frmt[*i];
 			return ;
 		}

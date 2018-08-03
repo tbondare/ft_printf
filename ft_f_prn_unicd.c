@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/02 15:51:11 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 17:06:33 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:32:08 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	bin_op_for_unicode(t_fl_tp *lst, int *cnt, int i, char *str)
 {
 	wchar_t wc;
 
-	if (check_fl(lst->typ, tp_c | tp_ca))
+	if (check_fl(lst->typ, g_tp_c | g_tp_ca))
 	{
 		wc = lst->val.win;
 		uf_in_ucod(cnt, wc, str);
 	}
-	else if ((check_fl(lst->typ, tp_s | tp_sa)))
+	else if ((check_fl(lst->typ, g_tp_s | g_tp_sa)))
 	{
 		wc = ((wchar_t*)lst->val.pnt)[i];
 		uf_in_ucod(cnt, wc, str);

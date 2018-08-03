@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 19:15:17 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 18:55:56 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:34:34 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*if_tp_c(t_fl_tp *lst, char *newstr, char sgn, int i)
 {
-	if (check_fl(lst->flg, fl_minus) && lst->wdth > 1)
+	if (check_fl(lst->flg, g_fl_min) && lst->wdth > 1)
 	{
 		newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
 		newstr[i++] = lst->val.uln;
@@ -24,7 +24,7 @@ char	*if_tp_c(t_fl_tp *lst, char *newstr, char sgn, int i)
 	else if (lst->wdth > 1)
 	{
 		newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
-		if (check_fl(lst->flg, fl_null))
+		if (check_fl(lst->flg, g_fl_nll))
 			sgn = '0';
 		while (--lst->wdth)
 			newstr[i++] = sgn;
@@ -45,7 +45,7 @@ char	*if_wd_m_prc_c(t_fl_tp *lst, char *newstr, char sgn, int *i)
 
 	j = 0;
 	newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
-	if (check_fl(lst->flg, fl_null))
+	if (check_fl(lst->flg, g_fl_nll))
 		sgn = '0';
 	if (lst->prc < (int)ft_strlen(lst->val.str) && lst->prc > 0 &&
 			lst->prc_star != '-')
@@ -70,7 +70,7 @@ char	*else_f_pt_s(t_fl_tp *lst, char *newstr, char sgn, int *i)
 			lst->wdth > (int)ft_strlen(lst->val.str))
 	{
 		newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
-		if (check_fl(lst->flg, fl_null))
+		if (check_fl(lst->flg, g_fl_nll))
 			sgn = '0';
 		while (lst->wdth--)
 			newstr[(*i)++] = sgn;
@@ -91,7 +91,7 @@ char	*else_f_pt_s(t_fl_tp *lst, char *newstr, char sgn, int *i)
 
 char	*if_tp_s_str_n_nul(t_fl_tp *lst, char *newstr, int i, char sgn)
 {
-	if (check_fl(lst->flg, fl_minus) &&
+	if (check_fl(lst->flg, g_fl_min) &&
 			lst->wdth > (int)ft_strlen(lst->val.str))
 	{
 		newstr = (char*)malloc(sizeof(char) * lst->wdth + 1);
@@ -118,7 +118,7 @@ char	*str_null(t_fl_tp *lst, char *newstr, int i, char sgn)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * lst->wdth + 1)))
 			return (0);
-		if (check_fl(lst->flg, fl_null))
+		if (check_fl(lst->flg, g_fl_nll))
 			sgn = '0';
 		while (lst->wdth-- > 0)
 			newstr[i++] = sgn;

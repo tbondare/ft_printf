@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:35:46 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 17:43:22 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:40:00 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*outp_float(t_fl_tp *lst, int num_dgt, int cnt, long double *mem_val)
 	}
 	dgt = *mem_val * 10;
 	if_dgt_more_five(dgt, arr, i, lc);
-	if (check_fl(lst->flg, fl_quote) && cnt > 3 && lc->thousands_sep[0] != '\0')
+	if (check_fl(lst->flg, g_fl_quo) && cnt > 3 && lc->thousands_sep[0] != '\0')
 		arr = quote(arr, cnt);
 	return (arr);
 }

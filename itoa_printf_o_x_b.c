@@ -6,20 +6,20 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 17:08:48 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 18:42:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:58:40 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libftprintf.h"
+#include "libftprintf.h"
 
-char *if_prc_m_wd(t_fl_tp *lst, int base, char *newstr)
+char	*if_prc_m_wd(t_fl_tp *lst, int base, char *newstr)
 {
-	int mem_w = 0;
+	int mem_w;
 
-	if (check_fl(lst->typ, tp_o | tp_oa | tp_x | tp_xa) &&
-		!(check_fl(lst->flg, fl_grill)))
+	if (check_fl(lst->typ, g_tp_o | g_tp_oa | g_tp_x | g_tp_xa) &&
+		!(check_fl(lst->flg, g_fl_grl)))
 		mem_w = lst->prc;
-	else if (check_fl(lst->typ, tp_o | tp_oa))
+	else if (check_fl(lst->typ, g_tp_o | g_tp_oa))
 		mem_w = lst->prc;
 	else
 		mem_w = lst->prc + 2;
@@ -27,7 +27,7 @@ char *if_prc_m_wd(t_fl_tp *lst, int base, char *newstr)
 		return (0);
 	newstr[mem_w--] = '\0';
 	output_dgt(lst, newstr, &mem_w, base);
-	if (check_fl(lst->flg, fl_grill) && check_fl(lst->typ, tp_x | tp_xa))
+	if (check_fl(lst->flg, g_fl_grl) && check_fl(lst->typ, g_tp_x | g_tp_xa))
 	{
 		while (mem_w > 1)
 			newstr[(mem_w)--] = '0';
@@ -40,7 +40,7 @@ char *if_prc_m_wd(t_fl_tp *lst, int base, char *newstr)
 	return (newstr);
 }
 
-void if_lg_min(t_fl_tp *lst, char *newstr, int base, int cnt)
+void	if_lg_min(t_fl_tp *lst, char *newstr, int base, int cnt)
 {
 	int mem_w;
 	int res;
@@ -48,7 +48,7 @@ void if_lg_min(t_fl_tp *lst, char *newstr, int base, int cnt)
 	res = 0;
 	mem_w = lst->wdth;
 	newstr[mem_w--] = '\0';
-	if (check_fl(lst->flg, fl_minus))
+	if (check_fl(lst->flg, g_fl_min))
 	{
 		res = lst->wdth - lst->prc;
 		while (res--)
@@ -69,9 +69,9 @@ void if_lg_min(t_fl_tp *lst, char *newstr, int base, int cnt)
 	}
 }
 
-char *if_f_prc_nul(t_fl_tp *lst, char *newstr, int cnt, int base)
+char	*if_f_prc_nul(t_fl_tp *lst, char *newstr, int cnt, int base)
 {
-	if (check_fl(lst->flg, fl_grill) && check_fl(lst->typ, tp_o | tp_oa) &&
+	if (check_fl(lst->flg, g_fl_grl) && check_fl(lst->typ, g_tp_o | g_tp_oa) &&
 		lst->val.uln == 0)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * 2)))
@@ -79,13 +79,13 @@ char *if_f_prc_nul(t_fl_tp *lst, char *newstr, int cnt, int base)
 		newstr[0] = '0';
 		newstr[1] = '\0';
 	}
-	else if (check_fl(lst->typ, tp_o | tp_oa) && lst->val.uln != 0)
+	else if (check_fl(lst->typ, g_tp_o | g_tp_oa) && lst->val.uln != 0)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * cnt + 1)))
 			return (0);
 		newstr[cnt--] = '\0';
 		output_dgt(lst, newstr, &cnt, base);
-		if (check_fl(lst->flg, fl_grill))
+		if (check_fl(lst->flg, g_fl_grl))
 			newstr[cnt] = '0';
 	}
 	else
@@ -97,26 +97,26 @@ char *if_f_prc_nul(t_fl_tp *lst, char *newstr, int cnt, int base)
 	return (newstr);
 }
 
-char *itoa_o_x_b(t_fl_tp *lst, int *base, int *cnt, char *newstr)
+char	*itoa_o_x_b(t_fl_tp *lst, int *base, int *cnt, char *newstr)
 {
-	if (check_fl(lst->typ, tp_o | tp_oa))
+	if (check_fl(lst->typ, g_tp_o | g_tp_oa))
 		*base = 8;
-	else if (check_fl(lst->typ, tp_x | tp_xa | tp_p))
+	else if (check_fl(lst->typ, g_tp_x | g_tp_xa | g_tp_p))
 		*base = 16;
-	else if (check_fl(lst->typ, tp_b))
+	else if (check_fl(lst->typ, g_tp_b))
 		*base = 2;
 	*cnt = ft_cnt_oo_xx_b(lst, *base);
-	if (lst->prc == 0 && lst->wdth == 0 && (!check_fl(lst->typ, tp_p)))
+	if (lst->prc == 0 && lst->wdth == 0 && (!check_fl(lst->typ, g_tp_p)))
 		newstr = if_f_prc_nul(lst, newstr, *cnt, *base);
 	else if (lst->wdth > *cnt && lst->prc <= *cnt && lst->wdth > lst->prc)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (lst->wdth + 1))))
 			return (0);
-		if (check_fl(lst->flg, fl_minus))
+		if (check_fl(lst->flg, g_fl_min))
 			if_fl_minus_ooxxb(newstr, lst, *cnt, *base);
 		else
 		{
-			if (check_fl(lst->flg, fl_null))
+			if (check_fl(lst->flg, g_fl_nll))
 				if_flg_null_ooxxb(newstr, lst, *cnt, *base);
 			else
 				if_flg_not_null_oxb(newstr, lst, *base);
@@ -125,46 +125,23 @@ char *itoa_o_x_b(t_fl_tp *lst, int *base, int *cnt, char *newstr)
 	return (newstr);
 }
 
-char *itoa_printf_ooa_xxa_b(t_fl_tp *lst)
+char	*itoa_printf_ooa_xxa_b(t_fl_tp *lst)
 {
-	char* newstr;
-	int	cnt;
-	int base;
+	char	*newstr;
+	int		cnt;
+	int		base;
 
 	newstr = NULL;
 	base = 0;
 	newstr = itoa_o_x_b(lst, &base, &cnt, newstr);
 	if (newstr != NULL)
 		return (newstr);
-//	if (check_fl(lst->typ, tp_o | tp_oa))
-//		base = 8;
-//	else if (check_fl(lst->typ, tp_x | tp_xa | tp_p))
-//		base = 16;
-//	else if (check_fl(lst->typ, tp_b))
-//		base = 2;
-//	cnt = ft_cnt_oo_xx_b(lst, base);
-//	if (lst->prc == 0 && lst->wdth == 0 && (!check_fl(lst->typ, tp_p)))
-//		newstr = if_f_prc_nul(lst, newstr, cnt, base);
-//	else if (lst->wdth > cnt && lst->prc <= cnt && lst->wdth > lst->prc)
-//	{
-//		if (!(newstr = (char*)malloc(sizeof(char) * (lst->wdth + 1))))
-//			return (0);
-//		if (check_fl(lst->flg, fl_minus))
-//			if_fl_minus_ooxxb(newstr, lst, cnt, base);
-//		else
-//		{
-//			if (check_fl(lst->flg, fl_null))
-//				if_flg_null_ooxxb(newstr, lst, cnt, base);
-//			else
-//				if_flg_not_null_oOxXb(newstr, lst, base);
-//		}
-//	}
 	else if (lst->wdth <= cnt && lst->prc <= cnt)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * (cnt + 1))))
 			return (0);
-        lst->wdth = cnt;
-        if_flg_not_null_oxb(newstr, lst, base);
+		lst->wdth = cnt;
+		if_flg_not_null_oxb(newstr, lst, base);
 	}
 	else if (lst->wdth > cnt && lst->prc > cnt && lst->wdth > lst->prc)
 	{

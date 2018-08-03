@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 17:30:29 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 17:28:45 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 16:25:19 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_if_detetm(t_fl_tp *lst, va_list args, va_list *next, int *i)
 		if (lst->mem > 0)
 			lst->wdth = lst->mem;
 		if (lst->wdth < 0)
-			lst->flg = set_flg(lst->flg, fl_minus);
+			lst->flg = set_flg(lst->flg, g_fl_min);
 	}
 	if (lst->ind_arg_prc == *i)
 	{
@@ -62,15 +62,16 @@ void	if_prc_min_one(t_fl_tp **lst, va_list args, va_list *next, int *i)
 {
 	if ((*lst)->prc == -1)
 	{
-		if (check_fl((*lst)->typ, tp_d | tp_da | tp_i | tp_x |
-				tp_xa | tp_o | tp_oa | tp_u | tp_ua))
+		if (check_fl((*lst)->typ, g_tp_d | g_tp_da | g_tp_i | g_tp_x |
+				g_tp_xa | g_tp_o | g_tp_oa | g_tp_u | g_tp_ua))
 			(*lst)->prc = 1;
-		else if (check_fl((*lst)->typ, tp_sa | tp_s) && (*lst)->prc_star != '*')
+		else if (check_fl((*lst)->typ, g_tp_sa | g_tp_s) &&
+				(*lst)->prc_star != '*')
 		{
 			(*lst)->prc = 0;
 			(*lst)->prc_star = 0;
 		}
-		else if (check_fl((*lst)->typ, tp_p))
+		else if (check_fl((*lst)->typ, g_tp_p))
 			(*lst)->prc = -1;
 		else
 			(*lst)->prc = 0;
@@ -98,7 +99,7 @@ void	determine_args(t_fl_tp *prm, va_list args)
 		lst = prm;
 		while (lst)
 		{
-			if (lst->typ == 0 || check_fl(lst->typ, tp_err))
+			if (lst->typ == 0 || check_fl(lst->typ, g_tp_err))
 			{
 				lst = lst->next;
 				continue ;

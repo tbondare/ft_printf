@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 18:43:53 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/02 17:01:36 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:26:59 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,15 @@ int	ft_cnt_i_d_u_ua_c(t_fl_tp *lst)
 	wint_t	n;
 
 	cnt = 0;
-	if (check_fl(lst->typ, tp_i | tp_d) && check_fl(lst->md_len, ln_j))
+	if (check_fl(lst->typ, g_tp_i | g_tp_d) && check_fl(lst->md_len, g_ln_j))
 		return (cnt_id_j(lst, &cnt));
-	else if (check_fl(lst->typ, tp_u) && check_fl(lst->md_len, ln_j))
+	else if (check_fl(lst->typ, g_tp_u) && check_fl(lst->md_len, g_ln_j))
 		return (cnt_u_j(lst, &cnt));
-	else if (check_fl(lst->typ, tp_i | tp_d | tp_da))
+	else if (check_fl(lst->typ, g_tp_i | g_tp_d | g_tp_da))
 		return (cnt_id_da(lst, &cnt));
-	else if (check_fl(lst->typ, tp_u | tp_ua))
+	else if (check_fl(lst->typ, g_tp_u | g_tp_ua))
 		return (cnt_u_ua(lst, &cnt));
-	else if (check_fl(lst->typ, tp_c) && check_fl(lst->md_len, ln_l))
+	else if (check_fl(lst->typ, g_tp_c) && check_fl(lst->md_len, g_ln_l))
 	{
 		n = lst->val.win;
 		n = n < 0 ? -n : n;

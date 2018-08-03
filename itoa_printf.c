@@ -62,7 +62,7 @@ char	*if_itoa_printf(t_fl_tp *lst, int num_q, int sign, char neg)
 
 	newstr = NULL;
 	cnt = ft_cnt_i_d_u_ua_c(lst);
-	if (lst->prc == 0 && check_fl(lst->typ, tp_d | tp_da | tp_i) &&
+	if (lst->prc == 0 && check_fl(lst->typ, g_tp_d | g_tp_da | g_tp_i) &&
 			lst->val.ln == 0 && lst->wdth == 0)
 	{
 		if (!(newstr = (char*)malloc(sizeof(char) * 1)))
@@ -93,13 +93,13 @@ char	*if_itoa_printf1(t_fl_tp *lst, int num_q, int sign, char neg)
 	if (lst->wdth > cnt + num_q + sign && lst->prc > cnt + num_q &&
 			lst->wdth > lst->prc + sign)
 	{
-		if (check_fl(lst->flg, fl_minus))
+		if (check_fl(lst->flg, g_fl_min))
 			newstr = if_fl_min_wdth_m_prc(lst, sign, neg);
 		else
 		{
 			if (!(newstr = (char*)malloc(sizeof(char) * (lst->wdth + 1))))
 				return (0);
-			if (lst->prc > cnt && check_fl(lst->typ, tp_u | tp_ua))
+			if (lst->prc > cnt && check_fl(lst->typ, g_tp_u | g_tp_ua))
 			{
 				neg = '-';
 				lst->prc = lst->prc - cnt;
@@ -118,7 +118,7 @@ char	*itoa_printf(t_fl_tp *lst)
 	int		sign;
 
 	newstr = NULL;
-	if (check_fl(lst->typ, tp_u | tp_ua))
+	if (check_fl(lst->typ, g_tp_u | g_tp_ua))
 	{
 		sign = 0;
 		neg = 0;
