@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 16:26:59 by tbondare          #+#    #+#             */
-/*   Updated: 2017/11/30 17:45:48 by tbondare         ###   ########.fr       */
+/*   Created: 2017/11/24 15:43:15 by tbondare          #+#    #+#             */
+/*   Updated: 2018/08/04 20:28:51 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_list *newlist;
-	t_list *ft;
-	t_list *first;
+	char	*newstr;
+	size_t	len;
+	size_t	i;
 
-	if (!(lst))
+	i = 0;
+	if (!s1 || !s2)
 		return (NULL);
-	ft = f(lst);
-	if (!(newlist = ft_lstnew(ft->content, ft->content_size)))
+	len = ft_strlen(s1) + ft_strlen(s2);
+	if (!(newstr = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
-	first = newlist;
-	lst = lst->next;
-	while (lst)
+	while (*s1)
 	{
-		ft = f(lst);
-		if (!(newlist->next = ft_lstnew(ft->content, ft->content_size)))
-			return (NULL);
-		lst = lst->next;
-		newlist = newlist->next;
+		newstr[i] = (char)*s1;
+		i++;
+		s1++;
 	}
-	return (first);
+	while (*s2)
+	{
+		newstr[i] = (char)*s2;
+		i++;
+		s2++;
+	}
+	newstr[i] = '\0';
+	return (newstr);
 }

@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/04 18:44:53 by tbondare          #+#    #+#             */
-/*   Updated: 2017/11/04 18:49:57 by tbondare         ###   ########.fr       */
+/*   Created: 2017/11/23 19:18:52 by tbondare          #+#    #+#             */
+/*   Updated: 2018/08/04 20:32:40 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(int c)
+#include "libftprintf.h"
+
+char	*ft_strnew(size_t size)
 {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		return (1);
-	return (0);
+	char *str;
+
+	if (!(str = (char*)malloc(size + 1)))
+		return (NULL);
+	ft_bzero(str, size);
+	str[size] = '\0';
+	return (str);
 }

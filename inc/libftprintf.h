@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/04 18:42:56 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/04 20:37:55 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <inttypes.h>
-# include "../libft/libft.h"
 # include <stdarg.h>
 # include <wchar.h>
 # include <locale.h>
@@ -271,5 +270,15 @@ void					uf_in_ucod(int *cnt, wchar_t wc, char *str);
 
 char					*print_pct(t_fl_tp *lst);
 void					ft_if_print_pct(t_fl_tp *lst, char *str, int *i);
+
+void					*ft_memset(void *b, int c, size_t len);
+char					*ft_strdup(const char *s1);
+size_t					ft_strlen(const char *str);
+char					*ft_strjoin(char const *s1, char const *s2);
+void					ft_bzero(void *s, size_t n);
+void					ft_strdel(char **as);
+int						ft_isspace(int c);
+char					*ft_strnew(size_t size);
+int						ft_atoi(const char *str);
 
 #endif
