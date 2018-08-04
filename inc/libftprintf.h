@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/04 20:37:55 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/04 21:17:23 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,9 @@ char					*outp_float(t_fl_tp *lst, int num_dgt,
 char					*if_op_fl(t_fl_tp *lst, int *num_dgt,
 		int *mem_cnt, int *i);
 void					if_dgt_more_five(int dgt, char *arr,
-		int i, struct lconv *lc);
+		int i);
 int						while_if(long double *mem_val,
-		int *mem_cnt, char *arr, int *i);
+		int *mem_cnt);
 
 char					*itoa_aaa_eea_ffa_gga(t_fl_tp *lst);
 

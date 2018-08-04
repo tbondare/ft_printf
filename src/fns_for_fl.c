@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:15:46 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/03 15:25:26 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/04 21:08:13 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,20 @@ char	*quote(char *arr, int cnt)
 	int				i;
 	int				j;
 	int				multiple;
-	struct lconv	*lc;
+//	struct lconv	*lc;
 
-	lc = localeconv();
+//	lc = localeconv();
 	i = 0;
 	str = if_quote(arr, &cnt, &i, &j);
-	while (arr[i] != *(lc->decimal_point))
-		str[j--] = arr[i--];
+//	while (arr[i] != *(lc->decimal_point))
+//		str[j--] = arr[i--];
 	str[j--] = arr[i--];
 	while (cnt > 0)
 	{
 		multiple = 3;
 		while (multiple--)
 			str[j--] = arr[i--];
-		str[j--] = *(lc->thousands_sep);
+//		str[j--] = *(lc->thousands_sep);
 		cnt--;
 	}
 	str[j] = arr[i];
