@@ -6,7 +6,7 @@
 #    By: tbondare <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/29 17:27:01 by tbondare          #+#    #+#              #
-#    Updated: 2018/08/04 18:58:41 by tbondare         ###   ########.fr        #
+#    Updated: 2018/08/04 19:14:00 by tbondare         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,9 @@ OBJ	= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		ar rc $(NAME) $(OBJ)
 		make -C $(LIBFT)
+		cp $(LIBFTA) $(NAME)
+		ar rc $(NAME) $(OBJ)
 		ranlib $(NAME)
 
 $(OBJ): | $(OBJ_DIR)
