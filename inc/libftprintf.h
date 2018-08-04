@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 14:44:00 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/03 16:49:40 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/04 18:42:56 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <inttypes.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdarg.h>
 # include <wchar.h>
 # include <locale.h>
