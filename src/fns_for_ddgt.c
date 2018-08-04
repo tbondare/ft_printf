@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 16:49:20 by tbondare          #+#    #+#             */
-/*   Updated: 2018/08/04 21:07:28 by tbondare         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:20:51 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int		check_is_sign(t_fl_tp *lst, char *neg)
 int		num_qv(t_fl_tp *lst, int cnt)
 {
 	int				num_q;
-//	struct lconv	*lc;
+	struct lconv	*lc;
 
-//	lc = localeconv();
+	lc = localeconv();
 	num_q = 0;
-//	if (lc->thousands_sep[0] == '\0')
-//		return (num_q);
+	if (lc->thousands_sep[0] == '\0')
+		return (num_q);
 	if (check_fl(lst->flg, g_fl_quo))
 	{
 		if (cnt > 3)
